@@ -1,0 +1,126 @@
+#:kivy 1.8.0
+<DrawingToolkit>:
+    orientation: 'vertical'
+    cols: 1
+    size: (250, 320)
+    pos: 800+160+50, 100 # Hack that assumes gamelayout is in the second page with a spacing of .2*w.
+    padding: (90, 10)
+    spacing: (0, 20)
+
+    canvas:
+        # Background color
+        Color:
+            rgba: 1, 1, 1, .1
+        Rectangle:
+            size: root.size
+            pos: root.pos
+
+        # Background border
+        Color:
+            rgba: 1, 1, 1, .5
+        Line:
+            points: [ root.x, root.y, root.x, root.y+root.height, root.x+root.width, root.y+root.height, root.x+root.width, root.y, root.x, root.y ]
+            width: 2
+
+
+    ToggleButton:
+        group: 'tools'
+        name: 'brush'
+        on_press: root.brush_pressed()
+    
+        canvas:
+            Rectangle:
+                texture: root.get_brush_texture()
+                pos: self.pos
+                size: self.size
+            # Background border
+            Color:
+                rgba: 1, 1, 1, .5
+            Line:
+                points: [ self.x, self.y, self.x, self.y+self.height, self.x+self.width, self.y+self.height, self.x+self.width, self.y, self.x, self.y ]
+                width: 2
+
+
+    ToggleButton:
+        group: 'tools'
+        name: 'line'
+        on_press: root.line_pressed()
+
+        canvas:
+            Rectangle:
+                texture: root.get_line_texture()
+                pos: self.pos
+                size: self.size
+                        # Background border
+            Color:
+                rgba: 1, 1, 1, .5
+            Line:
+                points: [ self.x, self.y, self.x, self.y+self.height, self.x+self.width, self.y+self.height, self.x+self.width, self.y, self.x, self.y ]
+                width: 2
+
+
+    ToggleButton:
+        group: 'tools'
+        name: 'curve'
+        on_press: root.curve_pressed()
+
+        canvas:
+            Rectangle:
+                texture: root.get_curve_texture()
+                pos: self.pos
+                size: self.size
+                        # Background border
+            Color:
+                rgba: 1, 1, 1, .5
+            Line:
+                points: [ self.x, self.y, self.x, self.y+self.height, self.x+self.width, self.y+self.height, self.x+self.width, self.y, self.x, self.y ]
+                width: 2
+
+
+
+    ToggleButton:
+        group: 'tools'
+        name: 'eraser'
+        on_press: root.eraser_pressed()
+
+        canvas:
+            Rectangle:
+                texture: root.get_eraser_texture()
+                pos: self.pos
+                size: self.size
+                        # Background border
+            Color:
+                rgba: 1, 1, 1, .5
+            Line:
+                points: [ self.x, self.y, self.x, self.y+self.height, self.x+self.width, self.y+self.height, self.x+self.width, self.y, self.x, self.y ]
+                width: 2
+
+
+    
+    # Grain slider
+    #Label:
+    #    text: 'Grain: {}'.format( int(root.ids.grain_slider.value) ) 
+
+    #Slider: #probably take this out
+    #    id: grain_slider
+    #    min: 1
+    #    max: 5
+    #    step: 1
+    #    value: 1
+
+
+    Button:
+        on_press: root.bomb_pressed()
+
+        canvas:
+            Rectangle:
+                texture: root.get_bomb_texture()
+                pos: self.pos
+                size: self.size
+                        # Background border
+            Color:
+                rgba: 1, 1, 1, .5
+            Line:
+                points: [ self.x, self.y, self.x, self.y+self.height, self.x+self.width, self.y+self.height, self.x+self.width, self.y, self.x, self.y ]
+                width: 2
+

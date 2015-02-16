@@ -1,0 +1,53 @@
+#:kivy 1.8.0
+<GameLayout>:
+    orientation: 'vertical'
+    cols: 1
+
+    BoxLayout:
+        size_hint_y: None
+        height: 80
+        spacing: (150, 0)
+        orientation: 'horizontal'
+
+        Button:
+            id: menu_button
+            background_color: (0,0,0,0)
+            on_press: root.menu_callback(args[0])
+
+            canvas:
+                Rectangle:
+                    texture: root.get_menu_texture()
+                    pos: self.x+self.width/2.0-48, self.y+self.height/2.0-48
+                    size: 96,96
+            
+        ToggleButton:
+            id: play_button
+            group: 'play/pause'
+            background_color: (0,0,0,0)
+            on_press: root.play_callback( args[0] )
+
+            canvas:
+                Rectangle:
+                    texture: root.get_play_normal_texture()
+                    pos: self.x+self.width/2.0-16, self.y+self.height/2.0-16
+                    size: 32,32
+
+        ToggleButton:
+            id: pause_button
+            group: 'play/pause'
+            state: 'down'
+            background_color: (0,0,0,0)
+            on_press: root.pause_callback( args[0] )
+
+            canvas:
+                Rectangle:
+                    texture: root.get_pause_down_texture()
+                    pos: self.x+self.width/2.0-16, self.y+self.height/2.0-16
+                    size: 32,32
+            
+
+
+
+    
+
+

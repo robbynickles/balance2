@@ -1,0 +1,14 @@
+#:kivy 1.8.0
+<Menu>:
+    orientation: 'vertical'
+    padding: 200
+    spacing: 100
+    cols: 1
+    
+    Label:
+        text: 'Welcome to Fuck You'
+
+    Button:
+        text: 'Play'
+        on_press: root.play_callback() 
+

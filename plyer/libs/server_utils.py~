@@ -1,0 +1,13 @@
+import threading
+
+def shutdown_server_thread():
+    # Find out if there is an instance of this class of thread running within the global list of threads.
+    existing_server_thread = None
+    for thrd in threading.enumerate():
+        if thrd.name == 'ServerThread':
+            existing_server_thread = thrd
+
+    # Kill the server thread if it exists.
+    if existing_server_thread:
+        existing_server_thread.shutdown()
+

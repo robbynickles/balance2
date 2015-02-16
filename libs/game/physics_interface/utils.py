@@ -1,6 +1,8 @@
 import cymunk as cy
 from cymunk import Vec2d
 
+from game_objects.collision_handlers import setup_collision_handlers
+
 def init_physics(obj):
     # create the space for physics simulation
     obj.space = space = cy.Space()
@@ -9,6 +11,9 @@ def init_physics(obj):
     space.gravity = (0, -obj.world_gravity)
     space.sleep_time_threshold = 0.5
     space.collision_slop = 0.5
+
+    # Add all the necessary collision handlers to the physics world.
+    setup_collision_handlers( space )
 
     # Create 4 static-body segments that will act as a bounds, initializing them with coordinates that 
     # will change based on the dimensions of the window.

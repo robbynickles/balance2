@@ -18,26 +18,20 @@ class DrawTiltApp(App):
 
     def on_start(self):
         pass
-
+        
     def on_stop(self):
         shutdown_server_thread()
 
     def build(self):
         swipe_book = SwipeBook()
         root_menu  = Menu()
-        game_page  = GameLayout( swipe_book )
+        self.game_page  = GameLayout( swipe_book ) # make an instance var for later access in on_start.
 
         swipe_book.add_page( root_menu )
-        swipe_book.add_page( game_page )
+        swipe_book.add_page( self.game_page )
 
-        def swipe_right():
-            # Since no positions or dimensions are known until after build() completes, call build_level once everything is built
-            # but before the player sees the game page.
-            game_page.build_level()
-            swipe_book.swipe_right()
-
-        root_menu.play_game  = swipe_right
-        game_page.go_to_menu = swipe_book.swipe_left
+        root_menu.play_game  = swipe_book.swipe_right
+        self.game_page.go_to_menu = swipe_book.swipe_left
 
         return swipe_book
 

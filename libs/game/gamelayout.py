@@ -4,11 +4,15 @@ from kivy.clock import Clock
 from plyer import accelerometer
 
 from drawing.drawingtoolkit import DrawingToolkit
-from drawing.drawing_behaviors import straight_line 
+from drawing.drawing_behaviors import brush
+from drawing.drawing_behaviors import line 
+from drawing.drawing_behaviors import eraser
 
 from physics_interface.physics_world import PhysicsWorld
 
 import utils
+
+import pickle 
 
 from kivy.lang import Builder
 Builder.load_file( 'libs/game/gamelayout.kv' )
@@ -24,7 +28,6 @@ class GameLayout(GridLayout):
 
         # Toggle methods for play and pause that toggle custom textures. 
         # Changing button.background_normal and button.background_down might be easier but didn't seem to work.
-        # Curry functions that only have to load the texture files once.
         self.play_toggle  = utils.texture_toggle( 'Resources/play_normal.png', 'Resources/play_down.png' )
         self.pause_toggle = utils.texture_toggle( 'Resources/pause_normal.png', 'Resources/pause_down.png' )
         
@@ -32,27 +35,50 @@ class GameLayout(GridLayout):
         self.physics_world = PhysicsWorld( accelerometer )
         self.add_widget( self.physics_world )
 
-        # Boolean used to force build_level() to build the level only once.
+        # Boolean used to allow build_level() to build the level only once.
         self.level_built = False
 
-        # Will be populated by drawingtoolkit with various mode switches that can be checked to see what drawing                                       # mode is active (if any).
-        self.active_mode = None
+        # switches is populated by drawing_toolkit at runtime with various mode switches that can be checked to 
+        # see what drawing mode is active (if any).
         self.switches = {} 
         self.drawing_toolkit = DrawingToolkit( self )
+        self.active_mode = None
 
-        # Make swipebook the parent in order to get the toolkit out of the gridlayout's automatic coordination.
+        # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
         swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
         self.swipebook = swipebook
 
 
+    ##### Load the level
+    def build_level( self ):
+        # Build level.
+        if not self.level_built:
+            self.level_built = True # Build the level only one time.
+
+            with open( 'level1', 'r' ) as f:
+                game_objects = pickle.load( f )
+                
+            for obj in game_objects:
+                obj.load_into_space_and_context( self.physics_world.space, 
+                                                 self.physics_world.canvas, 
+                                                 self.physics_world.pos, 
+                                                 self.physics_world.size )
+
+            from physics_interface.game_objects.level_build.collision_handlers import setup_collision_handlers            
+            setup_collision_handlers( self.physics_world.space )
+
+            # self.physcs_world.game_objects are updated each step.
+            self.physics_world.game_objects += game_objects
+
     ##### Touch drawing
     # Subclass the on_touch methods to implement paint-like drawing interaction.
-    # Look to self.switches to set the value self.active_mode. Then dispatch to the mode's drawing functions.
+    # Look to self.switches to set the value of self.active_mode. Then dispatch to the mode's drawing functions.
     # Don't respond to any touches once 'play' has been pressed.
     def do_drawpt( self, pos ):
         # Boolean used to determine if a point is good to draw.
-        # Return True when the position occurs within the dimesions of the world but not in the drawing panel, else False.
-        return self.physics_world.collide_point( *pos ) and not self.drawing_toolkit.collide_point( *pos )
+        # Return True when the position occurs not in the drawing panel, else False.
+        #return self.physics_world.collide_point( *pos ) and not self.drawing_toolkit.collide_point( *pos )
+        return not self.drawing_toolkit.collide_point( *pos )
 
     def on_touch_down(self, touch):
         super(type(self), self).on_touch_down( touch )
@@ -90,8 +116,16 @@ class GameLayout(GridLayout):
 
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the right drawing function for the current mode."""
-        if self.active_mode == 'line':
-            straight_line.draw_line( self, touch, touch_stage )
+
+        if self.active_mode != None:
+            if self.active_mode == 'brush':
+                brush.freehand( self, touch, touch_stage )
+
+            if self.active_mode == 'line':
+                line.straightline( self, touch, touch_stage )
+
+            if self.active_mode == 'eraser':
+                eraser.erase( self, touch, touch_stage )
 
 
     ##### Animation Step
@@ -101,7 +135,7 @@ class GameLayout(GridLayout):
         self.physics_world.step( dt )
 
 
-    ##### Callbacks and helpers for the top-of-the-screen buttons ('menu', 'play', 'pause') (which are originally built in the .kv).
+    ##### Callbacks and helpers for the top-of-the-screen buttons ('menu', 'play', 'pause') (which are defined in gamelayout.kv).
     def reset( self ):
         """Reset the gamelayout to its default state."""
         # Unschedule self.Step().
@@ -130,16 +164,9 @@ class GameLayout(GridLayout):
         Clock.schedule_interval( self.Step, 1 / 60. )
         self.engine_running = True
 
-        # Build level
-        self.build_level()
-        # Start level
+        # Place a ball at the top of the level.
         self.physics_world.add_circle(self.x+50, self.y+self.height, 15)
 
-    def build_level( self ):
-        # Build level.
-        if not self.level_built:
-            self.level_built = True # Build the level only one time.
-            self.physics_world.add_static_line( (self.x+25, self.y+self.height - 200), (self.x+75, self.y+self.height - 200 ) )
 
     # Texture loaders. 
     def get_menu_texture( self ):

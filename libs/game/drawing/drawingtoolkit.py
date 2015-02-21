@@ -12,19 +12,20 @@ class DrawingToolkit( GridLayout ):
         ##### Initialization
         def __init__(self, gamelayout, *args, **kwargs):
             super( DrawingToolkit, self).__init__( *args, **kwargs )
-            # Since gamelayout is in charge of managing the rendering/physics environment,
-            # DrawingToolkit needs to communicate which drawing mode it's in. This will determine
-            # gamelayout's interpretation of user touches.
-            modes = set(['brush','line','curve','eraser'])
+            # Populate gamelayout.switches so that gamelayout can dispatch to the active_mode's drawing functions.
+            #modes = set(['brush', 'line', 'eraser'])
+            modes = set(['line', 'eraser'])
             for w in self.children:
                 if type(w) == ToggleButton and w.name in modes:
                     gamelayout.switches[ w.name ] = w
 
             assert modes == set(gamelayout.switches.keys())
-                    
+
+            self.gamelayout = gamelayout
             self.dragging = False
 
-        ##### Load textures for panel buttons:
+
+        ##### Texture loaders for panel buttons
         def load_texture( self, fle ):
                 return Image(join(dirname(__file__), fle), mipmap=True).texture
         def get_brush_texture( self ):
@@ -38,7 +39,7 @@ class DrawingToolkit( GridLayout ):
         def get_bomb_texture( self ):
                 return self.load_texture( 'Resources/bomb.png' )
             
-        ##### Implementation of draggable panel behavior:
+        ##### Implementation of draggable panel behavior
         def on_touch_down(self, touch):
             super(type(self), self).on_touch_down( touch )
             if self.collide_point( *touch.pos ):
@@ -71,5 +72,7 @@ class DrawingToolkit( GridLayout ):
             pass
 
         def bomb_pressed( self ):
-            pass
+            for shape, obj in self.gamelayout.physics_world.smap.items():
+                obj.remove()
+            self.gamelayout.physics_world.smap = {}
 

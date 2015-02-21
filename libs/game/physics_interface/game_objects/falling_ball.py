@@ -6,15 +6,17 @@ class Ball():
         self.circle_texture = Image(join(dirname(__file__), 'Resources/circle.png'), mipmap=True).texture
         self._hue = 0
 
-        # Add a circle body to the physics engine.
+        ### Add a circle body to the physics engine.
+        # Create a body with 100 mass and 1e9 moment of inertia at positon x,y.
         body = cy.Body(100, 1e9)
         body.position = x, y
+
+        # couple a shape to the body.
         circle = cy.Circle(body, radius)
         circle.elasticity = 0.6
         #circle.friction = 1.0
         circle.collision_type = COLLTYPE_BALL
         physics_interface.space.add(body, circle)
-        
 
         self.body, self.shape = body, circle
             

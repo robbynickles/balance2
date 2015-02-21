@@ -25,13 +25,17 @@ class DrawTiltApp(App):
     def build(self):
         swipe_book = SwipeBook()
         root_menu  = Menu()
-        self.game_page  = GameLayout( swipe_book ) # make an instance var for later access in on_start.
+        game_page  = GameLayout( swipe_book ) 
 
         swipe_book.add_page( root_menu )
-        swipe_book.add_page( self.game_page )
+        swipe_book.add_page( game_page )
 
-        root_menu.play_game  = swipe_book.swipe_right
-        self.game_page.go_to_menu = swipe_book.swipe_left
+        def play_game_callback():
+            swipe_book.swipe_right()
+            game_page.build_level()
+            
+        root_menu.play_game  = play_game_callback
+        game_page.go_to_menu = swipe_book.swipe_left
 
         return swipe_book
 

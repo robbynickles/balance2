@@ -1,6 +1,6 @@
 #:kivy 1.8.0
 <GameLayout>:
-    orientation: 'vertical'
+    #orientation: 'vertical'
     cols: 1
 
     BoxLayout:
@@ -11,21 +11,23 @@
 
         Button:
             id: menu_button
-            background_color: (0,0,0,0)
             on_press: root.menu_callback(args[0])
 
+            background_color: (0,0,0,0)
             canvas:
                 Rectangle:
                     texture: root.get_menu_texture()
                     pos: self.x+self.width/2.0-48, self.y+self.height/2.0-48
                     size: 96,96
-            
+
+        # Even though these are both similar, further abstraction doesn't seem useful. Almost every field has a
+        # different value.
         ToggleButton:
             id: play_button
             group: 'play/pause'
-            background_color: (0,0,0,0)
             on_press: root.play_callback( args[0] )
 
+            background_color: (0,0,0,0)
             canvas:
                 Rectangle:
                     texture: root.get_play_normal_texture()
@@ -35,10 +37,10 @@
         ToggleButton:
             id: pause_button
             group: 'play/pause'
-            state: 'down'
-            background_color: (0,0,0,0)
             on_press: root.pause_callback( args[0] )
+            state: 'down'
 
+            background_color: (0,0,0,0)
             canvas:
                 Rectangle:
                     texture: root.get_pause_down_texture()

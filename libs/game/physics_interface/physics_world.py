@@ -1,17 +1,13 @@
-#import cymunk as cy
 from cymunk import Vec2d
 
-#from os.path import dirname, join
-#from kivy.clock import Clock
-#from kivy.graphics import Color, Rectangle, Line
 from kivy.uix.widget import Widget
-#from kivy.core.image import Image
-#from random import random
 from kivy.lang import Builder
 
 import utils
+from game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT
 from game_objects.static_line import StaticLine
 from game_objects.falling_ball import Ball
+from game_objects.cursor import Cursor
 
 Builder.load_string('''
 <Playground>:
@@ -35,7 +31,7 @@ class PhysicsWorld(Widget):
 
         # Setup the running environment of the physics engine.
         # Create the physics world and set variables that determine how the engine runs. Calling self.space.step(dt) after this
-        # will move the simulation forward a dt amount of time, applying velocities to objects, responding to collisions between objects.
+        # will move the simulation forward a dt amount of time, applying velocities to objects, responding to collisions between objects, etc.
         utils.init_physics( self )
 
         # Update the bounds (which exist in the physics world) dynamically to fit the dimensions 
@@ -45,13 +41,19 @@ class PhysicsWorld(Widget):
         # List of game objects that need updating.
         self.game_objects = []
 
+        # Mapping from shape to game_object
+        # Sometimes the physics engine needs to communicate to the game object that contains a shape. 
+        # So self.smap is a set of back refrences such that if a game object G is initialized with 
+        # a shape S, self.smap[ S ] == G.
+        self.smap = {}
+
 
     ##### Step
     # The main physics step. Forward the physics world one unit of time dt.
     def step(self, dt):
         # Update the gravity vector (change its angle) with accelerometer data.
-        x_acc, y_acc, z_acc = self.accelerometer.acceleration[:3]
-        self.space.gravity = ( x_acc * self.world_gravity, y_acc * self.world_gravity )
+        #x_acc, y_acc, z_acc = self.accelerometer.acceleration[:3]
+        #self.space.gravity = ( x_acc * self.world_gravity, y_acc * self.world_gravity )
 
         self.space.step(dt)#1 / 60.) # Why not make this dt?
         # Canvas_before will have already setup the canvas objects up with their appearances. So update_objects will now move those 
@@ -68,10 +70,18 @@ class PhysicsWorld(Widget):
         for obj in self.game_objects:
             obj.update()
 
-    ##### Add
+    ##### Methods that add objects
     # place a new object in the physics world, couple it with a rendered object. Make it available for update_objects() if it needs to.
     def add_circle(self, x, y, radius):
-        self.game_objects.append(  Ball( self, x, y, radius )  )
-        
-    def add_static_line( self, (x1,y1), (x2,y2) ):
-        StaticLine( self, (x1, y1), (x2, y2) )
+        self.game_objects += [ Ball( self, x, y, radius ) ]
+
+    # For use in creating user-drawn lines.
+    def add_user_static_line( self, (x1,y1), (x2,y2) ):
+        StaticLine( self, (x1, y1), (x2, y2), COLLTYPE_USERPLAT, smap=self.smap )
+
+    def add_user_freehand_line( self, line_points ):
+        # line_points = smooth( line_points )
+        for i in range( 0, len(line_points) - 3, 2 ):
+            a,b,c,d = line_points[i:i+4]
+            self.add_user_static_line( (a,b), (c,d) )
+

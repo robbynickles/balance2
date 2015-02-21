@@ -2,8 +2,7 @@
 COLLTYPE_DEFAULT  = 0
 COLLTYPE_BALL     = 1
 COLLTYPE_USERPLAT = 2
-
-types = [ COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT ]
+COLLTYPE_LAVA     = 3
 
 
 ### List of all custom collision handlers

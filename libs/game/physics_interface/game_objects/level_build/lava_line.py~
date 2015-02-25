@@ -1,0 +1,9 @@
+class LavaLine( PreStaticLine ):
+    def build_phys_obj( self ):
+        super( LavaLine ).build_phys_obj()
+        self.body.collision_type = COLLTYPE_LAVA
+
+        def ball_hit_lava(space, arbiter): 
+            print "ball hit lava."
+
+        submit_collision_handler( COLLTYPE_LAVA, COLLTYPE_BALL, ball_hit_lava )

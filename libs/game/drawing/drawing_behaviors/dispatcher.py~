@@ -1,0 +1,16 @@
+import brush, straight_line, create_bucket, eraser
+
+def dispatch( self, touch, touch_stage ):
+    if self.active_mode != None:
+        if self.active_mode == 'brush':
+            brush.freehand( self, touch, touch_stage )
+    
+        if self.active_mode == 'friendlyline' or \
+           self.active_mode == 'lavaline':
+            straight_line.draw_line( self, touch, touch_stage )
+    
+        if self.active_mode == 'bucket':
+            create_bucket.create_bucket( self, touch, touch_stage )
+            
+        if self.active_mode == 'eraser':
+            eraser.erase( self, touch, touch_stage )

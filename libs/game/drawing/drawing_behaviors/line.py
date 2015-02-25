@@ -44,7 +44,7 @@ def straightline( self, touch, touch_stage ):
         if self.line_progress:
             lp1 = self.line_progress.points[:2]
             lp2 = self.line_progress.points[2:4]
-            self.physics_world.add_user_static_line( lp1, lp2 )
+            self.physics_interface.add_user_static_line( lp1, lp2 )
 
             self.canvas.remove( self.line_progress )
             self.line_progress = None

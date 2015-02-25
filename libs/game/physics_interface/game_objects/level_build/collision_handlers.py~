@@ -1,3 +1,7 @@
+#
+## Warning: the types here should be a superset of the types in ../collision_handlers.py
+#
+
 ### Physics collision types
 COLLTYPE_DEFAULT  = 0
 COLLTYPE_BALL     = 1

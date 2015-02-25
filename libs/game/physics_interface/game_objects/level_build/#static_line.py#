@@ -29,7 +29,7 @@ class PreStaticLine(GameObject):
         seg.elasticity = 0.7
         self.shapes += [ seg ]
 
-    def build_render_obj( self ):
+    def build_render_obj( self, context ):
         color = Color( *self.color )
         line  = Line( points=self.points )
         self.render_obj = color, line

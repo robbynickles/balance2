@@ -5,7 +5,7 @@ class StaticLine():
         # 1) Create the physics object.
         seg = cy.Segment(physics_interface.space.static_body, Vec2d(x1,y1), Vec2d(x2,y2), 0.0)
         #seg.friction = 0.99
-        seg.elasticity = 0.7
+        seg.elasticity = 0.6
         seg.collision_type = colltype
         self.body = seg
         physics_interface.space.add( seg )

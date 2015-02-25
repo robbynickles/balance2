@@ -40,5 +40,7 @@ class DrawTiltApp(App):
         return swipe_book
 
 if __name__ == '__main__':
+    from kivy.core.window import Window
+    Window.size = 640, 960
     DrawTiltApp().run()
 

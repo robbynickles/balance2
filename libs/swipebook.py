@@ -6,6 +6,8 @@ from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.core.window import Window 
 
+Window.size = 640, 960
+
 # Simple data structure for storing the positon and dimensions of a page.
 class Page():
     def __init__(self, pos, size):
@@ -24,6 +26,10 @@ class SwipeBook( ScatterPlane ):
     def __init__(self, *args, **kwargs):
         """ScatterPlane that supports navigation between pages."""
         super(type(self), self).__init__(*args, **kwargs)
+        
+        from kivy.uix.label import Label
+        self.add_widget( Label( text="***** WINDOW DIMENSIONS:  {} x {} *****".format( self.PAGE_W, self.PAGE_H ) ) )  
+
         self.do_rotation, self.do_scaling, self.do_translation = False, False, False
         self.pages = []
 

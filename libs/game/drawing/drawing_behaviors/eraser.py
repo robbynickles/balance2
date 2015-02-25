@@ -10,15 +10,15 @@ def erase( self, touch, touch_stage ):
     MAX_DIST = 25
     if touch_stage == 'touch_down':
         # Check if there are any shapes within MAX_DIST. Remove them.
-        shape = self.physics_world.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
+        shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
         if shape and shape.collision_type == COLLTYPE_USERPLAT:
-            self.physics_world.smap[ shape ].remove()
+            self.physics_interface.smap[ shape ].remove()
 
     if touch_stage == 'touch_move':
         # Check if there are any shapes within MAX_DIST. Remove them.
-        shape = self.physics_world.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
+        shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
         if shape and shape.collision_type == COLLTYPE_USERPLAT:
-            self.physics_world.smap[ shape ].remove()
+            self.physics_interface.smap[ shape ].remove()
             
     if touch_stage == 'touch_up':
         pass

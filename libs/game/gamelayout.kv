@@ -1,8 +1,9 @@
 #:kivy 1.8.0
 <GameLayout>:
-    #orientation: 'vertical'
     cols: 1
 
+    # Top-of-the-screen buttons. Single row of three buttons at the top of the game_layout.
+    # Most of the gamelayout is taken up by the physics interface that resides beneath these three buttons.
     BoxLayout:
         size_hint_y: None
         height: 80
@@ -20,8 +21,6 @@
                     pos: self.x+self.width/2.0-48, self.y+self.height/2.0-48
                     size: 96,96
 
-        # Even though these are both similar, further abstraction doesn't seem useful. Almost every field has a
-        # different value.
         ToggleButton:
             id: play_button
             group: 'play/pause'

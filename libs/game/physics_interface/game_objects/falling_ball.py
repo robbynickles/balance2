@@ -18,6 +18,9 @@ class Ball():
         circle.collision_type = COLLTYPE_BALL
         physics_interface.space.add(body, circle)
 
+        physics_interface.smap[ circle ] = self
+        self.physics_interface = physics_interface
+
         self.body, self.shape = body, circle
             
         # Configure a canvas Rectangle with a texture to represent the circle body in the rendering environment.
@@ -45,3 +48,8 @@ class Ball():
         radius, color, rect = self.render_obj
         self.physics_interface.canvas.before.remove( color ) 
         self.physics_interface.canvas.before.remove( rect ) 
+
+        del self.physics_interface.smap[ self.shape ] 
+
+    def explode( self ):
+        self.physics_interface.add_notification( self, 'Remove' )

@@ -1,39 +1,32 @@
 from kivy.uix.gridlayout import GridLayout
 from kivy.clock import Clock
 
-from plyer import accelerometer
-
-from drawing.drawingtoolkit import DrawingToolkit
-from drawing.drawing_behaviors import brush
-from drawing.drawing_behaviors import line 
-from drawing.drawing_behaviors import eraser
-
-from physics_interface.physics_world import PhysicsWorld
-
-import utils
-
-import pickle 
-
 from kivy.lang import Builder
 Builder.load_file( 'libs/game/gamelayout.kv' )
 
+from plyer import accelerometer
+import pickle 
+
+from drawing.drawingtoolkit import DrawingToolkit
+from drawing.drawing_behaviors import dispatcher
+from physics_interface.physics_interface import PhysicsInterface
+import utils
+
 class GameLayout(GridLayout):
-    go_to_menu = lambda : None
-    engine_running = False
-
-
     ##### Initialization
     def __init__(self, swipebook, *args, **kwargs):
         super( GameLayout, self ).__init__( *args, **kwargs )
+        self.go_to_menu = lambda : None
+        self.engine_running = False
 
         # Toggle methods for play and pause that toggle custom textures. 
         # Changing button.background_normal and button.background_down might be easier but didn't seem to work.
         self.play_toggle  = utils.texture_toggle( 'Resources/play_normal.png', 'Resources/play_down.png' )
         self.pause_toggle = utils.texture_toggle( 'Resources/pause_normal.png', 'Resources/pause_down.png' )
         
-        # Create the physics world.
-        self.physics_world = PhysicsWorld( accelerometer )
-        self.add_widget( self.physics_world )
+        # Create the physics interface.
+        self.physics_interface = PhysicsInterface( accelerometer )
+        self.add_widget( self.physics_interface )
 
         # Boolean used to allow build_level() to build the level only once.
         self.level_built = False
@@ -59,31 +52,27 @@ class GameLayout(GridLayout):
                 game_objects = pickle.load( f )
                 
             for obj in game_objects:
-                obj.load_into_space_and_context( self.physics_world.space, 
-                                                 self.physics_world.canvas, 
-                                                 self.physics_world.pos, 
-                                                 self.physics_world.size )
+                obj.load_into_physics_interface( self.physics_interface )
 
             from physics_interface.game_objects.level_build.collision_handlers import setup_collision_handlers            
-            setup_collision_handlers( self.physics_world.space )
+            setup_collision_handlers( self.physics_interface.space )
 
-            # self.physcs_world.game_objects are updated each step.
-            self.physics_world.game_objects += game_objects
+            # self.physcs_interface.game_objects are updated each timestep.
+            self.physics_interface.game_objects += game_objects
 
     ##### Touch drawing
-    # Subclass the on_touch methods to implement paint-like drawing interaction.
-    # Look to self.switches to set the value of self.active_mode. Then dispatch to the mode's drawing functions.
-    # Don't respond to any touches once 'play' has been pressed.
     def do_drawpt( self, pos ):
         # Boolean used to determine if a point is good to draw.
-        # Return True when the position occurs not in the drawing panel, else False.
-        #return self.physics_world.collide_point( *pos ) and not self.drawing_toolkit.collide_point( *pos )
+        # Return True if the position occurs not in the drawing panel, else False.
         return not self.drawing_toolkit.collide_point( *pos )
 
+    # Subclass the on_touch methods to implement paint-like drawing interaction.
+    # Look to self.switches to set the value of self.active_mode. Then dispatch to the mode's drawing functions.
     def on_touch_down(self, touch):
         super(type(self), self).on_touch_down( touch )
         if self.do_drawpt( touch.pos ):
             if self.engine_running: #play
+                # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
                 # self.switches contains entries like ( 'mode_name', mode_button ).
@@ -102,6 +91,7 @@ class GameLayout(GridLayout):
     def on_touch_move(self, touch):
         super(type(self), self).on_touch_move( touch )
         if self.engine_running: #play
+            # Don't respond to any touches once 'play' has been pressed.
             pass
         else: #pause
             self.mode_behavior( touch, 'touch_move' )
@@ -109,6 +99,7 @@ class GameLayout(GridLayout):
     def on_touch_up(self, touch):
         super(type(self), self).on_touch_up( touch )
         if self.engine_running: #play
+            # Don't respond to any touches once 'play' has been pressed.
             pass
         else: #pause
             self.mode_behavior( touch, 'touch_up' )
@@ -116,23 +107,25 @@ class GameLayout(GridLayout):
 
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the right drawing function for the current mode."""
-
-        if self.active_mode != None:
-            if self.active_mode == 'brush':
-                brush.freehand( self, touch, touch_stage )
-
-            if self.active_mode == 'line':
-                line.straightline( self, touch, touch_stage )
-
-            if self.active_mode == 'eraser':
-                eraser.erase( self, touch, touch_stage )
-
+        dispatcher.dispatch( self, touch, touch_stage )
 
     ##### Animation Step
     # This method is scheduled or unscheduled for playing or pausing, respectively.
     def Step( self, dt ):
-        # Step the physics world forward one unit of time dt.
-        self.physics_world.step( dt )
+        # Step the physics interface forward one unit of time dt.
+        self.physics_interface.step( dt )
+
+        # Respond to any notifications from self.physics_interface
+        for gameobject, notifications in self.physics_interface.get_notifications():
+            for notice in notifications:
+
+                if notice == 'Game Over':
+                    self.reset()
+
+                if notice == 'Remove':
+                    gameobject.remove()
+
+        self.physics_interface.clear_notifications()
 
 
     ##### Callbacks and helpers for the top-of-the-screen buttons ('menu', 'play', 'pause') (which are defined in gamelayout.kv).
@@ -165,7 +158,7 @@ class GameLayout(GridLayout):
         self.engine_running = True
 
         # Place a ball at the top of the level.
-        self.physics_world.add_circle(self.x+50, self.y+self.height, 15)
+        self.physics_interface.add_circle(self.x+50, self.y+self.height, 15)
 
 
     # Texture loaders. 
@@ -176,20 +169,24 @@ class GameLayout(GridLayout):
     def get_pause_down_texture( self ):
         return utils.load_texture( 'Resources/pause_down.png' )
 
+    def not_in_a_mode(self):
+        return not any( [ b.state == 'down' for b in self.switches.values() ] )
+
     def menu_callback(self, button):
-        self.go_to_menu()
-        if self.engine_running:
-            self.reset()
+        if self.not_in_a_mode():
+            self.go_to_menu()
+            if self.engine_running:
+                self.reset()
 
     def pause_callback(self, button):
-        if self.engine_running:
+        if self.not_in_a_mode() and self.engine_running:
             self.reset()
         else:
             # Kivy toggles, even though a response is unwanted. Force 'down' state.
             button.state = 'down'
 
     def play_callback(self, button):
-        if not self.engine_running:
+        if self.not_in_a_mode() and not self.engine_running:
             self.start_animation()
         else:
             # Kivy toggles, even though a response is unwanted. Force 'down' state.

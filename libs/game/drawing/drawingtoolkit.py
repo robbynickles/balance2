@@ -7,6 +7,8 @@ from kivy.core.image import Image
 from kivy.lang import Builder
 Builder.load_file( 'libs/game/drawing/drawingtoolkit.kv' )
 
+from libs.game.physics_interface.game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT
+
 class DrawingToolkit( GridLayout ):
         
         ##### Initialization
@@ -72,7 +74,8 @@ class DrawingToolkit( GridLayout ):
             pass
 
         def bomb_pressed( self ):
-            for shape, obj in self.gamelayout.physics_world.smap.items():
-                obj.remove()
-            self.gamelayout.physics_world.smap = {}
+            for shape, obj in self.gamelayout.physics_interface.smap.items():
+                if shape.collision_type == COLLTYPE_USERPLAT:
+                        obj.remove()
+            self.gamelayout.physics_interface.smap = {}
 

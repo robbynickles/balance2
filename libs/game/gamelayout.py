@@ -9,7 +9,12 @@ from plyer import accelerometer
 from drawing.drawingtoolkit import DrawingToolkit
 from drawing.drawing_behaviors import dispatcher
 from physics_interface.physics_interface import PhysicsInterface
+
+from physics_interface.game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT
+from cymunk import Vec2d
+
 import utils, load_level
+
 
 class GameLayout(GridLayout):
     ##### Initialization
@@ -27,9 +32,10 @@ class GameLayout(GridLayout):
         self.physics_interface = PhysicsInterface( accelerometer )
         self.add_widget( self.physics_interface )
 
-        # switches is populated by drawing_toolkit at runtime with various mode switches that can be checked to 
-        # see what drawing mode is active (if any).
         self.switches = {} 
+        # DrawingToolkit populates self.switches with references to its toolkit panel toggle buttons. 
+        # When the player toggles a button, its state is visible in self.switches. Then, gamelayout will know
+        # which drawing function to call when it recieves new touch data.
         self.drawing_toolkit = DrawingToolkit( self )
         self.active_mode = None
 
@@ -61,15 +67,27 @@ class GameLayout(GridLayout):
                 # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
-                # self.switches contains entries like ( 'mode_name', mode_button ).
-                # If a mode_button B is toggled, then B.state == 'down'.
-                # Search self.switches for any 'down' buttons. 
-                # Set self.active_mode to the first encounterd 'down' button.
-                self.active_mode = None
-                for mode_name, mode_button in self.switches.items():
-                    if mode_button.state == 'down':
-                        self.active_mode = mode_name
-                        break
+                
+                if touch.is_double_tap:
+                    MAX_DIST = 20
+                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
+                    if shape and shape.collision_type == COLLTYPE_USERPLAT:
+                        self.active_mode = 'edit line'
+                        self.target_line = self.physics_interface.smap[ shape ]
+                    else:
+                        # Only exit point from 'edit line' mode.
+                        self.active_mode = None
+
+                if self.active_mode != 'edit line':
+                    # self.switches contains entries like ( 'mode_name', mode_button ).
+                    # If a mode_button B is toggled, then B.state == 'down'.
+                    # Search self.switches for any 'down' buttons. 
+                    # Set self.active_mode to the first encounterd 'down' button.
+                    self.active_mode = None
+                    for mode_name, mode_button in self.switches.items():
+                        if mode_button.state == 'down':
+                            self.active_mode = mode_name
+                            break
 
                 # Initiate mode behavior based on which mode (if any) is active.
                 self.mode_behavior( touch, 'touch_down' )
@@ -89,7 +107,6 @@ class GameLayout(GridLayout):
             pass
         else: #pause
             self.mode_behavior( touch, 'touch_up' )
-            self.active_mode = None
 
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the current mode's drawing function."""

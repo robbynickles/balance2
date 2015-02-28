@@ -49,3 +49,20 @@ def straightline( self, touch, touch_stage ):
             self.canvas.remove( self.line_progress )
             self.line_progress = None
 
+
+def editline( self, touch, touch_stage ):
+    """Do three different things depending on which touch_stage it is."""
+
+    # editline has access to self.target_line, which is the user_drawn line that triggered the 'edit line' mode activation.
+
+    if touch_stage == 'touch_down':
+        print self.target_line
+        pass
+
+    if touch_stage == 'touch_move':
+        print "edit line touch move"
+        pass
+
+    if touch_stage == 'touch_up':
+        print "edit line touch up"
+        pass

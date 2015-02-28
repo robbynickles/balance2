@@ -5,12 +5,11 @@ from kivy.lang import Builder
 Builder.load_file( 'libs/game/gamelayout.kv' )
 
 from plyer import accelerometer
-import pickle 
 
 from drawing.drawingtoolkit import DrawingToolkit
 from drawing.drawing_behaviors import dispatcher
 from physics_interface.physics_interface import PhysicsInterface
-import utils
+import utils, load_level
 
 class GameLayout(GridLayout):
     ##### Initialization
@@ -28,9 +27,6 @@ class GameLayout(GridLayout):
         self.physics_interface = PhysicsInterface( accelerometer )
         self.add_widget( self.physics_interface )
 
-        # Boolean used to allow build_level() to build the level only once.
-        self.level_built = False
-
         # switches is populated by drawing_toolkit at runtime with various mode switches that can be checked to 
         # see what drawing mode is active (if any).
         self.switches = {} 
@@ -41,24 +37,14 @@ class GameLayout(GridLayout):
         swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
         self.swipebook = swipebook
 
+        # self.build_level() builds the level stored in the file called levels/level{self.level_index}.
+        self.level_index = 1
 
-    ##### Load the level
+
+    ##### Load the current level
     def build_level( self ):
-        # Build level.
-        if not self.level_built:
-            self.level_built = True # Build the level only one time.
+        load_level.remove_current_load_next( self.level_index, self.physics_interface )
 
-            with open( 'level1', 'r' ) as f:
-                game_objects = pickle.load( f )
-                
-            for obj in game_objects:
-                obj.load_into_physics_interface( self.physics_interface )
-
-            from physics_interface.game_objects.level_build.collision_handlers import setup_collision_handlers            
-            setup_collision_handlers( self.physics_interface.space )
-
-            # self.physcs_interface.game_objects are updated each timestep.
-            self.physics_interface.game_objects += game_objects
 
     ##### Touch drawing
     def do_drawpt( self, pos ):
@@ -106,8 +92,9 @@ class GameLayout(GridLayout):
             self.active_mode = None
 
     def mode_behavior( self, touch, touch_stage ):
-        """Dispatch function: call the right drawing function for the current mode."""
+        """Dispatch function: call the current mode's drawing function."""
         dispatcher.dispatch( self, touch, touch_stage )
+
 
     ##### Animation Step
     # This method is scheduled or unscheduled for playing or pausing, respectively.
@@ -122,8 +109,16 @@ class GameLayout(GridLayout):
                 if notice == 'Game Over':
                     self.reset()
 
+                if notice == 'Level Complete':
+                    self.level_index += 1
+                    self.build_level()
+                    self.reset()
+
                 if notice == 'Remove':
-                    gameobject.remove()
+                    try:
+                        gameobject.remove()
+                    except:
+                        pass
 
         self.physics_interface.clear_notifications()
 
@@ -143,6 +138,9 @@ class GameLayout(GridLayout):
         self.play_toggle( self.ids.play_button, 'normal' )
         self.pause_toggle( self.ids.pause_button, 'down' )
 
+        # Stop Level
+        self.physics_interface.stop_level()
+
     def start_animation( self ):
         """Start the gamelayout into its running state."""
         # Set pause and play to playing states.
@@ -157,8 +155,8 @@ class GameLayout(GridLayout):
         Clock.schedule_interval( self.Step, 1 / 60. )
         self.engine_running = True
 
-        # Place a ball at the top of the level.
-        self.physics_interface.add_circle(self.x+50, self.y+self.height, 15)
+        # Start Level
+        self.physics_interface.start_level()
 
 
     # Texture loaders. 

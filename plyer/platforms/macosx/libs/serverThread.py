@@ -36,7 +36,7 @@ class ServerThread (threading.Thread):
         # (This is the case of a device enabling, disabling, and then enabling.) The handler
         # is already present in the server. The device just needs to tap back in to the incoming data.
         if ServerThread.handler_classes.count( handler ) > 0:
-            # Nullify the run statement so the thread just dies.
+            # Nullify the run statement so the thread  dies.
             self.run = lambda : None
             return
 

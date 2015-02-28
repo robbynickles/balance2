@@ -6,6 +6,7 @@ from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy.core.window import Window 
 
+# Manually set the window size to emulate the iphone screen.
 Window.size = 640, 960
 
 # Simple data structure for storing the positon and dimensions of a page.
@@ -27,14 +28,17 @@ class SwipeBook( ScatterPlane ):
         """ScatterPlane that supports navigation between pages."""
         super(type(self), self).__init__(*args, **kwargs)
         
-        from kivy.uix.label import Label
-        self.add_widget( Label( text="***** WINDOW DIMENSIONS:  {} x {} *****".format( self.PAGE_W, self.PAGE_H ) ) )  
+        #from kivy.uix.label import Label
+        #self.add_widget( Label( text="***** WINDOW DIMENSIONS:  {} x {} *****".format( self.PAGE_W, self.PAGE_H ) ) )  
 
+        # Don't allow any touch navigation.
         self.do_rotation, self.do_scaling, self.do_translation = False, False, False
         self.pages = []
 
         # Only allow one animation loop at a time.
         self.animating = False
+
+        # Sliding velocity.
         self.xvel = 0
 
         # Rendering layers: widgets in self.top are rendered on top of widgets in self.bottom.
@@ -46,6 +50,7 @@ class SwipeBook( ScatterPlane ):
         self.add_widget( self.top_layer )
 
     ##### Widget adding/removing with layer control
+    # Any widget added to a layer 'above' another layer is rendered on top of all widgets in the 'lower' layer.
     def add_widget_to_layer( self, widg, layer ):
         if layer == 'top':
             self.top_layer.add_widget( widg )

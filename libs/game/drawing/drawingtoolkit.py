@@ -45,8 +45,6 @@ class DrawingToolkit( GridLayout ):
         def on_touch_down(self, touch):
             super(type(self), self).on_touch_down( touch )
             if self.collide_point( *touch.pos ):
-                # Don't move panel if using slider.
-                #if not self.ids.grain_slider.collide_point( *touch.pos ):
                 self.dragging = True
 
         def on_touch_move(self, touch):
@@ -77,5 +75,5 @@ class DrawingToolkit( GridLayout ):
             for shape, obj in self.gamelayout.physics_interface.smap.items():
                 if shape.collision_type == COLLTYPE_USERPLAT:
                         obj.remove()
-            self.gamelayout.physics_interface.smap = {}
+
 

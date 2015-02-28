@@ -1,55 +1,69 @@
 from _env import *
 
-class Ball():
+class Ball( GameObject ):
+    _hue = 0
+
     def __init__( self, physics_interface, x, y, radius ):
-        # Texture that will be used for any circles drawn.
+        GameObject.__init__( self )
+        self.pos            = x, y
+        self.radius         = radius
         self.circle_texture = Image(join(dirname(__file__), 'Resources/circle.png'), mipmap=True).texture
-        self._hue = 0
+        self.before         = True
 
-        ### Add a circle body to the physics engine.
-        # Create a body with 100 mass and 1e9 moment of inertia at positon x,y.
-        body = cy.Body(100, 1e9)
-        body.position = x, y
+        self.load_into_physics_interface( physics_interface )
 
-        # couple a shape to the body.
-        circle = cy.Circle(body, radius)
-        circle.elasticity = 0.6
-        #circle.friction = 1.0
+        def query_func(a,b,c):
+            pass
+
+        self.physics_interface.space.register_segment_query_func( query_func )
+
+
+    def build_phys_obj( self, space ):
+        body          = cy.Body(100, 1e9)
+        body.position = self.pos
+
+        circle                = cy.Circle(body, self.radius)
+        circle.elasticity     = 0.6
+        #circle.friction       = 1.0
         circle.collision_type = COLLTYPE_BALL
-        physics_interface.space.add(body, circle)
 
-        physics_interface.smap[ circle ] = self
-        self.physics_interface = physics_interface
-
-        self.body, self.shape = body, circle
+        self.body             = body
+        self.shapes          += [ circle ]
             
-        # Configure a canvas Rectangle with a texture to represent the circle body in the rendering environment.
-        with physics_interface.canvas.before:
-            self._hue = (self._hue + 0.01) % 1
-            color = Color(self._hue, 1, 1, mode='hsv')
-            rect = Rectangle(
-                texture=self.circle_texture,
-                pos=(physics_interface.x - radius, physics_interface.y + 2 * physics_interface.height - radius),
-                size=(radius * 2, radius * 2))
+    def build_render_obj( self ):
+        Ball._hue = (Ball._hue + 0.01) % 1
+        color     = Color(Ball._hue, 1, 1, mode='hsv')
+        rect      = Rectangle(
+            texture=self.circle_texture,
+            size=(self.radius * 2, self.radius * 2))
         
-        self.render_obj = radius, color, rect
+        self.render_obj = color, rect
 
     def update( self ):
-        self.body.activate()
+        # Retrieve the physics body's postion.
         p = self.body.position
-        radius, color, rect = self.render_obj
-        rect.pos = p.x - radius, p.y - radius
-        rect.size = radius * 2, radius * 2
 
-    def remove( self ):
-        self.physics_interface.space.remove( self.body )
-        self.physics_interface.space.remove( self.shape )
-        
-        radius, color, rect = self.render_obj
-        self.physics_interface.canvas.before.remove( color ) 
-        self.physics_interface.canvas.before.remove( rect ) 
+        # Make sure the ball is still in the dimensions of the gamelayout, which is the parent of physics_interface.
+        # If not, game over and remove the ball.
+        if not self.physics_interface.parent.collide_point( *p ):
+            self.physics_interface.add_notification( self, 'Game Over' )
+            self.physics_interface.add_notification( self, 'Remove' )
+            return 
+            
+        #start = p
+        #end   = start + self.body.velocity
+        #shape = self.physics_interface.space.space_segment_query( start, end, 10, 0 )
+        #if shape != None:
+        #    print shape
 
-        del self.physics_interface.smap[ self.shape ] 
+        # Update the renderable object.
+        color, rect = self.render_obj
+        rect.pos    = p.x - self.radius, p.y - self.radius
+        rect.size   = self.radius * 2, self.radius * 2
 
+        # Force the ball to stay awake.
+        self.body.activate()
+
+    # This is the method called when the ball hits a lava platform.
     def explode( self ):
         self.physics_interface.add_notification( self, 'Remove' )

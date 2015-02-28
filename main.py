@@ -41,6 +41,9 @@ class DrawTiltApp(App):
 
 if __name__ == '__main__':
     from kivy.core.window import Window
-    Window.size = 640, 960
+
+    # Manually set the window size to emulate the iphone screen.
+    Window.size = 640, 960 # Note: 960 is too long for the monitor.
+
     DrawTiltApp().run()
 

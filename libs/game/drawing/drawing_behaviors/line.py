@@ -1,5 +1,6 @@
 from kivy.graphics import Color, Line
 from cymunk import Vec2d
+from utils import distance
 
 def straightline( self, touch, touch_stage ):
     """Do three different things depending on which touch_stage it is."""
@@ -7,7 +8,7 @@ def straightline( self, touch, touch_stage ):
     if touch_stage == 'touch_down':
         self.x_off = 0
         if self.y + touch.y < self.y + (self.height/2.):
-            self.y_off = -100
+            self.y_off = -200
         else:
             self.y_off = 100
 
@@ -21,7 +22,7 @@ def straightline( self, touch, touch_stage ):
                 self.y_off = 100
         else:
             if self.y + touch.y < self.y + (.25*self.height):
-                self.y_off = -100
+                self.y_off = -200
         touch.pos = touch.x + self.x_off, touch.y + self.y_off
         touch.x, touch.y = touch.pos
 
@@ -54,15 +55,63 @@ def editline( self, touch, touch_stage ):
     """Do three different things depending on which touch_stage it is."""
 
     # editline has access to self.target_line, which is the user_drawn line that triggered the 'edit line' mode activation.
-
     if touch_stage == 'touch_down':
-        print self.target_line
-        pass
+        # Offset the touch positions to be more visible.
+        self.x_off = 0
+        if self.y + touch.y < self.y + (self.height/2.):
+            self.y_off = -200
+        else:
+            self.y_off = 100
+
+        # Store the starting endpoints.
+        self.line_start = self.target_line.points[:2]
+        self.line_end   = self.target_line.points[2:]
+
+        # Booleans used across function calls to know if either endpoint should be moved.
+        self.move_start, self.move_end = False, False
+
+        # Move an endpoint if the touch is close enough to it.
+        MAX_DIST = 40
+        if distance( self.line_start, touch.pos ) <= MAX_DIST:
+            self.move_start = True
+        if distance( self.line_end, touch.pos ) <= MAX_DIST:
+            self.move_end = True
 
     if touch_stage == 'touch_move':
-        print "edit line touch move"
-        pass
+        # Offset the touch positions to be more visible.
+        if self.y_off < 0:
+            if self.y + touch.y > self.y + (.75*self.height):
+                self.y_off = 100
+        else:
+            if self.y + touch.y < self.y + (.25*self.height):
+                self.y_off = -200
+        touch.pos = touch.x + self.x_off, touch.y + self.y_off
+        touch.x, touch.y = touch.pos
+
+        if self.move_start or self.move_end:
+            # Remove the existing user platform entirely.
+            self.target_line.remove()
+
+            # Move the starting endpoint to the touch position.
+            if self.move_start:
+                self.target_line.store_relative( self.physics_interface.pos, 
+                                                 self.physics_interface.size, 
+                                                 touch.pos,
+                                                 self.line_end )
+
+            # Move the ending endpoint to the touch position.
+            if self.move_end:
+                self.target_line.store_relative( self.physics_interface.pos, 
+                                                 self.physics_interface.size, 
+                                                 self.line_start,
+                                                 touch.pos )
+            # Load the updated user platform.
+            self.target_line.load_into_physics_interface( self.physics_interface )
+
+            # Update the endpoint circles to match the new orientation.
+            self.target_line.remove_endpoints()
+            self.target_line.draw_endpoints()
 
     if touch_stage == 'touch_up':
-        print "edit line touch up"
-        pass
+        self.move_start, self.move_end = False, False
+        self.line_start, self.line_end = None, None

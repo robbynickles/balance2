@@ -39,6 +39,9 @@ class GameLayout(GridLayout):
         self.drawing_toolkit = DrawingToolkit( self )
         self.active_mode = None
 
+        # Reference to the line being edited in 'line edit' mode.
+        self.target_line = None
+
         # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
         swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
         self.swipebook = swipebook
@@ -67,16 +70,25 @@ class GameLayout(GridLayout):
                 # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
-                
+                # A double-tap on a user-platform is the entry point into 'edit line' mode.
                 if touch.is_double_tap:
-                    MAX_DIST = 20
-                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
+                    # Query the space for the closest user-platform within a radius of the touch position.
+                    MAX_DIST = 40
+                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
+                                                                                      MAX_DIST, 
+                                                                                      COLLTYPE_USERPLAT )
+
+                    # If a user-platform is touched, start 'edit line' mode targeted at the found platform.
                     if shape and shape.collision_type == COLLTYPE_USERPLAT:
                         self.active_mode = 'edit line'
                         self.target_line = self.physics_interface.smap[ shape ]
+                        self.target_line.draw_endpoints()
+
+                    # Exit 'edit line' mode.
                     else:
-                        # Only exit point from 'edit line' mode.
                         self.active_mode = None
+                        if self.target_line:
+                            self.target_line.remove_endpoints()
 
                 if self.active_mode != 'edit line':
                     # self.switches contains entries like ( 'mode_name', mode_button ).
@@ -163,6 +175,12 @@ class GameLayout(GridLayout):
         # Set pause and play to playing states.
         self.play_toggle( self.ids.play_button, 'down' )
         self.pause_toggle( self.ids.pause_button, 'normal' )
+
+        # Exit the active mode.
+        self.active_mode = None
+        # Remove endpoints if a line is being edited.
+        if self.target_line != None:
+            self.target_line.remove_endpoints()
 
         # Hide the drawing toolkit.
         self.swipebook.remove_widget_from_layer( self.drawing_toolkit, 'top' )

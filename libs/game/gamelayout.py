@@ -172,7 +172,7 @@ class GameLayout(GridLayout):
 
         # Disable the devices.
         accelerometer.disable()
-        gyroscope.disable()
+        #gyroscope.disable()
 
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
@@ -203,7 +203,7 @@ class GameLayout(GridLayout):
 
         # Enable the devices.
         accelerometer.enable()
-        gyroscope.enable()
+        #gyroscope.enable()
 
         # Schedule self.Step()
         Clock.schedule_interval( self.Step, 1 / 60. )

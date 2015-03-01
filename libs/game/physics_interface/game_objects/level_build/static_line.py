@@ -1,15 +1,15 @@
 from _env import *
 
 class PreStaticLine(GameObject):
-
     def store_relative( self, (ox,oy), (xdim,ydim), (x1,y1), (x2,y2) ):
-        # Store the points in percentages (not absolute postions).
+        # Store the points (in percentages, not absolute postions) and color for later use.
         self.relative_points = (x1-ox)/xdim, (y1-oy)/ydim, (x2-ox)/xdim, (y2-oy)/ydim
 
     def __init__( self, physics_interface, (x1,y1), (x2,y2) ):
         GameObject.__init__( self )
-
-        self.store_relative( physics_interface.pos, physics_interface.size, (x1,y1), (x2,y2) )
+        ox, oy      = physics_interface.pos
+        xdim, ydim  = physics_interface.size
+        self.store_relative( (ox,oy), (xdim, ydim), (x1,y1), (x2,y2) )
         self.color  = 1,0,0,1
 
         # Represent the object on the level-builder screen.

@@ -50,9 +50,11 @@ if __name__ == '__main__':
         DrawTiltApp().run()
     except:
 
-        # If there's a crash, record the traceback to the file named 'error_log'.
+        # If there's a crash, record the traceback to stdout as well as the file named 'error_log'.
         from traceback import format_exc
         from error_log import write_error_to_log
+
+        print format_exc()
 
         write_error_to_log( format_exc() )
 

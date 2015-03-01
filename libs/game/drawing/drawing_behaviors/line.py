@@ -2,28 +2,37 @@ from kivy.graphics import Color, Line
 from cymunk import Vec2d
 from utils import distance
 
+def build_offsets( self, (x, y) ):
+    self.x_off = 0
+    if self.y + y < self.y + (self.height/2.):
+        self.y_off = -200
+    else:
+        self.y_off = 100
+
+def destroy_offsets( self ):
+    self.x_off, self.y_off = None, None
+
+def offset_pos( self, (x,y) ):
+    if self.y_off < 0:
+        if self.y + y > self.y + (.75*self.height):
+            self.y_off = 100
+    else:
+        if self.y + y < self.y + (.25*self.height):
+            self.y_off = -200
+    return x + self.x_off, y + self.y_off
+
 def straightline( self, touch, touch_stage ):
     """Do three different things depending on which touch_stage it is."""
-    # When drawing a straight line, offset the touch coordinates so it's easier to see the endpoint.
     if touch_stage == 'touch_down':
-        self.x_off = 0
-        if self.y + touch.y < self.y + (self.height/2.):
-            self.y_off = -200
-        else:
-            self.y_off = 100
+        # When drawing a straight line, offset the touch coordinates so it's easier to see the endpoint.
+        build_offsets( self, touch.pos )
 
         # Store the initial point of the touch.
         self.line_point1 = Vec2d( touch.x, touch.y )
         self.line_progress = None
         
     if touch_stage == 'touch_move':
-        if self.y_off < 0:
-            if self.y + touch.y > self.y + (.75*self.height):
-                self.y_off = 100
-        else:
-            if self.y + touch.y < self.y + (.25*self.height):
-                self.y_off = -200
-        touch.pos = touch.x + self.x_off, touch.y + self.y_off
+        touch.pos = offset_pos( self, touch.pos )
         touch.x, touch.y = touch.pos
 
         # Draw a line connecting the initial touch position and the current touch position.
@@ -36,7 +45,7 @@ def straightline( self, touch, touch_stage ):
                 self.line_progress = Line( points=[ x,y,touch.x,touch.y ] )
 
     if touch_stage == 'touch_up':
-        self.x_off, self.y_off = 0, 0  
+        destroy_offsets( self )
 
         # Create a physics body that corresponds to a line segment with touch_origin and touch_destination as endpoints.
         if self.line_point1:
@@ -57,11 +66,7 @@ def editline( self, touch, touch_stage ):
     # editline has access to self.target_line, which is the user_drawn line that triggered the 'edit line' mode activation.
     if touch_stage == 'touch_down':
         # Offset the touch positions to be more visible.
-        self.x_off = 0
-        if self.y + touch.y < self.y + (self.height/2.):
-            self.y_off = -200
-        else:
-            self.y_off = 100
+        build_offsets( self, touch.pos )
 
         # Store the starting endpoints.
         self.line_start = self.target_line.points[:2]
@@ -79,13 +84,7 @@ def editline( self, touch, touch_stage ):
 
     if touch_stage == 'touch_move':
         # Offset the touch positions to be more visible.
-        if self.y_off < 0:
-            if self.y + touch.y > self.y + (.75*self.height):
-                self.y_off = 100
-        else:
-            if self.y + touch.y < self.y + (.25*self.height):
-                self.y_off = -200
-        touch.pos = touch.x + self.x_off, touch.y + self.y_off
+        touch.pos = offset_pos( self, touch.pos )
         touch.x, touch.y = touch.pos
 
         if self.move_start or self.move_end:
@@ -109,9 +108,9 @@ def editline( self, touch, touch_stage ):
             self.target_line.load_into_physics_interface( self.physics_interface )
 
             # Update the endpoint circles to match the new orientation.
-            self.target_line.remove_endpoints()
             self.target_line.draw_endpoints()
 
     if touch_stage == 'touch_up':
+        destroy_offsets( self )
         self.move_start, self.move_end = False, False
         self.line_start, self.line_end = None, None

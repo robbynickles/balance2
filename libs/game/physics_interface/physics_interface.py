@@ -11,6 +11,7 @@ import utils
 from game_objects.static_line import UserStaticLine
 from game_objects.falling_ball import Ball
 
+from math import sin, cos
 
 class PhysicsInterface(Widget):
 
@@ -18,13 +19,14 @@ class PhysicsInterface(Widget):
     cbounds = []
     
     ##### Initialization 
-    def __init__(self, accelerometer, bounded=False, **kwargs):
+    def __init__(self, accelerometer, gyroscope, bounded=False, **kwargs):
         super( PhysicsInterface, self ).__init__(**kwargs)
         self.bounded = bounded
         
-        # Accelerometer is passed in by the parent. self.parent (game_layout) is responsible for managing the device.
-        # In this class, you only have to ask for the current acceleration data.
+        # Devices are passed in by the parent. self.parent (game_layout) is responsible for managing devices.
+        # In this class, you only have to ask for the current device data.
         self.accelerometer = accelerometer
+        self.gyroscope = gyroscope
 
         # Setup the running environment of the physics engine.
         # Create the physics world and set variables that determine how the engine runs. Calling self.space.step(dt) after this
@@ -84,6 +86,15 @@ class PhysicsInterface(Widget):
         # Update the gravity vector (change its angle) with accelerometer data.
         x_acc, y_acc, z_acc = self.accelerometer.acceleration[:3]
         self.space.gravity = ( x_acc * self.world_gravity, y_acc * self.world_gravity )
+
+        #x_rot, y_rot, z_rot = self.gyroscope.orientation[:3]
+        # 0 degrees is vertical.
+        #grav = ( -cos( z_rot ) * self.world_gravity, -sin( z_rot ) * self.world_gravity )
+
+        # 0 degrees is horizontal.
+        #grav = ( -sin( z_rot ) * self.world_gravity, -cos( z_rot ) * self.world_gravity )
+
+        #print self.space.gravity, grav
 
         # Forward the physics world one unit of time dt in sub_steps sub steps.
         sub_steps = 10

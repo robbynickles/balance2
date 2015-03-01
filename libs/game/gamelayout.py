@@ -4,7 +4,7 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 Builder.load_file( 'libs/game/gamelayout.kv' )
 
-from plyer import accelerometer
+from plyer import accelerometer, gyroscope
 
 from drawing.drawingtoolkit import DrawingToolkit
 from drawing.drawing_behaviors import dispatcher
@@ -33,7 +33,7 @@ class GameLayout(GridLayout):
         self.pause_toggle = utils.texture_toggle( 'Resources/pause_normal.png', 'Resources/pause_down.png' )
         
         # Create the physics interface.
-        self.physics_interface = PhysicsInterface( accelerometer )
+        self.physics_interface = PhysicsInterface( accelerometer, gyroscope )
         self.add_widget( self.physics_interface )
         
         # self.switches contains entries like ( 'mode_name', mode_button ), 
@@ -84,11 +84,11 @@ class GameLayout(GridLayout):
                 # A double-tap not on a user-platform exits 'edit line' mode.
                 if touch.is_double_tap:
                     # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
-                    MAX_DIST = 40
+                    MAX_DIST = 10
                     shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
 
-                    # If a user-platform is touched, start 'edit line' mode targeted at the found platform.
-                    if shape and shape.collision_type == COLLTYPE_USERPLAT:#Be extra sure what we're dealin with
+                    # If a user-platform is double tappeded, start 'edit line' mode targeted at the found platform.
+                    if shape and shape.collision_type == COLLTYPE_USERPLAT:#Be extra sure we're dealin with a user-platform.
                         self.active_mode = 'edit line'
                         if self.target_line:
                             self.target_line.remove_endpoints()
@@ -170,8 +170,9 @@ class GameLayout(GridLayout):
         Clock.unschedule( self.Step )
         self.engine_running = False
 
-        # Disable the accelerometer.
+        # Disable the devices.
         accelerometer.disable()
+        gyroscope.disable()
 
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
@@ -200,8 +201,9 @@ class GameLayout(GridLayout):
         # Hide the drawing toolkit.
         self.swipebook.remove_widget_from_layer( self.drawing_toolkit, 'top' )
 
-        # Enable the accelerometer.
+        # Enable the devices.
         accelerometer.enable()
+        gyroscope.enable()
 
         # Schedule self.Step()
         Clock.schedule_interval( self.Step, 1 / 60. )

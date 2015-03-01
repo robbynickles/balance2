@@ -24,9 +24,9 @@ class UserStaticLine( PreStaticLine ):
         self.end_points = color, circle1, circle2
 
     def remove_endpoints( self ):
-        if self.end_points:
-            for instr in self.end_points:
-                self.physics_interface.canvas.remove( instr )
+        for instr in self.end_points:
+            self.physics_interface.canvas.remove( instr )
+        self.end_points = ()
 
     def remove( self ):
         self.remove_endpoints()

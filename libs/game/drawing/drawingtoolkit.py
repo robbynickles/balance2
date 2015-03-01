@@ -74,14 +74,14 @@ class DrawingToolkit( GridLayout ):
             self.gamelayout.active_mode = None
             if self.gamelayout.target_line:
                 self.gamelayout.target_line.remove_endpoints()
-                self.target_line = None
+                self.gamelayout.target_line = None
 
         def bomb_pressed( self ):
             # Exit 'edit line' mode.  
             self.gamelayout.active_mode = None
             if self.gamelayout.target_line:
                 self.gamelayout.target_line.remove_endpoints()
-                self.target_line = None
+                self.gamelayout.target_line = None
 
             # Remove all user-drawn platforms.
             for shape, obj in self.gamelayout.physics_interface.smap.items():

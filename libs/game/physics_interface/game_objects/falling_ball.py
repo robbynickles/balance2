@@ -50,12 +50,6 @@ class Ball( GameObject ):
             self.physics_interface.add_notification( self, 'Remove' )
             return 
             
-        #start = p
-        #end   = start + self.body.velocity
-        #shape = self.physics_interface.space.space_segment_query( start, end, 10, 0 )
-        #if shape != None:
-        #    print shape
-
         # Update the renderable object.
         color, rect = self.render_obj
         rect.pos    = p.x - self.radius, p.y - self.radius

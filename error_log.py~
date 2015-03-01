@@ -1,0 +1,7 @@
+def write_to_error_log( err ):
+    with open( 'error_log', 'a' ) as f:
+        heading = timestamp + "*" * 200
+        tailing = "*" * 200
+        f.write( heading )
+        f.write( err )
+        f.write( tailing )

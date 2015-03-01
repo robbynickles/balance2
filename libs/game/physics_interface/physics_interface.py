@@ -37,13 +37,12 @@ class PhysicsInterface(Widget):
                    pos= lambda *args: utils.update_bounds(self, *args) )
         
         # Mapping from shape to game_object - sometimes the physics engine needs to talk to game objects.
-        # So self.smap is a set of back references such that if a game object G is initialized with 
-        # a shape S, self.smap[ S ] == G.
+        # So self.smap is a set of back references such that if a game object G has a shape S, self.smap[ S ] == G.
         self.smap = {}
 
         # Notifications that need responding to.
         # A notification consists of a (k,v) pair where k is the gameobject from which the notification emanated,
-        # and v is list of unique notifications (meaning only the first submission of a notification N is accepted).
+        # and v is list of unique notifications (meaning only a gameobject's first submission of a notification N is accepted).
         self.notifications = {}
 
 
@@ -55,7 +54,7 @@ class PhysicsInterface(Widget):
         
     ##### Notification system
     # When a gameobject needs to create a game-level event, for example, pause the simulation, load the next level, or remove a body 
-    # from the physics engine, it creates a notification, which tells the gamelayout to deal with it between physics steps.
+    # from the physics engine, it creates a notification, which the gamelayout will respond to between physics steps.
 
     # The notifications system has three methods: 
     # 1) add_notification

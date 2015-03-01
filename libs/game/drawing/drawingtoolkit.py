@@ -14,7 +14,8 @@ class DrawingToolkit( GridLayout ):
         ##### Initialization
         def __init__(self, gamelayout, *args, **kwargs):
             super( DrawingToolkit, self).__init__( *args, **kwargs )
-            # Populate gamelayout.switches so that gamelayout can dispatch to the active_mode's drawing functions.
+
+            # Populate gamelayout.switches so that gamelayout can dispatch to the active_mode's drawing function.
             #modes = set(['brush', 'line', 'eraser'])
             modes = set(['line', 'eraser'])
             for w in self.children:
@@ -73,12 +74,14 @@ class DrawingToolkit( GridLayout ):
             self.gamelayout.active_mode = None
             if self.gamelayout.target_line:
                 self.gamelayout.target_line.remove_endpoints()
+                self.target_line = None
 
         def bomb_pressed( self ):
             # Exit 'edit line' mode.  
             self.gamelayout.active_mode = None
             if self.gamelayout.target_line:
                 self.gamelayout.target_line.remove_endpoints()
+                self.target_line = None
 
             # Remove all user-drawn platforms.
             for shape, obj in self.gamelayout.physics_interface.smap.items():

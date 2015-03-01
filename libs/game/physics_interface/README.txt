@@ -1,7 +1,7 @@
 The physics interface is the widget that contains the cymunk space. It sits between gameobjects and the gamelayout. 
 
 Its jobs are to
-    1.    Retrieve the current gravity vector and and update the space's gravity with it.
+    1.    Retrieve the current gravity vector and update the space's gravity with it.
 
     2.	  Host a notifications system through which gameobjects communicate with the gamelayout.
 

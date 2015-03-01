@@ -1,11 +1,18 @@
-The gamelayout is part of the next immediate generation underneath the root widget. It contains the physics interface, buttons for pausing/playing the animation and navigation back to the menu screen and the drawing toolkit, which allows paint-style platform drawing. 
+The gamelayout is part of the next immediate generation underneath the root widget. It contains the physics interface, buttons for pausing/playing the animation, a button for navigation back to the menu screen, and the drawing toolkit, which allows paint-style platform drawing. 
 
-1)  It's in charge of asking for and releasing device data.
+It's in charge of 
+     1)  Asking for and releasing device data.
 
-2)  It hosts the drawing toolkit and recieves touch input which result in drawings.
+     2)  Hosting the drawing toolkit.
+     
+     3)  Recieving touch input which result in additions to the physics world.
 
-3)  It keeps a level_index which is what level-number the player is currently on, and knows how to load the current level.
+     4)  Keeping a level index which is what level number the player is currently on.
 
-4)  It schedules and unschedules the physics engine, responding to notifications from the physics_interface in between physics steps.
+     5)  Loading the current level.
+
+     5)  Scheduling and unscheduling the physics step.
+     
+     6)  Responding to notifications from the physics_interface in between physics steps.
 
 

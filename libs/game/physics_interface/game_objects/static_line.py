@@ -3,6 +3,7 @@ from _env import *
 from level_build.static_line import PreStaticLine
 
 class UserStaticLine( PreStaticLine ):
+    end_points = ()
 
     def build_phys_obj( self, space ):
         PreStaticLine.build_phys_obj( self, space )
@@ -26,3 +27,7 @@ class UserStaticLine( PreStaticLine ):
         if self.end_points:
             for instr in self.end_points:
                 self.physics_interface.canvas.remove( instr )
+
+    def remove( self ):
+        self.remove_endpoints()
+        PreStaticLine.remove( self )

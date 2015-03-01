@@ -45,5 +45,14 @@ if __name__ == '__main__':
     # Manually set the window size to emulate the iphone screen.
     Window.size = 640, 960 # Note: 960 is too long for the monitor.
 
-    DrawTiltApp().run()
+
+    try:
+        DrawTiltApp().run()
+    except:
+
+        # If there's a crash, record the traceback to the file named 'error_log'.
+        from traceback import format_exc
+        from error_log import write_error_to_log
+
+        write_error_to_log( format_exc() )
 

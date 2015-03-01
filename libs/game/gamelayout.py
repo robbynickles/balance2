@@ -20,7 +20,11 @@ class GameLayout(GridLayout):
     ##### Initialization
     def __init__(self, swipebook, *args, **kwargs):
         super( GameLayout, self ).__init__( *args, **kwargs )
+
+        # Function called when the player hits the menu button.
         self.go_to_menu = lambda : None
+
+        # self.engine_running is True whenever the self.Step is scheduled, and false otherwise.
         self.engine_running = False
 
         # Toggle methods for play and pause that toggle custom textures. 
@@ -31,10 +35,15 @@ class GameLayout(GridLayout):
         # Create the physics interface.
         self.physics_interface = PhysicsInterface( accelerometer )
         self.add_widget( self.physics_interface )
-
+        
+        # self.switches contains entries like ( 'mode_name', mode_button ), 
+        # where mode_button is one of DrawingToolkit's toggle buttons, 
+        # and mode_name is its name as it's known to the dispatcher.
+        # If a mode_button B is toggled, then B.state == 'down'.
         self.switches = {} 
+
         # DrawingToolkit populates self.switches with references to its toolkit panel toggle buttons. 
-        # When the player toggles a button, its state is visible in self.switches. Then, gamelayout will know
+        # When the player toggles a button, its state is visible in self.switches. Then, the dispatcher will know
         # which drawing function to call when it recieves new touch data.
         self.drawing_toolkit = DrawingToolkit( self )
         self.active_mode = None
@@ -46,7 +55,7 @@ class GameLayout(GridLayout):
         swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
         self.swipebook = swipebook
 
-        # self.build_level() builds the level stored in the file called levels/level{self.level_index}.
+        # self.build_level() builds the level stored in the file named "levels/level{self.level_index}".
         self.level_index = 1
 
 
@@ -70,17 +79,20 @@ class GameLayout(GridLayout):
                 # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
+
                 # A double-tap on a user-platform is the entry point into 'edit line' mode.
+                # A double-tap not on a user-platform exits 'edit line' mode.
                 if touch.is_double_tap:
-                    # Query the space for the closest user-platform within a radius of the touch position.
+                    # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
                     MAX_DIST = 40
-                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
-                                                                                      MAX_DIST, 
-                                                                                      COLLTYPE_USERPLAT )
+                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
 
                     # If a user-platform is touched, start 'edit line' mode targeted at the found platform.
-                    if shape and shape.collision_type == COLLTYPE_USERPLAT:
+                    if shape and shape.collision_type == COLLTYPE_USERPLAT:#Be extra sure what we're dealin with
                         self.active_mode = 'edit line'
+                        if self.target_line:
+                            self.target_line.remove_endpoints()
+                            self.target_line = None
                         self.target_line = self.physics_interface.smap[ shape ]
                         self.target_line.draw_endpoints()
 
@@ -89,10 +101,9 @@ class GameLayout(GridLayout):
                         self.active_mode = None
                         if self.target_line:
                             self.target_line.remove_endpoints()
+                            self.target_line = None
 
                 if self.active_mode != 'edit line':
-                    # self.switches contains entries like ( 'mode_name', mode_button ).
-                    # If a mode_button B is toggled, then B.state == 'down'.
                     # Search self.switches for any 'down' buttons. 
                     # Set self.active_mode to the first encounterd 'down' button.
                     self.active_mode = None
@@ -131,7 +142,7 @@ class GameLayout(GridLayout):
         # Step the physics interface forward one unit of time dt.
         self.physics_interface.step( dt )
 
-        # Respond to any notifications from self.physics_interface
+        # Respond to any notifications from self.physics_interface.
         for gameobject, notifications in self.physics_interface.get_notifications():
             for notice in notifications:
 
@@ -158,8 +169,10 @@ class GameLayout(GridLayout):
         # Unschedule self.Step().
         Clock.unschedule( self.Step )
         self.engine_running = False
+
         # Disable the accelerometer.
         accelerometer.disable()
+
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
 
@@ -178,14 +191,18 @@ class GameLayout(GridLayout):
 
         # Exit the active mode.
         self.active_mode = None
+
         # Remove endpoints if a line is being edited.
         if self.target_line != None:
             self.target_line.remove_endpoints()
+            self.target_line = None
 
         # Hide the drawing toolkit.
         self.swipebook.remove_widget_from_layer( self.drawing_toolkit, 'top' )
+
         # Enable the accelerometer.
         accelerometer.enable()
+
         # Schedule self.Step()
         Clock.schedule_interval( self.Step, 1 / 60. )
         self.engine_running = True

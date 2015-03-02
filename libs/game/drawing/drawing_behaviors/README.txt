@@ -5,4 +5,4 @@ A drawing behavior consists of 3 things:
 2. Drawing mode - the dispatcher dispatches to the mode's 3-stage drawing function whenever the drawingtoolkit is in that mode.
 
 3. 3-stage drawing function - does three different things depending on which touch stage it is (touch_down, touch_move, touch_up).
-   Results in a game_object being installed to the physics interface.
+   Usually results in a game_object being installed to or altered in the physics interface.

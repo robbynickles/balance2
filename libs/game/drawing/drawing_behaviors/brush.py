@@ -32,6 +32,7 @@ def freehand( self, touch, touch_stage ):
 
         self.line_points += [ touch.x, touch.y ]
 
+        # Attempt at low-pass filtering the noisy user-drawn curve.
         #X, Y = [], []
         #for i in range( 0, len( self.line_points ), 2 ):
         #    X += [ self.line_points[i] ]

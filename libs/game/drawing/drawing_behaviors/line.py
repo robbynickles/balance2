@@ -13,6 +13,12 @@ def destroy_offsets( self ):
     self.x_off, self.y_off = None, None
 
 def offset_pos( self, (x,y) ):
+    # The idea is that the offset puts the touch either above or below the touch.
+    # Whether it's below or above depends on where in the screen is the touch.
+    # If the offset is below, change it to above when the touch is passed 3/4 of the screen.
+    # If the offset is above, change it to below when the touch is passed 1/4 of the screen.
+    # That there is an overlap (i.e. sections of the screen reachable with either the above offset of below offset),
+    # ensures all points on the screen are reachable.
     if self.y_off < 0:
         if self.y + y > self.y + (.75*self.height):
             self.y_off = 100
@@ -24,7 +30,7 @@ def offset_pos( self, (x,y) ):
 def straightline( self, touch, touch_stage ):
     """Do three different things depending on which touch_stage it is."""
     if touch_stage == 'touch_down':
-        # When drawing a straight line, offset the touch coordinates so it's easier to see the endpoint.
+        # Offset the touch positions to be more visible.
         build_offsets( self, touch.pos )
 
         # Store the initial point of the touch.
@@ -32,6 +38,7 @@ def straightline( self, touch, touch_stage ):
         self.line_progress = None
         
     if touch_stage == 'touch_move':
+        # Offset the touch positions to be more visible.
         touch.pos = offset_pos( self, touch.pos )
         touch.x, touch.y = touch.pos
 
@@ -65,6 +72,7 @@ def editline( self, touch, touch_stage ):
 
     # editline has access to self.target_line, which is the user_drawn line that triggered the 'edit line' mode activation.
     if touch_stage == 'touch_down':
+
         # Offset the touch positions to be more visible.
         build_offsets( self, touch.pos )
 
@@ -83,11 +91,13 @@ def editline( self, touch, touch_stage ):
             self.move_end = True
 
     if touch_stage == 'touch_move':
+
         # Offset the touch positions to be more visible.
         touch.pos = offset_pos( self, touch.pos )
         touch.x, touch.y = touch.pos
 
         if self.move_start or self.move_end:
+
             # Remove the existing user platform entirely.
             self.target_line.remove()
 
@@ -111,6 +121,7 @@ def editline( self, touch, touch_stage ):
             self.target_line.draw_endpoints()
 
     if touch_stage == 'touch_up':
+
         destroy_offsets( self )
         self.move_start, self.move_end = False, False
         self.line_start, self.line_end = None, None

@@ -38,15 +38,17 @@ def straightline( self, touch, touch_stage ):
         self.line_progress = None
         
     if touch_stage == 'touch_move':
-        # Offset the touch positions to be more visible.
-        touch.pos = offset_pos( self, touch.pos )
-        touch.x, touch.y = touch.pos
 
         # Draw a line connecting the initial touch position and the current touch position.
         if self.line_point1:
             if self.line_progress:
                 self.canvas.remove( self.line_progress )
             x, y = self.line_point1
+
+            # Offset the touch positions to be more visible.
+            touch.pos = offset_pos( self, touch.pos )
+            touch.x, touch.y = touch.pos
+
             with self.canvas:
                 Color( 0,1,0,1)
                 self.line_progress = Line( points=[ x,y,touch.x,touch.y ] )
@@ -92,11 +94,10 @@ def editline( self, touch, touch_stage ):
 
     if touch_stage == 'touch_move':
 
-        # Offset the touch positions to be more visible.
-        touch.pos = offset_pos( self, touch.pos )
-        touch.x, touch.y = touch.pos
-
         if self.move_start or self.move_end:
+            # Offset the touch positions to be more visible.
+            touch.pos = offset_pos( self, touch.pos )
+            touch.x, touch.y = touch.pos
 
             # Remove the existing user platform entirely.
             self.target_line.remove()
@@ -121,7 +122,6 @@ def editline( self, touch, touch_stage ):
             self.target_line.draw_endpoints()
 
     if touch_stage == 'touch_up':
-
         destroy_offsets( self )
         self.move_start, self.move_end = False, False
         self.line_start, self.line_end = None, None

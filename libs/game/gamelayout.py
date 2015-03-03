@@ -56,7 +56,7 @@ class GameLayout(GridLayout):
         self.swipebook = swipebook
 
         # self.build_level() builds the level stored in the file named "levels/level{self.level_index}".
-        self.level_index = 1
+        self.level_index = 2
 
 
     ##### Load the current level
@@ -79,26 +79,28 @@ class GameLayout(GridLayout):
                 # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
-                # A tap on a user-platform is the entry point into 'edit line' mode.
-                # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
-                MAX_DIST = 30
-                shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
-
-                # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
-                if shape and shape.collision_type == COLLTYPE_USERPLAT:#Be extra sure we're dealin with a user-platform.
-                    self.active_mode = 'edit line'
-                    if self.target_line:
-                        self.target_line.remove_endpoints()
-                        self.target_line = None
-                    self.target_line = self.physics_interface.smap[ shape ]
-                    self.target_line.draw_endpoints()
-
-                # A double-tap not on a user-platform exits 'edit line' mode.
                 if touch.is_double_tap:
-                    self.active_mode = None
-                    if self.target_line:
-                        self.target_line.remove_endpoints()
-                        self.target_line = None
+                    # A double-tap on a user-platform is the entry point into 'edit line' mode.
+                    # A double-tap not on a user-platform exits 'edit line' mode.
+
+                    # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
+                    MAX_DIST = 40
+                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
+
+                    # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
+                    if shape and shape.collision_type == COLLTYPE_USERPLAT:#Be extra sure we're dealin with a user-platform.
+                        self.active_mode = 'edit line'
+                        if self.target_line:
+                            self.target_line.remove_endpoints()
+                            self.target_line = None
+                        self.target_line = self.physics_interface.smap[ shape ]
+                        self.target_line.draw_endpoints()
+
+                    else: # Exit 'edit line' mode.
+                        self.active_mode = None
+                        if self.target_line:
+                            self.target_line.remove_endpoints()
+                            self.target_line = None
 
                 if self.active_mode != 'edit line':
                     # Search self.switches for any 'down' buttons. 

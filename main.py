@@ -47,7 +47,8 @@ if __name__ == '__main__':
 
 
     try:
-        DrawTiltApp().run()
+        #DrawTiltApp().run()
+        1/0
     except:
 
         # If there's a crash, record the traceback to stdout as well as the file named 'error_log'.

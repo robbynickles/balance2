@@ -56,12 +56,17 @@ class GameLayout(GridLayout):
         self.swipebook = swipebook
 
         # self.build_level() builds the level stored in the file named "levels/level{self.level_index}".
-        self.level_index = 2
+        self.level_index  = 1
+
+        # Variable used to store the level_index of the level currently built.
+        self.level_loaded = 0
 
 
     ##### Load the current level
     def build_level( self ):
-        load_level.remove_current_load_next( self.level_index, self.physics_interface )
+        if self.level_loaded != self.level_index:
+            load_level.remove_current_load_next( self.level_index, self.physics_interface )
+            self.level_loaded = self.level_index
 
 
     ##### Touch drawing

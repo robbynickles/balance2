@@ -12,6 +12,6 @@ def construct_log_entry( lt, err ):
 def append_log( err ):
     log_entry = construct_log_entry( localtime(), err )
 
-    # Caveat: make sure the program has access rights to write to error_log/error_log.txt.
+    # Important caveat: make sure the program has the access rights to write to error_log/error_log.txt.
     with open( 'error_log/error_log.txt', 'a' ) as f:
         f.write( log_entry )

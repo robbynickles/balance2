@@ -12,12 +12,6 @@ class Ball( GameObject ):
 
         self.load_into_physics_interface( physics_interface )
 
-        def query_func(a,b,c):
-            pass
-
-        self.physics_interface.space.register_segment_query_func( query_func )
-
-
     def build_phys_obj( self, space ):
         body          = cy.Body(100, 1e9)
         body.position = self.pos

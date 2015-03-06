@@ -14,7 +14,7 @@ def load_level( level_name, physics_interface ):
         # No such file.
         return
     
-    # Build each gameobject's renderable object and physics body. 
+    # Load each gameobject into the physics_interface.
     for obj in game_objects:
         obj.load_into_physics_interface( physics_interface )
 

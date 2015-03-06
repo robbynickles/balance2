@@ -35,6 +35,7 @@ class GameObject():
         for sh in self.shapes:
             space.add( sh )
 
+
         # Construct the renderable object.
         self.build_render_obj()
         

@@ -11,6 +11,7 @@ class PreStaticLine(GameObject):
         xdim, ydim  = physics_interface.size
         self.store_relative( (ox,oy), (xdim, ydim), (x1,y1), (x2,y2) )
         self.color  = 1,0,0,1
+        self.line_width = 3.
 
         # Represent the object on the level-builder screen.
         self.load_into_physics_interface( physics_interface )
@@ -27,13 +28,13 @@ class PreStaticLine(GameObject):
     ##### Delayed execution of body building and canvas instruction building:
     def build_phys_obj( self, space ):
         x1, y1, x2, y2 = self.points
-        seg = cy.Segment(space.static_body, Vec2d(x1,y1), Vec2d(x2,y2), 0.0)
+        seg = cy.Segment(space.static_body, Vec2d(x1,y1), Vec2d(x2,y2), self.line_width)
         #seg.friction = 0.99
         seg.elasticity = 0.7
         self.shapes += [ seg ]
 
     def build_render_obj( self ):
         color = Color( *self.color )
-        line  = Line( points=self.points )
+        line  = Line( points=self.points, width=self.line_width )
         self.render_obj = color, line
 

@@ -4,6 +4,7 @@ from static_line import PreStaticLine
 
 class LavaLine( PreStaticLine ):
     def build_phys_obj( self, space ):
+        self.line_width = 1
         PreStaticLine.build_phys_obj( self, space )
 
         for sh in self.shapes:
@@ -18,6 +19,7 @@ class LavaLine( PreStaticLine ):
 
     def build_render_obj( self ):
         self.color = (1,0,0,1)
+        self.line_width = 1
         PreStaticLine.build_render_obj( self )
 
 class FriendlyLine( PreStaticLine ):

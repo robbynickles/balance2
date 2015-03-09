@@ -48,6 +48,8 @@ class GameLayout(GridLayout):
         self.drawing_toolkit = DrawingToolkit( self )
         self.active_mode = None
 
+        self.press_forced = False
+
         # Reference to the line being edited in 'line edit' mode.
         self.target_line = None
 
@@ -64,6 +66,7 @@ class GameLayout(GridLayout):
 
     ##### Load the current level
     def build_level( self ):
+        # Only load the level when the level_index has changed.
         if self.level_loaded != self.level_index:
             load_level.remove_current_load_next( self.level_index, self.physics_interface )
             self.level_loaded = self.level_index
@@ -226,7 +229,7 @@ class GameLayout(GridLayout):
         return utils.load_texture( 'Resources/pause_down.png' )
 
     def not_in_a_mode(self):
-        return not any( [ b.state == 'down' for b in self.switches.values() ] )
+        return not any( [ b.state == 'down' for b in self.switches.values() ] ) 
 
     def menu_callback(self, button):
         if self.not_in_a_mode():

@@ -78,14 +78,23 @@ class PhysicsInterface(Widget):
     def clear_notifications( self ):
         self.notifications = {}
 
+    def combine( self, a, b ):
+        return ( a**2 + b**2 ) ** .5
 
     ##### Step
     # The main physics step. 
     def step(self, dt):
-        
         # Update the gravity vector (change its angle) with accelerometer data.
         x_acc, y_acc, z_acc = self.accelerometer.acceleration[:3]
-        self.space.gravity = ( x_acc * self.world_gravity, y_acc * self.world_gravity )
+        try:
+            x_dir, y_dir       = abs( x_acc )/x_acc, abs( y_acc )/y_acc
+            A                  = x_acc**2 + y_acc**2
+            self.space.gravity = ( x_dir*self.combine( x_acc, (x_acc**2/A)*abs(z_acc) ) * self.world_gravity, 
+                                   y_dir*self.combine( y_acc, (y_acc**2/A)*abs(z_acc) ) * self.world_gravity )
+        except:
+            # Probably a ZeroDivision error because the device-motion updates haven't started.
+            # Hopefully it won't do that next time.
+            pass
 
         # Forward the physics world one unit of time dt in sub_steps sub steps.
         sub_steps = 10

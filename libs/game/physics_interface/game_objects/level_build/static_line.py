@@ -1,6 +1,8 @@
 from _env import *
 
 class PreStaticLine(GameObject):
+    line_width = 1.
+
     def store_relative( self, (ox,oy), (xdim,ydim), (x1,y1), (x2,y2) ):
         # Store the points (in percentages, not absolute postions) and color for later use.
         self.relative_points = (x1-ox)/xdim, (y1-oy)/ydim, (x2-ox)/xdim, (y2-oy)/ydim

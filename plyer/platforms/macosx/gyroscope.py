@@ -32,7 +32,7 @@ class OSXGyroscope(Gyroscope):
         self.thread.shutdown()
 
     def _get_orientation(self):
-        """ Return a 3-tuple of 3 angles in the form of roll, pitch, yaw measured in radians. """
+        """ Return a 3-tuple of 3 angles in the form of x_rot, y_rot, z_rot measured in radians. """
         try:
             # Access the latest data from the device cache.
             x_rot, y_rot, z_rot = self.device_cache[-1]

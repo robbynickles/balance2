@@ -1,6 +1,6 @@
-# A UDP server that listens for messages and then relays the messages to server-side programs as
+# A UDP server that relays incoming messages to server-side programs as
 # if it were a sensor, supplying device data in a specified way at specified intervals.
-# Another machine can send UDP packets containing sensor data to this machine at PORTNO 10552. 
+# The server listens at port 10552.
 
 # A server-side application importing ServerThread needs to do four things:
 # 1. import the module.
@@ -36,7 +36,7 @@ class ServerThread (threading.Thread):
         # (This is the case of a device enabling, disabling, and then enabling.) The handler
         # is already present in the server. The device just needs to tap back in to the incoming data.
         if ServerThread.handler_classes.count( handler ) > 0:
-            # Nullify the run statement so the thread  dies.
+            # Nullify the run statement so the thread just dies.
             self.run = lambda : None
             return
 
@@ -62,11 +62,11 @@ class ServerThread (threading.Thread):
                 self.handler = handler
 
             else:
-                # Store the old handler class.
+                # Kill the current server thread, but not before storing the old handler class.
                 old_handler = existing_server_thread.handler
 
-                # Tell the existing thread to die, but without calling self.shutdown(). Because that would compromise
-                # the meaning of ServerThread.population.
+                # Tell the existing thread to die, but without calling shutdown(). Because that would compromise 
+                # the intended meaning of ServerThread.population.
                 existing_server_thread.server.shutdown()
                 existing_server_thread.server.server_close()
                 

@@ -2,7 +2,7 @@ import threading
 from plyer.platforms.macosx.libs.serverThread import ServerThread
 
 # Management of ServerThread at the application level, specifically meant to 
-# be used in  App.on_stop. Benign to use even if ServerThread is not being used 
+# be used in  App.on_stop. Bengin to use even if ServerThread is not being used 
 
 def find_server_thread():
     # Find out if there is an instance of ServerThread running within the global list of threads.

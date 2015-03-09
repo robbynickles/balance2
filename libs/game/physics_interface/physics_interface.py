@@ -87,15 +87,6 @@ class PhysicsInterface(Widget):
         x_acc, y_acc, z_acc = self.accelerometer.acceleration[:3]
         self.space.gravity = ( x_acc * self.world_gravity, y_acc * self.world_gravity )
 
-        # x_rot, y_rot, z_rot <==> pitch, roll, yaw
-        #x_rot, y_rot, z_rot = self.gyroscope.orientation[:3]
-        
-        # 0 degrees is vertical.
-        #grav = ( -cos( z_rot ) * self.world_gravity, -sin( z_rot ) * self.world_gravity )
-
-        # 0 degrees is horizontal.
-        #self.space.gravity = ( -sin( z_rot ) * self.world_gravity, -cos( z_rot ) * self.world_gravity )
-
         # Forward the physics world one unit of time dt in sub_steps sub steps.
         sub_steps = 10
         for i in range( sub_steps ):

@@ -29,7 +29,7 @@ class OSXAccelerometer(Accelerometer):
         self.thread.shutdown()
 
     def _get_acceleration(self):
-        """ Return a 3-tuple of the 3  accelerations on each axis measured in g-forces. """
+        """ Return a 3-tuple of the accelerations due to gravity on each axis measured in g-forces. """
         try:
             # Access the latest data from the device cache.
             x_acc, y_acc, z_acc = self.device_cache[-1]

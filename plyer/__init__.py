@@ -4,7 +4,7 @@ Plyer
 
 '''
 
-__all__ = ('accelerometer', 'camera', 'gps', 'notification',
+__all__ = ('accelerometer', 'u_accelerometer', 'camera', 'gps', 'notification',
             'tts', 'email', 'vibrator', 'sms', 'compass',
             'gyroscope', 'uniqueid', 'battery')
 
@@ -13,9 +13,13 @@ __version__ = '1.2.4-dev'
 from plyer import facades
 from plyer.utils import Proxy
 
-#: Accelerometer proxy to :class:`plyer.facades.Accelerometer`
+#: Accelerometer proxy to :class:`plyer.facades.Accelerometer` for gravitational acceleration.
 accelerometer = Proxy(
     'accelerometer', facades.Accelerometer)
+
+#: Accelerometer proxy to :class:`plyer.facades.Accelerometer` for user-acceleration.
+u_accelerometer = Proxy(
+    'u_accelerometer', facades.Accelerometer)
 
 #: Camera proxy to :class:`plyer.facades.Camera`
 camera = Proxy(

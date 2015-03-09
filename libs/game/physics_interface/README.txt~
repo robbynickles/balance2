@@ -1,1 +1,0 @@
-The physics interface is the widget that contains the cymunk space. Its job is to sit between gameobjects and the gamelayout. 

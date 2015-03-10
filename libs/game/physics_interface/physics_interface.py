@@ -78,12 +78,13 @@ class PhysicsInterface(Widget):
     def clear_notifications( self ):
         self.notifications = {}
 
+    ##### Acceleromter ---> Tilt mapping helpers.
     def normalize( self, x ):
         "Normalize x (get the direction of the vector)."
         return abs(x) / x
 
     def combine( self, a, b ):
-        "Combine a and b as a Pythagorean diagonal."
+        "Combine a and b to form a Pythagorean diagonal."
         return ( a**2 + b**2 ) ** .5
         
     def transfer_acceleration( self, z_acc ):
@@ -96,7 +97,7 @@ class PhysicsInterface(Widget):
     ##### Step
     # The main physics step. 
     def step(self, dt):
-        # Update the gravity vector (change its angle) with accelerometer data.
+        # Map the real-world gravity vector to the game's gravity vector.
         # The mathematical limitations are such that if x_acc and y_acc are close to zero,
         # it's not known how to tilt gravity. Probably want to pause the game and inform the player
         # that whenever the phone goes perfectly flat, the game will pause. (Modern take on the buzzer

@@ -19,12 +19,23 @@ def offset_pos( self, (x,y) ):
     # If the offset is above, change it to below when the touch is passed 1/4 of the screen.
     # That there is an overlap (i.e. sections of the screen reachable with either the above offset of below offset),
     # ensures all points on the screen are reachable.
-    if self.y_off < 0:
+    if self.y_off < 0: # below-finger (negative) offset
         if self.y + y > self.y + (.75*self.height):
-            self.y_off = 100
-    else:
+            self.y_off = 200
+        elif self.y_off > -200:
+            self.y_off = -200
+    else: # above-finger (positive) offset
         if self.y + y < self.y + (.25*self.height):
             self.y_off = -200
+        elif self.y_off < 200:
+            self.y_off = 200
+
+    # Don't allow an offset to put an endpoint offscreen.
+    if y + self.y_off > self.y + self.height:
+        self.y_off = self.y + self.height - y
+    elif y + self.y_off < self.y:
+        self.y_off = -( y - (self.y) ) 
+
     return x + self.x_off, y + self.y_off
 
 def straightline( self, touch, touch_stage ):
@@ -51,7 +62,7 @@ def straightline( self, touch, touch_stage ):
 
             with self.canvas:
                 Color( 0,1,0,1)
-                self.line_progress = Line( points=[ x,y,touch.x,touch.y ] )
+                self.line_progress = Line( points=[ x,y,touch.x,touch.y ], width=3. )
 
     if touch_stage == 'touch_up':
         destroy_offsets( self )

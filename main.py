@@ -42,8 +42,10 @@ class DrawTiltApp(App):
 if __name__ == '__main__':
     from kivy.core.window import Window
 
-    # Manually set the window size to emulate the iphone screen.
-    Window.size = 640, 960 # Note: 960 is too long for the monitor.
+    from plyer import utils
+    if utils._determine_platform() == 'macosx':
+        # Manually set the window size to emulate the iphone screen.
+        Window.size = int(640/1.5), int(960/1.5)
 
 
     try:

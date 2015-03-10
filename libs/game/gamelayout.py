@@ -48,14 +48,15 @@ class GameLayout(GridLayout):
         self.drawing_toolkit = DrawingToolkit( self )
         self.active_mode = None
 
+        # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
+        self.toolkit_loaded = False
+        self.swipebook = swipebook
+
         self.press_forced = False
 
         # Reference to the line being edited in 'line edit' mode.
         self.target_line = None
 
-        # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
-        swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
-        self.swipebook = swipebook
 
         # self.build_level() builds the level stored in the file named "levels/level{self.level_index}".
         self.level_index  = 1
@@ -66,6 +67,11 @@ class GameLayout(GridLayout):
 
     ##### Load the current level
     def build_level( self ):
+        # Display the drawing_toolkit
+        if not self.toolkit_loaded:
+            self.toolkit_loaded = True
+            self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top', center=True, page=1 )
+
         # Only load the level when the level_index has changed.
         if self.level_loaded != self.level_index:
             load_level.remove_current_load_next( self.level_index, self.physics_interface )

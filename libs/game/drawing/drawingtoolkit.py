@@ -18,15 +18,19 @@ class DrawingToolkit( GridLayout ):
             # Populate gamelayout.switches so that gamelayout can dispatch to the active_mode's drawing function.
             #modes = set(['brush', 'line', 'eraser'])
             modes = set(['line', 'eraser'])
-            for w in self.children:
-                if type(w) == ToggleButton and w.name in modes:
-                    gamelayout.switches[ w.name ] = w
+            for w in [ self.ids.line, self.ids.eraser ]:
+                gamelayout.switches[ w.name ] = w
 
             assert modes == set(gamelayout.switches.keys())
 
             self.gamelayout = gamelayout
             self.dragging = False
 
+        def magnetize( self ):
+            if self.ids.magnet.state == 'down':
+                return True
+            else:
+                return False
 
         ##### Texture loaders for panel buttons
         def load_texture( self, fle ):

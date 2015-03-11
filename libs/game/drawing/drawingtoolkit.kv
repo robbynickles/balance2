@@ -32,20 +32,28 @@
     #             texture: root.get_brush_texture()
     #             pos: self.pos
     #             size: self.size
+    GridLayout:
+        rows: 1
+        
+        ToggleButton:
+            id: line
+            group: 'tools'
+            name: 'line'
+            on_press: root.line_pressed()
 
-    ToggleButton:
-        group: 'tools'
-        name: 'line'
-        on_press: root.line_pressed()
-
-        canvas:
-            Rectangle:
-                texture: root.get_line_texture()
-                pos: self.pos
-                size: self.size
+            canvas:
+                Rectangle:
+                    texture: root.get_line_texture()
+                    pos: self.pos
+                    size: self.size
+        ToggleButton:
+            id: magnet
+            name: 'magnet'
+            text: "Magnetize"
     
     ToggleButton:
         group: 'tools'
+        id: eraser
         name: 'eraser'
         on_press: root.eraser_pressed()
 

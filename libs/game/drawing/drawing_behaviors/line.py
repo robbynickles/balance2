@@ -5,7 +5,7 @@ from utils import distance
 from offsets import build_offsets, destroy_offsets, offset_pos
 import magnet
 
-def straightline( self, touch, touch_stage, tilt ):
+def straightline( self, touch, touch_stage, magnetize ):
     """Do three different things depending on which touch_stage it is."""
 
     if touch_stage == 'touch_down':
@@ -16,7 +16,8 @@ def straightline( self, touch, touch_stage, tilt ):
         self.line_point1 = Vec2d( *touch.pos )
 
         # If the touch is close enough to another user_drawn platform's endpoint, connect them.
-        self.line_point1 = magnet.connect( self, self.line_point1 )
+        if magnetize:
+            self.line_point1 = magnet.connect( self, self.line_point1 )
 
         self.line_progress = None
         
@@ -29,8 +30,9 @@ def straightline( self, touch, touch_stage, tilt ):
             x, y = self.line_point1
 
             # Offset the touch positions to be more visible.
-            touch.pos = offset_pos( self, touch.pos, tilt )
-            touch.pos = magnet.connect( self, touch.pos )
+            touch.pos = offset_pos( self, touch.pos )
+            if magnetize:
+                touch.pos = magnet.connect( self, touch.pos )
             touch.x, touch.y = touch.pos
 
             with self.canvas:
@@ -53,7 +55,7 @@ def straightline( self, touch, touch_stage, tilt ):
             self.line_progress = None
 
 
-def editline( self, touch, touch_stage, tilt ):
+def editline( self, touch, touch_stage, magnetize ):
     """Do three different things depending on which touch_stage it is."""
 
     # editline has access to self.target_line, which is the user_drawn line that triggered the 'edit line' mode activation.
@@ -80,8 +82,11 @@ def editline( self, touch, touch_stage, tilt ):
 
         if self.move_start or self.move_end:
             # Offset the touch positions to be more visible.
-            touch.pos = offset_pos( self, touch.pos, tilt )
-            touch.pos = magnet.connect( self, touch.pos )
+            touch.pos = offset_pos( self, touch.pos )
+
+            if magnetize:
+                touch.pos = magnet.connect( self, touch.pos )
+
             touch.x, touch.y = touch.pos
 
             # Remove the existing user platform entirely.

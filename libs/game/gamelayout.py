@@ -153,7 +153,7 @@ class GameLayout(GridLayout):
             accel = 0,0,0
         except:
             accel = 0,0,0
-        dispatcher.dispatch( self, touch, touch_stage, accel )
+        dispatcher.dispatch( self, touch, touch_stage, self.drawing_toolkit.magnetize() )
 
 
     ##### Animation Step
@@ -192,7 +192,7 @@ class GameLayout(GridLayout):
 
         # Show the drawing toolkit.
         try:
-            self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top', center=True, page=1 )
+            self.swipebook.add_widget_to_layer( self.drawin_toolkit, 'top', center=True, page=1 )
         except:
             import traceback
             from error_log import error_log

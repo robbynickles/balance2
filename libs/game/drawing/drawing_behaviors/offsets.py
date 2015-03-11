@@ -12,7 +12,7 @@ def build_offsets( self, (x, y) ):
 def destroy_offsets( self ):
     self.x_off, self.y_off = None, None
 
-def offset_pos( self, (x,y), tilt ):
+def offset_pos( self, (x,y) ):
     # The idea is that the offset puts the touch either above or below the touch.
     # Whether it's below or above depends on where in the screen is the touch.
     # If the offset is below, change it to above when the touch is passed 3/4 of the screen.

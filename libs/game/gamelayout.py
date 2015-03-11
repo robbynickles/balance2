@@ -95,8 +95,8 @@ class GameLayout(GridLayout):
                 # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
-                if touch.is_double_tap:
-                    # A double-tap on a user-platform is the entry point into 'edit line' mode.
+                if self.active_mode == 'line':
+                    # When in line mode a tap on a user-platform is the entry point into 'edit line' mode.
                     # A double-tap not on a user-platform exits 'edit line' mode.
 
                     # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
@@ -112,12 +112,10 @@ class GameLayout(GridLayout):
                         self.target_line = self.physics_interface.smap[ shape ]
                         self.target_line.draw_endpoints()
 
-                    else: # Exit 'edit line' mode.
-                        self.active_mode = None
-                        if self.target_line:
-                            self.target_line.remove_endpoints()
-                            self.target_line = None
-
+                if touch.is_double_tap:
+                    # A double-tap exits 'edit line' mode.
+                    self.exit_edit_line_mode()
+        
                 if self.active_mode != 'edit line':
                     # Search self.switches for any 'down' buttons. 
                     # Set self.active_mode to the first encounterd 'down' button.
@@ -129,6 +127,12 @@ class GameLayout(GridLayout):
 
                 # Initiate mode behavior based on which mode (if any) is active.
                 self.mode_behavior( touch, 'touch_down' )
+
+    def exit_edit_line_mode( self ):
+        self.active_mode = None
+        if self.target_line:
+            self.target_line.remove_endpoints()
+            self.target_line = None
 
     def on_touch_move(self, touch):
         super(type(self), self).on_touch_move( touch )

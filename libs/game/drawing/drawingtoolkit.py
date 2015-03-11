@@ -76,16 +76,12 @@ class DrawingToolkit( GridLayout ):
         def eraser_pressed( self ):
             # Exit 'edit line' mode.  
             self.gamelayout.active_mode = None
-            if self.gamelayout.target_line:
-                self.gamelayout.target_line.remove_endpoints()
-                self.gamelayout.target_line = None
+            self.gamelayout.exit_edit_line_mode()
 
         def bomb_pressed( self ):
             # Exit 'edit line' mode.  
             self.gamelayout.active_mode = None
-            if self.gamelayout.target_line:
-                self.gamelayout.target_line.remove_endpoints()
-                self.gamelayout.target_line = None
+            self.gamelayout.exit_edit_line_mode()
 
             # Remove all user-drawn platforms.
             for shape, obj in self.gamelayout.physics_interface.smap.items():

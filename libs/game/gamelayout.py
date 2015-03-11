@@ -98,19 +98,20 @@ class GameLayout(GridLayout):
                 if self.active_mode == 'line':
                     # When in line mode a tap on a user-platform is the entry point into 'edit line' mode.
                     # A double-tap not on a user-platform exits 'edit line' mode.
-
                     # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
                     MAX_DIST = 40
-                    shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
+                    shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
 
                     # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
-                    if shape and shape.collision_type == COLLTYPE_USERPLAT:#Be extra sure we're dealin with a user-platform.
+                    if shape and shape.collision_type == COLLTYPE_USERPLAT:
+                        self.exit_edit_line_mode()
+
                         self.active_mode = 'edit line'
-                        if self.target_line:
-                            self.target_line.remove_endpoints()
-                            self.target_line = None
                         self.target_line = self.physics_interface.smap[ shape ]
-                        self.target_line.draw_endpoints()
+
+                        # Destroy the physics body. Add endpoint circles to the render_obj.
+                        self.target_line.remove()
+                        self.target_line.setup_for_editing( self.physics_interface )
 
                 if touch.is_double_tap:
                     # A double-tap exits 'edit line' mode.
@@ -128,10 +129,17 @@ class GameLayout(GridLayout):
                 # Initiate mode behavior based on which mode (if any) is active.
                 self.mode_behavior( touch, 'touch_down' )
 
+    # Exit edit-line mode.
     def exit_edit_line_mode( self ):
         self.active_mode = None
+
         if self.target_line:
-            self.target_line.remove_endpoints()
+            # Prepare target_line to be loaded back into the game normally.
+            self.target_line.tear_down_from_editing()
+
+            # Load target_line.
+            self.target_line.load_into_physics_interface( self.physics_interface )
+
             self.target_line = None
 
     def on_touch_move(self, touch):
@@ -195,12 +203,7 @@ class GameLayout(GridLayout):
         self.engine_running = False
 
         # Show the drawing toolkit.
-        try:
-            self.swipebook.add_widget_to_layer( self.drawin_toolkit, 'top', center=True, page=1 )
-        except:
-            import traceback
-            from error_log import error_log
-            error_log.append_log( traceback.format_exc() )
+        self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top', center=True, page=1 )
 
         # Reset pause and play to default states.
         self.play_toggle( self.ids.play_button, 'normal' )

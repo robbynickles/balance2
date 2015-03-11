@@ -1,6 +1,6 @@
 import transformation
 
-OFFSET = 250
+OFFSET = 200
 
 def build_offsets( self, (x, y) ):
     self.x_off = 0

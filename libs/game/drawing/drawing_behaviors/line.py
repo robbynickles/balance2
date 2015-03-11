@@ -79,18 +79,13 @@ def editline( self, touch, touch_stage, magnetize ):
             self.move_end = True
 
     if touch_stage == 'touch_move':
-
         if self.move_start or self.move_end:
             # Offset the touch positions to be more visible.
             touch.pos = offset_pos( self, touch.pos )
 
             if magnetize:
                 touch.pos = magnet.connect( self, touch.pos )
-
             touch.x, touch.y = touch.pos
-
-            # Remove the existing user platform entirely.
-            self.target_line.remove()
 
             # Move the starting endpoint to the touch position.
             if self.move_start:
@@ -105,13 +100,14 @@ def editline( self, touch, touch_stage, magnetize ):
                                                  self.physics_interface.size, 
                                                  self.line_start,
                                                  touch.pos )
-            # Load the updated user platform.
-            self.target_line.load_into_physics_interface( self.physics_interface )
 
-            # Update the endpoint circles to match the new orientation.
-            self.target_line.draw_endpoints()
+            # Update the render_obj to match the current orientation.
+            self.target_line.adjust_coordinates(self.physics_interface.pos, self.physics_interface.size )
+            self.target_line.update_render_obj()
+            self.target_line.update_endpoints()
 
     if touch_stage == 'touch_up':
+
         destroy_offsets( self )
         self.move_start, self.move_end = False, False
         self.line_start, self.line_end = None, None

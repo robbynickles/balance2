@@ -57,7 +57,6 @@ class GameLayout(GridLayout):
         # Reference to the line being edited in 'line edit' mode.
         self.target_line = None
 
-
         # self.build_level() builds the level stored in the file named "levels/level{self.level_index}".
         self.level_index  = 1
 
@@ -150,7 +149,8 @@ class GameLayout(GridLayout):
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the current mode's drawing function."""
         try:
-            accel = accelerometer.acceleration[:3]
+            #accel = accelerometer.acceleration[:3]
+            accel = 0,0,0
         except:
             accel = 0,0,0
         dispatcher.dispatch( self, touch, touch_stage, accel )
@@ -190,9 +190,13 @@ class GameLayout(GridLayout):
         Clock.unschedule( self.Step )
         self.engine_running = False
 
-
         # Show the drawing toolkit.
-        self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
+        try:
+            self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top', center=True, page=1 )
+        except:
+            import traceback
+            from error_log import error_log
+            error_log.append_log( traceback.format_exc() )
 
         # Reset pause and play to default states.
         self.play_toggle( self.ids.play_button, 'normal' )
@@ -217,7 +221,6 @@ class GameLayout(GridLayout):
 
         # Hide the drawing toolkit.
         self.swipebook.remove_widget_from_layer( self.drawing_toolkit, 'top' )
-
 
         # Schedule self.Step()
         Clock.schedule_interval( self.Step, 1 / 60. )

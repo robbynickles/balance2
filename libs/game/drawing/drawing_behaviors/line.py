@@ -7,6 +7,7 @@ import magnet
 
 def straightline( self, touch, touch_stage, tilt ):
     """Do three different things depending on which touch_stage it is."""
+
     if touch_stage == 'touch_down':
         # Offset the touch positions to be more visible.
         build_offsets( self, touch.pos )

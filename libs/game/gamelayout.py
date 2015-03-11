@@ -64,6 +64,9 @@ class GameLayout(GridLayout):
         # Variable used to store the level_index of the level currently built.
         self.level_loaded = 0
 
+        # Enable the devices.
+        accelerometer.enable()
+        #gyroscope.enable()
 
     ##### Load the current level
     def build_level( self ):
@@ -146,7 +149,11 @@ class GameLayout(GridLayout):
 
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the current mode's drawing function."""
-        dispatcher.dispatch( self, touch, touch_stage )
+        try:
+            accel = accelerometer.acceleration[:3]
+        except:
+            accel = 0,0,0
+        dispatcher.dispatch( self, touch, touch_stage, accel )
 
 
     ##### Animation Step
@@ -183,9 +190,6 @@ class GameLayout(GridLayout):
         Clock.unschedule( self.Step )
         self.engine_running = False
 
-        # Disable the devices.
-        accelerometer.disable()
-        #gyroscope.disable()
 
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
@@ -214,9 +218,6 @@ class GameLayout(GridLayout):
         # Hide the drawing toolkit.
         self.swipebook.remove_widget_from_layer( self.drawing_toolkit, 'top' )
 
-        # Enable the devices.
-        accelerometer.enable()
-        #gyroscope.enable()
 
         # Schedule self.Step()
         Clock.schedule_interval( self.Step, 1 / 60. )
@@ -239,6 +240,10 @@ class GameLayout(GridLayout):
 
     def menu_callback(self, button):
         if self.not_in_a_mode():
+            # Disable the devices.
+            accelerometer.disable()
+            #gyroscope.disable()
+
             self.go_to_menu()
             if self.engine_running:
                 self.reset()

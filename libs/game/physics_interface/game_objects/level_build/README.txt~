@@ -1,0 +1,4 @@
+To add a new game object to the level_builder do  things:
+1. Subclass GameObject, implementing the methods necessary for the particular object O.
+2. Add a method to the physics_interface that creates an instance of O.
+3. Add a feature (either a button or a drawing behavior) to the drawingtoolkit that calls that physics_interface method as its callback.

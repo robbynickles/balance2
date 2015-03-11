@@ -1,0 +1,13 @@
+        MAX_DIST = 20
+        shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
+                                                                             MAX_DIST, 
+                                                                             COLLTYPE_USERPLAT )
+        if shape and shape.collision_type == COLLTYPE_USERPLAT:
+            userline = self.physics_interface.smap[ shape ]
+            start    = userline.points[:2]
+            end      = userline.points[2:]
+
+            if distance( start, touch.pos ) <= MAX_DIST:
+                self.line_point1 = Vec2d( *start )
+            elif distance( end, touch.pos ) <= MAX_DIST:
+                self.line_point1 = Vec2d( *end )

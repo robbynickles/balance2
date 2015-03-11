@@ -1,51 +1,22 @@
 from kivy.graphics import Color, Line
 from cymunk import Vec2d
+
 from utils import distance
+from offsets import build_offsets, destroy_offsets, offset_pos
+import magnet
 
-def build_offsets( self, (x, y) ):
-    self.x_off = 0
-    if self.y + y < self.y + (self.height/2.):
-        self.y_off = -200
-    else:
-        self.y_off = 100
-
-def destroy_offsets( self ):
-    self.x_off, self.y_off = None, None
-
-def offset_pos( self, (x,y) ):
-    # The idea is that the offset puts the touch either above or below the touch.
-    # Whether it's below or above depends on where in the screen is the touch.
-    # If the offset is below, change it to above when the touch is passed 3/4 of the screen.
-    # If the offset is above, change it to below when the touch is passed 1/4 of the screen.
-    # That there is an overlap (i.e. sections of the screen reachable with either the above offset of below offset),
-    # ensures all points on the screen are reachable.
-    if self.y_off < 0: # below-finger (negative) offset
-        if self.y + y > self.y + (.75*self.height):
-            self.y_off = 200
-        elif self.y_off > -200:
-            self.y_off = -200
-    else: # above-finger (positive) offset
-        if self.y + y < self.y + (.25*self.height):
-            self.y_off = -200
-        elif self.y_off < 200:
-            self.y_off = 200
-
-    # Don't allow an offset to put an endpoint offscreen.
-    if y + self.y_off > self.y + self.height:
-        self.y_off = self.y + self.height - y
-    elif y + self.y_off < self.y:
-        self.y_off = -( y - (self.y) ) 
-
-    return x + self.x_off, y + self.y_off
-
-def straightline( self, touch, touch_stage ):
+def straightline( self, touch, touch_stage, tilt ):
     """Do three different things depending on which touch_stage it is."""
     if touch_stage == 'touch_down':
         # Offset the touch positions to be more visible.
         build_offsets( self, touch.pos )
 
         # Store the initial point of the touch.
-        self.line_point1 = Vec2d( touch.x, touch.y )
+        self.line_point1 = Vec2d( *touch.pos )
+
+        # If the touch is close enough to another user_drawn platform's endpoint, connect them.
+        self.line_point1 = magnet.connect( self, self.line_point1 )
+
         self.line_progress = None
         
     if touch_stage == 'touch_move':
@@ -57,7 +28,8 @@ def straightline( self, touch, touch_stage ):
             x, y = self.line_point1
 
             # Offset the touch positions to be more visible.
-            touch.pos = offset_pos( self, touch.pos )
+            touch.pos = offset_pos( self, touch.pos, tilt )
+            touch.pos = magnet.connect( self, touch.pos )
             touch.x, touch.y = touch.pos
 
             with self.canvas:
@@ -80,7 +52,7 @@ def straightline( self, touch, touch_stage ):
             self.line_progress = None
 
 
-def editline( self, touch, touch_stage ):
+def editline( self, touch, touch_stage, tilt ):
     """Do three different things depending on which touch_stage it is."""
 
     # editline has access to self.target_line, which is the user_drawn line that triggered the 'edit line' mode activation.
@@ -107,7 +79,8 @@ def editline( self, touch, touch_stage ):
 
         if self.move_start or self.move_end:
             # Offset the touch positions to be more visible.
-            touch.pos = offset_pos( self, touch.pos )
+            touch.pos = offset_pos( self, touch.pos, tilt )
+            touch.pos = magnet.connect( self, touch.pos )
             touch.x, touch.y = touch.pos
 
             # Remove the existing user platform entirely.

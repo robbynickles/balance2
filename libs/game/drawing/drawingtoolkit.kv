@@ -2,8 +2,8 @@
 <DrawingToolkit>:
     orientation: 'vertical'
     cols: 1
-    size: (230, 230)
-    pos: 800+160+50, 100 # Hack that assumes gamelayout is in the second page with a spacing of .2*w.
+    size: (230, 240)
+    pos: 800+160+50, 100 
     padding: (90, 10)
     spacing: (0, 20)
 
@@ -32,24 +32,23 @@
     #             texture: root.get_brush_texture()
     #             pos: self.pos
     #             size: self.size
-    GridLayout:
-        rows: 1
         
-        ToggleButton:
-            id: line
-            group: 'tools'
-            name: 'line'
-            on_press: root.line_pressed()
+    ToggleButton:
+        id: line
+        group: 'tools'
+        name: 'line'
+        on_press: root.line_pressed()
 
-            canvas:
-                Rectangle:
-                    texture: root.get_line_texture()
-                    pos: self.pos
-                    size: self.size
-        ToggleButton:
-            id: magnet
-            name: 'magnet'
-            text: "Magnetize"
+        canvas:
+            Rectangle:
+                texture: root.get_line_texture()
+                pos: self.pos
+                size: self.size
+
+    ToggleButton:
+        id: magnet
+        name: 'magnet'
+        text: "Magnets"
     
     ToggleButton:
         group: 'tools'

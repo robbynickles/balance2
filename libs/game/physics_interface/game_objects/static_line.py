@@ -26,6 +26,7 @@ class UserStaticLine( PreStaticLine ):
         self.end_points = color, circle1, circle2
 
     def setup_for_editing( self, physics_interface ):
+        self.remove()
         self.physics_interface = physics_interface
         self.build_render_obj()
         for instr in self.render_obj:

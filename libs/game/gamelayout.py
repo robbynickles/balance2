@@ -52,8 +52,6 @@ class GameLayout(GridLayout):
         self.toolkit_loaded = False
         self.swipebook = swipebook
 
-        self.press_forced = False
-
         # Reference to the line being edited in 'line edit' mode.
         self.target_line = None
 
@@ -63,9 +61,8 @@ class GameLayout(GridLayout):
         # Variable used to store the level_index of the level currently built.
         self.level_loaded = 0
 
-        # Enable the devices.
+        # Enable the device.
         accelerometer.enable()
-        #gyroscope.enable()
 
     ##### Load the current level
     def build_level( self ):
@@ -79,12 +76,24 @@ class GameLayout(GridLayout):
             load_level.remove_current_load_next( self.level_index, self.physics_interface )
             self.level_loaded = self.level_index
 
-
     ##### Touch drawing
     def do_drawpt( self, pos ):
         # Boolean used to determine if a point is good to draw.
         # Return True if the position occurs not in the drawing panel, else False.
         return not self.drawing_toolkit.collide_point( *pos )
+
+    # Exit edit-line mode.
+    def exit_edit_line_mode( self ):
+        self.active_mode = None
+
+        if self.target_line:
+            # Prepare target_line to be loaded back into the game normally.
+            self.target_line.tear_down_from_editing()
+
+            # Load target_line.
+            self.target_line.load_into_physics_interface( self.physics_interface )
+
+            self.target_line = None
 
     # Subclass the on_touch methods to implement paint-like drawing interaction.
     # Look to self.switches to set the value of self.active_mode. Then dispatch to the mode's drawing functions.
@@ -95,23 +104,6 @@ class GameLayout(GridLayout):
                 # Don't respond to any touches once 'play' has been pressed.
                 pass
             else: #pause
-                if self.active_mode == 'line':
-                    # When in line mode a tap on a user-platform is the entry point into 'edit line' mode.
-                    # A double-tap not on a user-platform exits 'edit line' mode.
-                    # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
-                    MAX_DIST = 40
-                    shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
-
-                    # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
-                    if shape and shape.collision_type == COLLTYPE_USERPLAT:
-                        self.exit_edit_line_mode()
-
-                        self.active_mode = 'edit line'
-                        self.target_line = self.physics_interface.smap[ shape ]
-
-                        # Destroy the physics body. Add endpoint circles to the render_obj.
-                        self.target_line.remove()
-                        self.target_line.setup_for_editing( self.physics_interface )
 
                 if touch.is_double_tap:
                     # A double-tap exits 'edit line' mode.
@@ -129,18 +121,6 @@ class GameLayout(GridLayout):
                 # Initiate mode behavior based on which mode (if any) is active.
                 self.mode_behavior( touch, 'touch_down' )
 
-    # Exit edit-line mode.
-    def exit_edit_line_mode( self ):
-        self.active_mode = None
-
-        if self.target_line:
-            # Prepare target_line to be loaded back into the game normally.
-            self.target_line.tear_down_from_editing()
-
-            # Load target_line.
-            self.target_line.load_into_physics_interface( self.physics_interface )
-
-            self.target_line = None
 
     def on_touch_move(self, touch):
         super(type(self), self).on_touch_move( touch )
@@ -156,6 +136,25 @@ class GameLayout(GridLayout):
             # Don't respond to any touches once 'play' has been pressed.
             pass
         else: #pause
+
+            # A quick tap on a user-platform enters into edit-line mode.
+            if self.active_mode != 'eraser' and touch.time_end - touch.time_start <= self.QUICK:
+                MAX_DIST = 40
+                
+                # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
+                shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
+                                                                                     MAX_DIST, COLLTYPE_USERPLAT )
+
+                # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
+                if shape and shape.collision_type == COLLTYPE_USERPLAT:
+
+                    # Exit edit line mode for the currently targeted line, if it exists.
+                    self.exit_edit_line_mode()
+                    
+                    self.active_mode = 'edit line'
+                    self.target_line = self.physics_interface.smap[ shape ]
+                    self.target_line.setup_for_editing( self.physics_interface )
+
             self.mode_behavior( touch, 'touch_up' )
 
     def mode_behavior( self, touch, touch_stage ):
@@ -218,13 +217,8 @@ class GameLayout(GridLayout):
         self.play_toggle( self.ids.play_button, 'down' )
         self.pause_toggle( self.ids.pause_button, 'normal' )
 
-        # Exit the active mode.
-        self.active_mode = None
-
-        # Remove endpoints if a line is being edited.
-        if self.target_line != None:
-            self.target_line.remove_endpoints()
-            self.target_line = None
+        # Exit edit-line mode.
+        self.exit_edit_line_mode()
 
         # Hide the drawing toolkit.
         self.swipebook.remove_widget_from_layer( self.drawing_toolkit, 'top' )
@@ -235,7 +229,6 @@ class GameLayout(GridLayout):
 
         # Start Level
         self.physics_interface.start_level()
-
 
     # Texture loaders. 
     def get_menu_texture( self ):
@@ -248,25 +241,30 @@ class GameLayout(GridLayout):
     def not_in_a_mode(self):
         return not any( [ b.state == 'down' for b in self.switches.values() ] ) 
 
+    QUICK = .2
+
     def menu_callback(self, button):
-        if self.not_in_a_mode():
+        t = button.last_touch
+        if t.time_end - t.time_start <= self.QUICK:
+
             # Disable the devices.
             accelerometer.disable()
-            #gyroscope.disable()
 
             self.go_to_menu()
             if self.engine_running:
                 self.reset()
 
     def pause_callback(self, button):
-        if self.not_in_a_mode() and self.engine_running:
+        t = button.last_touch
+        if t.time_end - t.time_start <= self.QUICK and self.engine_running:
             self.reset()
         else:
             # Kivy toggles, even though a response is unwanted. Force 'down' state.
             button.state = 'down'
 
     def play_callback(self, button):
-        if self.not_in_a_mode() and not self.engine_running:
+        t = button.last_touch
+        if t.time_end - t.time_start <= self.QUICK and not self.engine_running:
             self.start_animation()
         else:
             # Kivy toggles, even though a response is unwanted. Force 'down' state.

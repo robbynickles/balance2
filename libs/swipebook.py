@@ -29,13 +29,14 @@ class SwipeBook( ScatterPlane ):
     ##### Initialization
     def __init__(self, *args, **kwargs):
         """ScatterPlane that supports navigation between pages."""
-        super(type(self), self).__init__(*args, **kwargs)
+        # Don't allow any touch navigation.
+        self.do_rotation, self.do_scale, self.do_translation = False, False, False
+
+        super( SwipeBook, self).__init__(*args, **kwargs)
         
         #from kivy.uix.label import Label
         #self.add_widget( Label( text="***** WINDOW DIMENSIONS:  {} x {} *****".format( self.PAGE_W, self.PAGE_H ) ) )  
 
-        # Don't allow any touch navigation.
-        self.do_rotation, self.do_scaling, self.do_translation = False, False, False
         self.pages = []
 
         # Only allow one animation loop at a time.

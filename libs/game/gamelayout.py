@@ -138,7 +138,7 @@ class GameLayout(GridLayout):
         else: #pause
 
             # A quick tap on a user-platform enters into edit-line mode.
-            if self.active_mode != 'eraser' and touch.time_end - touch.time_start <= self.QUICK:
+            if self.active_mode != 'eraser' and self.quick_and_short( touch ):
                 MAX_DIST = 40
                 
                 # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
@@ -159,12 +159,7 @@ class GameLayout(GridLayout):
 
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the current mode's drawing function."""
-        try:
-            #accel = accelerometer.acceleration[:3]
-            accel = 0,0,0
-        except:
-            accel = 0,0,0
-        dispatcher.dispatch( self, touch, touch_stage, self.drawing_toolkit.magnetize() )
+        dispatcher.dispatch( self, touch, touch_stage )
 
 
     ##### Animation Step
@@ -242,11 +237,14 @@ class GameLayout(GridLayout):
         return not any( [ b.state == 'down' for b in self.switches.values() ] ) 
 
     QUICK = .2
+    SHORT = 10
+    def quick_and_short( self, touch ):
+        "True if a touch is a quick tap with little movement."
+        return \
+            touch.time_end - touch.time_start <= self.QUICK and utils.distance( touch.pos, touch.opos ) <= self.SHORT
 
     def menu_callback(self, button):
-        t = button.last_touch
-        if t.time_end - t.time_start <= self.QUICK:
-
+        if self.quick_and_short( button.last_touch ):
             # Disable the devices.
             accelerometer.disable()
 
@@ -256,7 +254,8 @@ class GameLayout(GridLayout):
 
     def pause_callback(self, button):
         t = button.last_touch
-        if t.time_end - t.time_start <= self.QUICK and self.engine_running:
+        if self.quick_and_short( button.last_touch ) and \
+           self.engine_running:
             self.reset()
         else:
             # Kivy toggles, even though a response is unwanted. Force 'down' state.
@@ -264,7 +263,8 @@ class GameLayout(GridLayout):
 
     def play_callback(self, button):
         t = button.last_touch
-        if t.time_end - t.time_start <= self.QUICK and not self.engine_running:
+        if self.quick_and_short( button.last_touch ) and \
+           not self.engine_running:
             self.start_animation()
         else:
             # Kivy toggles, even though a response is unwanted. Force 'down' state.

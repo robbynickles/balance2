@@ -77,6 +77,9 @@ def editline( self, touch, touch_stage, magnetize ):
             self.move_start = True
         if distance( self.line_end, touch.pos ) <= MAX_DIST:
             self.move_end = True
+        else: #check for interior touch.
+            # If interior touch start curve.
+            pass
 
     if touch_stage == 'touch_move':
         if self.move_start or self.move_end:
@@ -105,6 +108,11 @@ def editline( self, touch, touch_stage, magnetize ):
             self.target_line.adjust_coordinates(self.physics_interface.pos, self.physics_interface.size )
             self.target_line.update_render_obj()
             self.target_line.update_endpoints()
+
+    # if curve started:
+    # generate a curve that fits the endpoints and the touch position.
+    # update target line with the vertices (so that load_physics... will load the new curved line.
+    # show the updated renderable.
 
     if touch_stage == 'touch_up':
 

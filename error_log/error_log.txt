@@ -2169,3 +2169,123 @@ Traceback (most recent call last):
 IndexError: tuple index out of range
 
 ****************************************************************************************************
+
+
+Time 10 : 2
+Date 3 - 14 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 275, in post_dispatch_input
+    wid.dispatch('on_touch_up', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 110, in on_touch_up
+    self.dispatch('on_release')
+  File "_event.pyx", line 312, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4491)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1299, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+  File "libs/game/gamelayout.kv", line 28, in <module>
+    on_release: root.play_callback( args[0] )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 267, in play_callback
+    print distance( t.pos, t.opos )
+NameError: global name 'distance' is not defined
+
+****************************************************************************************************
+
+
+Time 10 : 5
+Date 3 - 14 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 275, in post_dispatch_input
+    wid.dispatch('on_touch_up', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 110, in on_touch_up
+    self.dispatch('on_release')
+  File "_event.pyx", line 312, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4491)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1299, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+  File "libs/game/gamelayout.kv", line 28, in <module>
+    on_release: root.play_callback( args[0] )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 268, in play_callback
+    if t.time_end - t.time_start <= self.QUICK and utils.distance( t.pos, t.opos ) <= SHORT and \
+NameError: global name 'SHORT' is not defined
+
+****************************************************************************************************
+
+
+Time 10 : 9
+Date 3 - 14 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 649, in on_motion
+    self.dispatch('on_touch_up', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 675, in on_touch_up
+    if w.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 546, in on_touch_up
+    if super(Scatter, self).on_touch_up(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 306, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 306, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 306, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 141, in on_touch_up
+    if self.active_mode != 'eraser' and self.quick_and_short( touch ):
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 249, in quick_and_short
+    t.time_end - t.time_start <= self.QUICK and utils.distance( t.pos, t.opos ) <= self.SHORT
+NameError: global name 't' is not defined
+
+****************************************************************************************************

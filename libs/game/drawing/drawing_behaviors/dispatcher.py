@@ -2,7 +2,9 @@ import brush, line, eraser
 
 import transformation
 
-def dispatch( self, touch, touch_stage, magnetize ):
+def dispatch( self, touch, touch_stage ):
+    magnetize = self.drawing_toolkit.magnetize()
+
     if self.active_mode != None:
 
         if self.active_mode == 'brush':

@@ -20,11 +20,12 @@ def to_tilt( (x,y,z) ):
         return add_z( x ), add_z( y )
     except:
         # Probably a ZeroDivision error because either the device-motion updates haven't started,
-        # or the phone is flat (z^2 = 1 ====> A = 0 ====> x^2/A ====> Undefined)
+        # or the phone is flat (z^2 = 1 ====> A = 0 ====> x^2/A ====> undefined )
         return 0, 0
 
 def horizontal_line( tilt, ox ):
-    """Return a function that represents the equation of a line 
+    """ (line perpendicular to the current gravity)
+    Return a function that represents the equation of a line 
     with a slope of tilt[1] / tilt[0] 
     centered at (ox, 0) """
     run, rise = tilt

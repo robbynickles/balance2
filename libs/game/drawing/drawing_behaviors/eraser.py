@@ -10,6 +10,7 @@ def erase( self, touch, touch_stage ):
     MAX_DIST = 10
     if touch_stage == 'touch_down':
         # Check if there are any shapes within MAX_DIST. Remove them.
+        # Question:
         # Does this find the nearest COLLTYPE_USERPLAT or does it not return the closest if it's not a COLLTYPE_USERPLAT?
         shape = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), MAX_DIST, COLLTYPE_USERPLAT )
         if shape and shape.collision_type == COLLTYPE_USERPLAT:

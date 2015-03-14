@@ -15,29 +15,29 @@ def destroy_offsets( self ):
 def offset_pos( self, (x,y) ):
     # The idea is that the offset puts the touch either above or below the touch.
     # Whether it's below or above depends on where in the screen is the touch.
-    # If the offset is below, change it to above when the touch is passed 3/4 of the screen.
-    # If the offset is above, change it to below when the touch is passed 1/4 of the screen.
-    # That there is an overlap (i.e. sections of the screen reachable with either the above offset of below offset),
+    # If the offset is below, change it to above when the touch is above 85 percent screen height.
+    # If the offset is above, change it to below when the touch is under 15 percent screen height.
+    # That there is an overlap (i.e. sections of the screen reachable with either the above offset or below offset),
     # ensures all points on the screen are reachable.
 
     mid_line = lambda x: 0#transformation.horizontal_line( tilt, self.x + self.width/2.0 )
 
     if self.y_off < 0: # below-finger (negative) offset
         # Transistion point to above offset.
-        if y > mid_line( x ) + self.y + (.75*self.height):
+        if y > mid_line( x ) + self.y + (.85*self.height):
             self.y_off = OFFSET
         # If the below offset was shrunk last time, give it full magnitude.
         elif self.y_off > -OFFSET:
             self.y_off = -OFFSET
     else: # above-finger (positive) offset
         # Transistion point to below offset.
-        if y < mid_line( x ) + self.y + (.25*self.height):
+        if y < mid_line( x ) + self.y + (.15*self.height):
             self.y_off = -OFFSET
         # If the above offset was shrunk last time, give it full magnitude.
         elif self.y_off < OFFSET:
             self.y_off = OFFSET
 
-    # Don't allow an offset to put an endpoint offscreen.
+    # Don't allow an offset to put an endpoint offscreen. Shrink it to fit.
     if y + self.y_off > self.y + self.height:
         self.y_off = self.y + self.height - y
     elif y + self.y_off < self.y:

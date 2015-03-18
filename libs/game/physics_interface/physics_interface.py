@@ -9,6 +9,7 @@ Builder.load_string('''
 
 import utils
 from game_objects.static_line import UserStaticLine
+from game_objects.static_curve import UserStaticCurve
 from game_objects.falling_ball import Ball
 
 from math import sin, cos
@@ -149,6 +150,10 @@ class PhysicsInterface(Widget):
 
     def add_user_static_line( self, (x1,y1), (x2,y2) ):
         UserStaticLine( self, (x1, y1), (x2, y2) )
+
+    def add_user_static_curve( self, (x1,y1), (x2,y2) ):
+        UserStaticCurve( self, (x1, y1), (x2, y2) )
+
 
     # No good. Ball doesn't roll; raw vertices are too jagged.
     def add_user_freehand_line( self, line_points ):

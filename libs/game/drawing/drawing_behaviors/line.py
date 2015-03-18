@@ -5,7 +5,7 @@ from utils import distance
 from offsets import build_offsets, destroy_offsets, offset_pos
 import magnet
 
-def straightline( self, touch, touch_stage, magnetize ):
+def drawline( self, touch, touch_stage, magnetize ):
     """Do three different things depending on which touch_stage it is."""
 
     if touch_stage == 'touch_down':
@@ -27,14 +27,15 @@ def straightline( self, touch, touch_stage, magnetize ):
         if self.line_point1:
             if self.line_progress:
                 self.canvas.remove( self.line_progress )
-            x, y = self.line_point1
+
 
             # Offset the touch positions to be more visible.
             touch.pos = offset_pos( self, touch.pos )
             if magnetize:
                 touch.pos = magnet.connect( self, touch.pos )
-            touch.x, touch.y = touch.pos
 
+            touch.x, touch.y = touch.pos #update touch.x and touch.y
+            x, y = self.line_point1
             with self.canvas:
                 Color( 0,1,0,1)
                 self.line_progress = Line( points=[ x,y,touch.x,touch.y ], width=3. )
@@ -49,7 +50,9 @@ def straightline( self, touch, touch_stage, magnetize ):
         if self.line_progress:
             lp1 = self.line_progress.points[:2]
             lp2 = self.line_progress.points[2:4]
-            self.physics_interface.add_user_static_line( lp1, lp2 )
+
+            #self.physics_interface.add_user_static_line( lp1, lp2 )
+            self.physics_interface.add_user_static_curve( lp1, lp2 )
 
             self.canvas.remove( self.line_progress )
             self.line_progress = None
@@ -64,58 +67,45 @@ def editline( self, touch, touch_stage, magnetize ):
         # Offset the touch positions to be more visible.
         build_offsets( self, touch.pos )
 
-        # Store the starting endpoints.
-        self.line_start = self.target_line.points[:2]
-        self.line_end   = self.target_line.points[2:]
-
         # Booleans used across function calls to know if either endpoint should be moved.
         self.move_start, self.move_end = False, False
 
         # Move an endpoint if the touch is close enough to it.
-        MAX_DIST = 40
-        if distance( self.line_start, touch.pos ) <= MAX_DIST:
+        if self.target_line.near_start( touch.pos ):
             self.move_start = True
-        if distance( self.line_end, touch.pos ) <= MAX_DIST:
+        if self.target_line.near_end( touch.pos ):
             self.move_end = True
-        else: #check for interior touch.
-            # If interior touch start curve.
-            pass
 
     if touch_stage == 'touch_move':
-        if self.move_start or self.move_end:
+        try:
             # Offset the touch positions to be more visible.
             touch.pos = offset_pos( self, touch.pos )
+        except: # The offsets weren't setup. Don't do anything more.
+            return
 
-            if magnetize:
-                touch.pos = magnet.connect( self, touch.pos )
-            touch.x, touch.y = touch.pos
+        if magnetize:
+            touch.pos = magnet.connect( self, touch.pos )
+            
+        origin, dim = self.physics_interface.pos, self.physics_interface.size
+        
+        # Move the starting endpoint to the touch position.
+        if self.move_start:
+            self.target_line.set_start( origin, dim, touch.pos )
 
-            # Move the starting endpoint to the touch position.
-            if self.move_start:
-                self.target_line.store_relative( self.physics_interface.pos, 
-                                                 self.physics_interface.size, 
-                                                 touch.pos,
-                                                 self.line_end )
+        # Move the ending endpoint to the touch position.
+        elif self.move_end:
+            self.target_line.set_end( origin, dim, touch.pos )
+            
+        # Move the middle point to the touch position.
+        elif self.target_line.curve:
+            self.target_line.set_thirdpt( origin, dim, touch.pos )
 
-            # Move the ending endpoint to the touch position.
-            if self.move_end:
-                self.target_line.store_relative( self.physics_interface.pos, 
-                                                 self.physics_interface.size, 
-                                                 self.line_start,
-                                                 touch.pos )
-
-            # Update the render_obj to match the current orientation.
-            self.target_line.adjust_coordinates(self.physics_interface.pos, self.physics_interface.size )
-            self.target_line.update_render_obj()
-            self.target_line.update_endpoints()
-
-    # if curve started:
-    # generate a curve that fits the endpoints and the touch position.
-    # update target line with the vertices (so that load_physics... will load the new curved line.
-    # show the updated renderable.
+        # Update the render_obj to match the current orientation.
+        self.target_line.adjust_coordinates(origin, dim)
+        self.target_line.update_render_obj()
+        self.target_line.update_endpoints()
 
     if touch_stage == 'touch_up':
-
         destroy_offsets( self )
         self.move_start, self.move_end = False, False
         self.line_start, self.line_end = None, None

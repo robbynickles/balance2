@@ -5,22 +5,21 @@ class GameObject():
         self.reset()
 
     def reset( self ):
-        self.body       = None
-        self.shapes     = []
-        self.space      = None
+        self.body              = None
+        self.shapes            = []
+        self.space             = None
         
-        self.render_obj = ()    # A render_obj is a tuple of canvas instructions.
-        self.before     = False # If before is turned on, render to context.before instead of context.
-        self.context    = None
+        self.render_obj        = ()    # A render_obj is a tuple of canvas instructions.
+        self.before            = False # If before is turned on, render to context.before instead of context.
+        self.context           = None
         
-        self.smap       = {}
+        self.smap              = {}
 
-        self.physics_interface = 0
+        self.physics_interface = None
 
     # These are called when the object is being loaded. Either they contain lines that need to be executed in the running environment,
     # or build nonpickle-able objects.
     def load_into_space_and_context( self, space, context, pos, size ):
-
         # Adjust coordinates based on pos and size.
         self.adjust_coordinates( pos, size )
 
@@ -80,13 +79,15 @@ class GameObject():
                 del self.smap[ sh ]
 
     def load_into_physics_interface( self, physics_interface ):
+        self.physics_interface = physics_interface
+
         self.load_into_space_and_context( physics_interface.space, 
                                           physics_interface.canvas,
                                           physics_interface.pos, 
                                           physics_interface.size )
 
         self.create_shape_mapping( physics_interface.smap )
-        self.physics_interface = physics_interface
+
 
     def remove_from_physics_interface( self ):
         self.remove_from_space_and_context()

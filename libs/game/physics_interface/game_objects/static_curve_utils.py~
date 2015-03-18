@@ -1,0 +1,32 @@
+def distance( a, b ):
+    return sum ( [ (x1-x2)**2 for x1,x2 in zip( a, b ) ] ) ** .5
+
+def polyline( P ):
+    assert len( P ) == 3
+    a,b,c           = P
+    return distance( a,b ) + distance( b, c )
+
+def hyperbola( x ):
+    return ( 1 + x*x ) ** .5
+
+def fit_curve( P ):
+    n  = len(P) - 1 
+    k  = 2          
+    m  = n + k + 1  
+    _t = 1 / (m - k * 2) 
+    
+    # Generate a domain.
+    t = k * [0] + [t_ * _t for t_ in xrange(m - (2 * k) + 1)] + [1] * k
+    
+    # Generate a range over the domain that includes the y-values in P.
+    S = Bspline(P, t, k)
+    
+    points, SEGS    = [], .01 * hyperbola( polylen( P ) )
+    for i in xrange(STEP_N):
+        t_ = i * SEGS
+        try:
+            points += [ S(t_) ]
+        except AssertionError:
+            continue # t_ not in domain.
+            
+    return points

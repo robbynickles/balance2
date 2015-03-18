@@ -11,6 +11,7 @@ def connect( self, pos ):
                                                                          MAX_DIST, 
                                                                          COLLTYPE_USERPLAT & COLLTYPE_LAVA)
     if shape:
+
         # Make sure magnets only connect two endpoints from different lines.
         touching_line = self.physics_interface.smap[ shape ]
         if touching_line != self.target_line and \

@@ -1,0 +1,19 @@
+from _env import *
+from editable import Editable
+from static_curve_utils import fit_curve
+
+class UserStaticCurve( Editable ):
+    color    = (1,0,1,1)
+    colltype = COLLTYPE_USERCURVE
+    curve    = True
+
+    def store_relative( self, (ox,oy), (xdim,ydim) ):
+        # Store the points (in percentages, not absolute postions).
+        self.start, self.thirdpt, self.end = [ ( (x-ox)/xdim, (y-oy)/ydim ) for (x,y) in [self.start, self.thirdpt, self.end] ]
+
+    def adjust_coordinates( self, (ox,oy), (xdim,ydim) ):
+        # Find absolute postion based on the passed-in pos and size.
+        self.start, self.thirdpt, self.end = [ ( (x*xdim)+ox, (y*ydim)+oy ) for (x,y) in [self.start, self.thirdpt, self.end] ]
+
+        # Generate a segementation that approximates the curve.
+        self.points = fit_curve( [ self.start, self.thirdpt, self.end ] )

@@ -82,6 +82,13 @@ class GameLayout(GridLayout):
         # Return True if the position occurs not in the drawing panel, else False.
         return not self.drawing_toolkit.collide_point( *pos )
 
+    QUICK = .2
+    SHORT = 10
+    def quick_and_short( self, touch ):
+        "True if a touch is a quick tap with little movement."
+        return \
+            touch.time_end - touch.time_start <= self.QUICK and utils.distance( touch.pos, touch.opos ) <= self.SHORT
+
     # Exit edit-line mode.
     def exit_edit_line_mode( self ):
         self.active_mode = None
@@ -140,14 +147,13 @@ class GameLayout(GridLayout):
             # A quick tap on a user-platform enters into edit-line mode.
             if self.active_mode != 'eraser' and self.quick_and_short( touch ):
                 MAX_DIST = 40
-                
+
                 # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
                 shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
                                                                                      MAX_DIST, COLLTYPE_USERPLAT )
 
                 # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
                 if shape and shape.collision_type == COLLTYPE_USERPLAT:
-
                     # Exit edit line mode for the currently targeted line, if it exists.
                     self.exit_edit_line_mode()
                     
@@ -236,12 +242,6 @@ class GameLayout(GridLayout):
     def not_in_a_mode(self):
         return not any( [ b.state == 'down' for b in self.switches.values() ] ) 
 
-    QUICK = .2
-    SHORT = 10
-    def quick_and_short( self, touch ):
-        "True if a touch is a quick tap with little movement."
-        return \
-            touch.time_end - touch.time_start <= self.QUICK and utils.distance( touch.pos, touch.opos ) <= self.SHORT
 
     def menu_callback(self, button):
         if self.quick_and_short( button.last_touch ):

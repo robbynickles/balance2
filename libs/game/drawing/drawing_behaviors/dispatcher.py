@@ -11,7 +11,7 @@ def dispatch( self, touch, touch_stage ):
             brush.freehand( self, touch, touch_stage )
     
         if self.active_mode == 'line':
-            line.straightline( self, touch, touch_stage, magnetize )
+            line.drawline( self, touch, touch_stage, magnetize )
 
         if self.active_mode == 'edit line':
             line.editline( self, touch, touch_stage, magnetize )

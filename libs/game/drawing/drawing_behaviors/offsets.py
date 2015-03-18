@@ -22,17 +22,24 @@ def offset_pos( self, (x,y) ):
 
     mid_line = lambda x: 0#transformation.horizontal_line( tilt, self.x + self.width/2.0 )
 
+
     if self.y_off < 0: # below-finger (negative) offset
+
         # Transistion point to above offset.
         if y > mid_line( x ) + self.y + (.85*self.height):
             self.y_off = OFFSET
+
         # If the below offset was shrunk last time, give it full magnitude.
         elif self.y_off > -OFFSET:
             self.y_off = -OFFSET
+
+
     else: # above-finger (positive) offset
+
         # Transistion point to below offset.
         if y < mid_line( x ) + self.y + (.15*self.height):
             self.y_off = -OFFSET
+
         # If the above offset was shrunk last time, give it full magnitude.
         elif self.y_off < OFFSET:
             self.y_off = OFFSET

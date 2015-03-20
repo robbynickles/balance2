@@ -7,7 +7,7 @@ from kivy.core.image import Image
 from kivy.lang import Builder
 Builder.load_file( 'libs/game/drawing/drawingtoolkit.kv' )
 
-from libs.game.physics_interface.game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT
+from libs.game.physics_interface.game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT, COLLTYPE_USERCURVE
 
 class DrawingToolkit( GridLayout ):
         
@@ -17,8 +17,8 @@ class DrawingToolkit( GridLayout ):
 
             # Populate gamelayout.switches so that gamelayout can dispatch to the active_mode's drawing function.
             #modes = set(['brush', 'line', 'eraser'])
-            modes = set(['line', 'eraser'])
-            for w in [ self.ids.line, self.ids.eraser ]:
+            modes = set(['line', 'curve', 'eraser'])
+            for w in [ self.ids.line, self.ids.curve, self.ids.eraser ]:
                 gamelayout.switches[ w.name ] = w
 
             assert modes == set(gamelayout.switches.keys())
@@ -85,7 +85,7 @@ class DrawingToolkit( GridLayout ):
 
             # Remove all user-drawn platforms.
             for shape, obj in self.gamelayout.physics_interface.smap.items():
-                if shape.collision_type == COLLTYPE_USERPLAT:
+                if shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE:
                         obj.remove()
 
 

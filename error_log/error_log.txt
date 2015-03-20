@@ -3663,3 +3663,314 @@ Traceback (most recent call last):
 AttributeError: UserStaticCurve instance has no attribute 'curve'
 
 ****************************************************************************************************
+
+
+Time 20 : 31
+Date 3 - 18 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 649, in on_motion
+    self.dispatch('on_touch_up', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 675, in on_touch_up
+    if w.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 546, in on_touch_up
+    if super(Scatter, self).on_touch_up(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 306, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 306, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 306, in on_touch_up
+    if child.dispatch('on_touch_up', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 154, in on_touch_up
+    COLLTYPE_USERPLAT | COLLTYPE_USERCURVE )
+NameError: global name 'COLLTYPE_USERCURVE' is not defined
+
+****************************************************************************************************
+
+
+Time 20 : 35
+Date 3 - 18 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 647, in on_motion
+    self.dispatch('on_touch_move', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 666, in on_touch_move
+    if w.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 511, in on_touch_move
+    if super(Scatter, self).on_touch_move(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 138, in on_touch_move
+    self.mode_behavior( touch, 'touch_move' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 169, in mode_behavior
+    dispatcher.dispatch( self, touch, touch_stage )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/dispatcher.py", line 14, in dispatch
+    line.drawline( self, touch, touch_stage, magnetize )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/line.py", line 35, in drawline
+    touch.pos = magnet.connect( self, touch.pos )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/magnet.py", line 23, in connect
+    if distance( start, pos ) <= MAX_DIST:
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/utils.py", line 2, in distance
+    return sum ( [ (x1-x2)**2 for x1,x2 in zip( a, b ) ] ) ** .5
+TypeError: unsupported operand type(s) for -: 'tuple' and 'float'
+
+****************************************************************************************************
+
+
+Time 20 : 37
+Date 3 - 18 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 647, in on_motion
+    self.dispatch('on_touch_move', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 666, in on_touch_move
+    if w.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 511, in on_touch_move
+    if super(Scatter, self).on_touch_move(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 138, in on_touch_move
+    self.mode_behavior( touch, 'touch_move' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 169, in mode_behavior
+    dispatcher.dispatch( self, touch, touch_stage )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/dispatcher.py", line 14, in dispatch
+    line.drawline( self, touch, touch_stage, magnetize )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/line.py", line 35, in drawline
+    touch.pos = magnet.connect( self, touch.pos )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/magnet.py", line 23, in connect
+    if distance( start, pos ) <= MAX_DIST:
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/utils.py", line 2, in distance
+    return sum ( [ (x1-x2)**2 for x1,x2 in zip( a, b ) ] ) ** .5
+TypeError: unsupported operand type(s) for -: 'tuple' and 'float'
+
+****************************************************************************************************
+
+
+Time 20 : 49
+Date 3 - 18 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawingtoolkit.py", line 51, in on_touch_down
+    super(type(self), self).on_touch_down( touch )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 93, in on_touch_down
+    self.dispatch('on_press')
+  File "_event.pyx", line 312, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4491)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1299, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+  File "libs/game/drawing/drawingtoolkit.kv", line 76, in <module>
+    on_press: root.bomb_pressed()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawingtoolkit.py", line 88, in bomb_pressed
+    if shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE:
+NameError: global name 'COLLTYPE_USERCURVE' is not defined
+
+****************************************************************************************************
+
+
+Time 13 : 45
+Date 3 - 20 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 33, in build
+    swipe_book.add_page( level_selector )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 81, in add_page
+    page_wrapper.add_widget( widget )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/boxlayout.py", line 212, in add_widget
+    pos_hint=self._trigger_layout)
+TypeError: descriptor 'bind' of 'kivy._event.EventDispatcher' object needs an argument
+
+****************************************************************************************************
+
+
+Time 13 : 47
+Date 3 - 20 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 33, in build
+    swipe_book.add_page( level_selector )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 81, in add_page
+    page_wrapper.add_widget( widget )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/boxlayout.py", line 212, in add_widget
+    pos_hint=self._trigger_layout)
+TypeError: descriptor 'bind' of 'kivy._event.EventDispatcher' object needs an argument
+
+****************************************************************************************************
+
+
+Time 13 : 48
+Date 3 - 20 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector()
+TypeError: __init__() takes at least 3 arguments (1 given)
+
+****************************************************************************************************
+
+
+Time 13 : 49
+Date 3 - 20 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 21, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 14, in __init__
+    self.text = index
+  File "properties.pyx", line 345, in kivy.properties.Property.__set__ (kivy/properties.c:3576)
+  File "properties.pyx", line 374, in kivy.properties.Property.set (kivy/properties.c:4008)
+ValueError: LevelButton.text accept only str
+
+****************************************************************************************************
+
+
+Time 13 : 50
+Date 3 - 20 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 32, in build
+    swipe_book.add_page( root_menu )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 82, in add_page
+    self.add_widget_to_layer( page_wrapper, 'bottom' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 59, in add_widget_to_layer
+    if center and page:
+NameError: global name 'center' is not defined
+
+****************************************************************************************************

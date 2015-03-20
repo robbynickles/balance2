@@ -10,7 +10,7 @@ from drawing.drawingtoolkit import DrawingToolkit
 from drawing.drawing_behaviors import dispatcher
 from physics_interface.physics_interface import PhysicsInterface
 
-from physics_interface.game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT
+from physics_interface.game_objects.collision_handlers import COLLTYPE_DEFAULT, COLLTYPE_BALL, COLLTYPE_USERPLAT, COLLTYPE_USERCURVE
 from cymunk import Vec2d
 
 import utils, load_level
@@ -69,7 +69,8 @@ class GameLayout(GridLayout):
         # Display the drawing_toolkit
         if not self.toolkit_loaded:
             self.toolkit_loaded = True
-            self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top', center=True, page=1 )
+            self.drawing_toolkit.pos = self.x+self.width/2., self.y+self.height/2.
+            self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
 
         # Only load the level when the level_index has changed.
         if self.level_loaded != self.level_index:
@@ -84,6 +85,7 @@ class GameLayout(GridLayout):
 
     QUICK = .2
     SHORT = 10
+    # This method is best used in on_release, that way everything is known about the touch.
     def quick_and_short( self, touch ):
         "True if a touch is a quick tap with little movement."
         return \
@@ -97,9 +99,10 @@ class GameLayout(GridLayout):
             # Prepare target_line to be loaded back into the game normally.
             self.target_line.tear_down_from_editing()
 
-            # Load target_line.
+            # Load target_line normally.
             self.target_line.load_into_physics_interface( self.physics_interface )
 
+            # Remove the reference to it.
             self.target_line = None
 
     # Subclass the on_touch methods to implement paint-like drawing interaction.
@@ -150,13 +153,14 @@ class GameLayout(GridLayout):
 
                 # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
                 shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
-                                                                                     MAX_DIST, COLLTYPE_USERPLAT )
+                                                                                     MAX_DIST, 
+                                                                                     COLLTYPE_USERPLAT | COLLTYPE_USERCURVE )
 
                 # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
-                if shape and shape.collision_type == COLLTYPE_USERPLAT:
+                if shape and (shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE):
+                    
                     # Exit edit line mode for the currently targeted line, if it exists.
                     self.exit_edit_line_mode()
-                    
                     self.active_mode = 'edit line'
                     self.target_line = self.physics_interface.smap[ shape ]
                     self.target_line.setup_for_editing( self.physics_interface )
@@ -203,7 +207,7 @@ class GameLayout(GridLayout):
         self.engine_running = False
 
         # Show the drawing toolkit.
-        self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top', center=True, page=1 )
+        self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
 
         # Reset pause and play to default states.
         self.play_toggle( self.ids.play_button, 'normal' )

@@ -1,0 +1,19 @@
+#:kivy 1.8.0
+<LevelSelector>:
+    orientaion: 'vertical'
+
+    BoxLayout:
+        id: top_of_screen_buttons
+        size_hint_y: None
+        height: 80
+        spacing: (150, 0)
+        orientation: 'horizontal'
+
+        Button:
+            text: 'Back'
+            on_press: root.back_callback() 
+
+        Label:
+            text: 'Level Selection'
+
+

@@ -16,5 +16,8 @@ def dispatch( self, touch, touch_stage ):
         if self.active_mode == 'edit line':
             line.editline( self, touch, touch_stage, magnetize )
 
+        if self.active_mode == 'curve':
+            line.drawline( self, touch, touch_stage, magnetize, curve=True )
+
         if self.active_mode == 'eraser':
             eraser.erase( self, touch, touch_stage )

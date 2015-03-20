@@ -55,9 +55,7 @@ class SwipeBook( ScatterPlane ):
 
     ##### Widget adding/removing with layer control
     # Any widget added to a layer 'above' another layer is rendered on top of all widgets in the 'lower' layer.
-    def add_widget_to_layer( self, widg, layer, center=False, page=None):
-        if center and page:
-            widg.pos = self.pages[ page ].x + self.PAGE_W/2., self.pages[ page ].y + self.PAGE_H/2.
+    def add_widget_to_layer( self, widg, layer ):
         if layer == 'top':
             self.top_layer.add_widget( widg )
         if layer == 'bottom':

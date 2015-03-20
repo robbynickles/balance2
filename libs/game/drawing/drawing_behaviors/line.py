@@ -5,7 +5,7 @@ from utils import distance
 from offsets import build_offsets, destroy_offsets, offset_pos
 import magnet
 
-def drawline( self, touch, touch_stage, magnetize ):
+def drawline( self, touch, touch_stage, magnetize, curve=False ):
     """Do three different things depending on which touch_stage it is."""
 
     if touch_stage == 'touch_down':
@@ -36,8 +36,14 @@ def drawline( self, touch, touch_stage, magnetize ):
 
             touch.x, touch.y = touch.pos #update touch.x and touch.y
             x, y = self.line_point1
+
+            if curve:
+                color = ( 1,0,1,1)
+            else:
+                color = ( 0,1,0,1)
+
             with self.canvas:
-                Color( 0,1,0,1)
+                Color( *color )
                 self.line_progress = Line( points=[ x,y,touch.x,touch.y ], width=3. )
 
     if touch_stage == 'touch_up':
@@ -51,8 +57,11 @@ def drawline( self, touch, touch_stage, magnetize ):
             lp1 = self.line_progress.points[:2]
             lp2 = self.line_progress.points[2:4]
 
-            #self.physics_interface.add_user_static_line( lp1, lp2 )
-            self.physics_interface.add_user_static_curve( lp1, lp2 )
+            if curve:
+                self.physics_interface.add_user_static_curve( lp1, lp2 )
+            else:
+                self.physics_interface.add_user_static_line( lp1, lp2 )
+
 
             self.canvas.remove( self.line_progress )
             self.line_progress = None

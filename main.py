@@ -3,6 +3,7 @@ from kivy.app import App
 from libs.swipebook import SwipeBook
 from libs.menu.menu import Menu
 from libs.game.gamelayout import GameLayout
+from libs.level_selector.level_selector import LevelSelector
 
 from plyer.libs.server_utils import shutdown_server_thread
 
@@ -23,18 +24,17 @@ class DrawTiltApp(App):
         shutdown_server_thread()
 
     def build(self):
-        swipe_book = SwipeBook()
-        root_menu  = Menu()
-        game_page  = GameLayout( swipe_book ) 
+        swipe_book     = SwipeBook()
+        root_menu      = Menu()
+        game_page      = GameLayout( swipe_book ) 
+        level_selector = LevelSelector( game_page, swipe_book.swipe_right )
 
         swipe_book.add_page( root_menu )
+        swipe_book.add_page( level_selector )
         swipe_book.add_page( game_page )
 
-        def play_game_callback():
-            swipe_book.swipe_right()
-            game_page.build_level()
-            
-        root_menu.play_game  = play_game_callback
+        root_menu.play_game  = swipe_book.swipe_right
+        level_selector.back  = swipe_book.swipe_left
         game_page.go_to_menu = swipe_book.swipe_left
 
         return swipe_book

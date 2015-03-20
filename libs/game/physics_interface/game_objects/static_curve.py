@@ -4,8 +4,7 @@ from static_curve_utils import fit_curve
 
 class UserStaticCurve( Editable ):
     color    = (1,0,1,1)
-    #colltype = COLLTYPE_USERCURVE
-    colltype = COLLTYPE_USERPLAT
+    colltype = COLLTYPE_USERCURVE
     curve    = True
 
     def adjust_coordinates( self, (ox,oy), (xdim,ydim) ):

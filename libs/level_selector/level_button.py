@@ -28,7 +28,7 @@ class LevelButton( Button ):
         self.custom_texture = load_texture( "Resources/{}.png".format( index ) )
 
         self.lock_screen = Rectangle()
-        self.lock_color  = Color( 1,1,1,.8 )
+        self.lock_color  = Color( 0,0,0,0 )
         self.canvas.add( self.lock_color )
         self.canvas.add( self.lock_screen )
     

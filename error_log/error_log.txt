@@ -3974,3 +3974,366 @@ Traceback (most recent call last):
 NameError: global name 'center' is not defined
 
 ****************************************************************************************************
+
+
+Time 14 : 17
+Date 3 - 20 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 53, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 17, in __init__
+    super(LevelSelector, self).__init__( *args, **kwargs )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/gridlayout.py", line 251, in __init__
+    super(GridLayout, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/layout.py", line 63, in __init__
+    super(Layout, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1673, in _apply_rule
+    self._apply_rule(child, crule, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1673, in _apply_rule
+    self._apply_rule(child, crule, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_selector.kv", line 19:
+...
+     17:            canvas:
+     18:                Rectangle:
+>>   19:                    texture: root.get_back_texture()
+     20:                    pos: self.x+self.width/2.0-48, self.y+self.height/2.0-48
+     21:                    size: 96,96
+...
+BuilderException: Parser: File "libs/level_selector/level_selector.kv", line 19:
+...
+     17:            canvas:
+     18:                Rectangle:
+>>   19:                    texture: root.get_back_texture()
+     20:                    pos: self.x+self.width/2.0-48, self.y+self.height/2.0-48
+     21:                    size: 96,96
+...
+AttributeError: 'LevelSelector' object has no attribute 'get_back_texture'
+
+****************************************************************************************************
+
+
+Time 10 : 31
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 22, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 16, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 8:
+...
+      6:    canvas:
+      7:        Rectangle:
+>>    8:            texture: self.get_texture()
+      9:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     10:            size: 96,96
+...
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 8:
+...
+      6:    canvas:
+      7:        Rectangle:
+>>    8:            texture: self.get_texture()
+      9:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     10:            size: 96,96
+...
+AttributeError: 'LevelButton' object has no attribute 'index'
+
+****************************************************************************************************
+
+
+Time 10 : 31
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 22, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 19, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 8:
+...
+      6:    canvas:
+      7:        Rectangle:
+>>    8:            texture: self.get_texture()
+      9:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     10:            size: 96,96
+...
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 8:
+...
+      6:    canvas:
+      7:        Rectangle:
+>>    8:            texture: self.get_texture()
+      9:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     10:            size: 96,96
+...
+ValueError: No image to load at 'None'
+
+****************************************************************************************************
+
+
+Time 10 : 32
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 22, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 18, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 8:
+...
+      6:    canvas:
+      7:        Rectangle:
+>>    8:            texture: self.get_texture()
+      9:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     10:            size: 96,96
+...
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 8:
+...
+      6:    canvas:
+      7:        Rectangle:
+>>    8:            texture: self.get_texture()
+      9:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     10:            size: 96,96
+...
+ValueError: No image to load at 'None'
+
+****************************************************************************************************
+
+
+Time 10 : 40
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 22, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 20, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 9:
+...
+      7:    canvas:
+      8:        Rectangle:
+>>    9:            texture: self.get_texture()
+     10:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     11:            size: 96,96
+...
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 9:
+...
+      7:    canvas:
+      8:        Rectangle:
+>>    9:            texture: self.get_texture()
+     10:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     11:            size: 96,96
+...
+ValueError: No image to load at 'None'
+
+****************************************************************************************************
+
+
+Time 10 : 41
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 22, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 20, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 9:
+...
+      7:    canvas:
+      8:        Rectangle:
+>>    9:            texture: self.get_texture( self.index )
+     10:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     11:            size: 96,96
+...
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 9:
+...
+      7:    canvas:
+      8:        Rectangle:
+>>    9:            texture: self.get_texture( self.index )
+     10:            pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+     11:            size: 96,96
+...
+ValueError: No image to load at 'None'
+
+****************************************************************************************************
+
+
+Time 12 : 7
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 29, in build
+    game_page      = GameLayout( swipe_book )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 63, in __init__
+    self.levels_unlocked = [True] + [ False for i in range( LEVELS - 1 ) ]
+NameError: global name 'LEVELS' is not defined
+
+****************************************************************************************************
+
+
+Time 12 : 8
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 321, in idle
+    Clock.tick()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 422, in tick
+    self._process_events()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 537, in _process_events
+    if event.tick(self._last_tick) is False:
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 309, in tick
+    ret = callback(self._dt)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 202, in Step
+    self.unlock_level()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 73, in unlock_level
+    self.levels_completed[ self.level_index - 1 ] = True
+AttributeError: 'GameLayout' object has no attribute 'levels_completed'
+
+****************************************************************************************************
+
+
+Time 12 : 21
+Date 3 - 21 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 25, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 23, in __init__
+    self.color       = Color(1,1,1,.8)
+  File "properties.pyx", line 345, in kivy.properties.Property.__set__ (kivy/properties.c:3576)
+  File "properties.pyx", line 626, in kivy.properties.ListProperty.set (kivy/properties.c:8794)
+  File "properties.pyx", line 543, in kivy.properties.ObservableList.__init__ (kivy/properties.c:6264)
+TypeError: 'kivy.graphics.context_instructions.Color' object is not iterable
+
+****************************************************************************************************

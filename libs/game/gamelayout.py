@@ -15,6 +15,7 @@ from cymunk import Vec2d
 
 import utils, load_level
 
+LEVELS = 5
 
 class GameLayout(GridLayout):
     ##### Initialization
@@ -58,11 +59,21 @@ class GameLayout(GridLayout):
         # self.build_level() builds the level stored in the file named "levels/level{self.level_index}".
         self.level_index  = 1
 
+        # Keep track of which levels have been unlocked.
+        # By default, only the first level is unlocked.
+        self.levels_unlocked = [True] + [ False for i in range( LEVELS - 1 ) ]
+
         # Variable used to store the level_index of the level currently built.
         self.level_loaded = 0
 
         # Enable the device.
         accelerometer.enable()
+
+    def unlock_next_level( self ):
+        self.levels_unlocked[ self.level_index ] = True
+
+    def get_unlocked_levels( self ):
+        return self.levels_unlocked
 
     ##### Load the current level
     def build_level( self ):
@@ -70,6 +81,7 @@ class GameLayout(GridLayout):
         if not self.toolkit_loaded:
             self.toolkit_loaded = True
             self.drawing_toolkit.pos = self.x+self.width/2., self.y+self.height/2.
+            #self.drawing_toolkit.pos = self.x+self.width, self.y+self.height
             self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
 
         # Only load the level when the level_index has changed.
@@ -186,6 +198,8 @@ class GameLayout(GridLayout):
                     self.reset()
 
                 if notice == 'Level Complete':
+
+                    self.unlock_next_level()
                     self.level_index += 1
                     self.build_level()
                     self.reset()

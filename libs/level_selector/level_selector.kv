@@ -10,10 +10,25 @@
         orientation: 'horizontal'
 
         Button:
-            text: 'Back'
+            size_hint_x: .2
+
             on_press: root.back_callback() 
 
+            background_color: (0,0,0,0)
+            canvas:
+                Rectangle:
+                    texture: root.get_back_texture()
+                    pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+                    size: 96,96
+
+
         Label:
-            text: 'Level Selection'
+            background_color: (0,0,0,0)
+            canvas:
+                Rectangle:
+                    texture: root.get_levels_texture()
+                    pos: self.x+(self.width/2.0)-48, self.y+(self.height/2.0)-48
+                    size: 96,96
+
 
 

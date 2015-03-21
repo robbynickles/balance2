@@ -11,6 +11,7 @@ if utils._determine_platform() == 'macosx':
     # Manually set the window size to emulate the iphone screen.
     #Window.size = int(640/1.5), int(960/1.5)
     Window.size = 640, 960
+    pass
 
 # Simple data structure for storing the positon and dimensions of a page.
 class Page():

@@ -1,0 +1,55 @@
+#:kivy 1.8.0
+<GameLayout>:
+    cols: 1
+
+    # Top-of-the-screen buttons. Single row of three buttons at the top of the game_layout.
+    # Most of the gamelayout is taken up by the physics interface that resides beneath these three buttons.
+    BoxLayout:
+        id: top_of_screen_buttons
+        size_hint_y: None
+        height: 80
+        spacing: (150, 0)
+        orientation: 'horizontal'
+
+        Button:
+            id: menu_button
+            on_release: root.menu_callback(args[0])
+
+            background_color: (0,0,0,0)
+            canvas:
+                Rectangle:
+                    texture: root.get_menu_texture()
+                    pos: self.x+self.width/2.0-48, self.y+self.height/2.0-48
+                    size: 96,96
+
+        ToggleButton:
+            id: play_button
+            group: 'play/pause'
+            on_release: root.play_callback( args[0] )
+
+            background_color: (0,0,0,0)
+            canvas:
+                Rectangle:
+                    texture: root.get_play_normal_texture()
+                    pos: self.x+self.width/2.0-16, self.y+self.height/2.0-16
+                    size: 32,32
+
+        ToggleButton:
+            id: pause_button
+            group: 'play/pause'
+            on_release: root.pause_callback( args[0] )
+            state: 'down'
+
+            background_color: (0,0,0,0)
+            canvas:
+                Rectangle:
+                    texture: root.get_pause_down_texture()
+                    pos: self.x+self.width/2.0-16, self.y+self.height/2.0-16
+                    size: 32,32
+            
+
+
+
+    
+
+

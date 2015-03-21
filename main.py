@@ -33,9 +33,17 @@ class DrawTiltApp(App):
         swipe_book.add_page( level_selector )
         swipe_book.add_page( game_page )
 
-        root_menu.play_game  = swipe_book.swipe_right
+        def root_right():
+            level_selector.load()
+            swipe_book.swipe_right()
+
+        def game_left():
+            level_selector.load()
+            swipe_book.swipe_left()
+
+        root_menu.play_game  = root_right
         level_selector.back  = swipe_book.swipe_left
-        game_page.go_to_menu = swipe_book.swipe_left
+        game_page.go_to_menu = game_left
 
         return swipe_book
 
@@ -47,7 +55,7 @@ if __name__ == '__main__':
         # Manually set the window size to emulate the iphone screen.
         #Window.size = int(640/1.5), int(960/1.5)
         Window.size = 640, 960
-
+        pass
 
     try:
         DrawTiltApp().run()

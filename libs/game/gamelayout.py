@@ -49,6 +49,7 @@ class GameLayout(GridLayout):
         # When the player toggles a button, its state is visible in self.switches. Then, the dispatcher will know
         # which drawing function to call when it recieves new touch data.
         self.drawing_toolkit = DrawingToolkit( self )
+        self.drawing_enabled = False
         self.active_mode = None
 
         # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
@@ -91,6 +92,8 @@ class GameLayout(GridLayout):
     ##### Load the current level
     def build_level( self ):
         # Load the drawing_toolkit
+        self.drawing_enabled = True
+
         if not self.toolkit_loaded:
             self.toolkit_loaded = True
             self.drawing_toolkit.pos = self.x+self.width/2., self.y+self.height/2.
@@ -199,7 +202,8 @@ class GameLayout(GridLayout):
 
     def mode_behavior( self, touch, touch_stage ):
         """Dispatch function: call the current mode's drawing function."""
-        dispatcher.dispatch( self, touch, touch_stage )
+        if self.drawing_enabled:
+            dispatcher.dispatch( self, touch, touch_stage )
 
 
     ##### Animation Step
@@ -296,6 +300,7 @@ class GameLayout(GridLayout):
             accelerometer.disable()
 
             self.go_to_menu()
+            self.drawing_enabled = False
             if self.engine_running:
                 self.reset()
 

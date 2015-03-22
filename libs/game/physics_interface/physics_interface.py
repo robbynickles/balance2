@@ -151,10 +151,13 @@ class PhysicsInterface(Widget):
     def length_of_user_lines( self ):
 
         # Adjust self.user_lines so that it reflects the current set of gameobjects.
-        current_objects = set( self.smap.values() )
+        current_objects = self.get_game_objects()
+        current_lines   = []
         for l in self.user_lines:
-            if l not in current_objects:
-                self.user_lines.remove( l )
+            if l in current_objects:
+                current_lines += [ l ]
+
+        self.user_lines = current_lines
 
         return sum( [ l.length() for l in self.user_lines ] )
 

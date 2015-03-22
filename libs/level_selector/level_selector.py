@@ -28,12 +28,14 @@ class LevelSelector(GridLayout):
 
         self.level_buttons = G
         self.get_unlocked_levels = gamelayout.get_unlocked_levels
+        self.get_level_scores    = gamelayout.get_level_scores
 
     def load( self ):
         # Lock or Unlock all buttons so that their state reflects the current game completion state.
         current_state = self.get_unlocked_levels()
+        current_scores = self.get_level_scores()
         for b in self.level_buttons.children:
-            b.unlock( current_state[ b.index - 1 ]  )
+            b.unlock( current_state[ b.index - 1 ], current_scores[ b.index - 1 ]  )
 
     def back_callback( self ):
         self.back()

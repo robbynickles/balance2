@@ -4610,3 +4610,217 @@ Traceback (most recent call last):
 AttributeError: 'GameLayout' object has no attribute 'drawing_toolkit'
 
 ****************************************************************************************************
+
+
+Time 13 : 39
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 25, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 21, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1673, in _apply_rule
+    self._apply_rule(child, crule, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 11:
+...
+      9:        canvas:
+     10:            Rectangle:
+>>   11:                texture: self.custom_texture
+     12:                pos: self.x+(self.width/2.0)-(48+24), self.y+(self.height/2.0)-(48+24+12)
+     13:                size: 96+48,96+48+24
+...
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 11:
+...
+      9:        canvas:
+     10:            Rectangle:
+>>   11:                texture: self.custom_texture
+     12:                pos: self.x+(self.width/2.0)-(48+24), self.y+(self.height/2.0)-(48+24+12)
+     13:                size: 96+48,96+48+24
+...
+AttributeError: 'Widget' object has no attribute 'custom_texture'
+
+****************************************************************************************************
+
+
+Time 13 : 45
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 93, in on_touch_down
+    self.dispatch('on_press')
+  File "_event.pyx", line 312, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4491)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1299, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+  File "libs/menu/menu.kv", line 12, in <module>
+    on_press: root.play_callback()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/menu/menu.py", line 13, in play_callback
+    self.play_game()
+  File "main.py", line 37, in root_right
+    level_selector.load()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 36, in load
+    b.unlock( current_state[ b.index - 1 ]  )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 39, in unlock
+    self.custom_texture = load_texture( "Resources/{}.png".format( index ) )
+NameError: global name 'index' is not defined
+
+****************************************************************************************************
+
+
+Time 13 : 58
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 30, in build
+    level_selector = LevelSelector( game_page, swipe_book.swipe_right )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 25, in __init__
+    G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 22, in __init__
+    super( LevelButton, self).__init__(*args, **kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 72, in __init__
+    super(ButtonBehavior, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/label.py", line 131, in __init__
+    super(Label, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1704, in _apply_rule
+    e))
+BuilderException: Parser: File "libs/level_selector/level_button.kv", line 15:
+...
+     13:
+     14:    Label:
+>>   15:        pos: self.x+(self.width/2.0)-(48+24), self.y+(self.height/2.0)-(48+24+12)
+     16:        text: "Hello"
+     17:
+...
+RuntimeError: maximum recursion depth exceeded while calling a Python object
+
+****************************************************************************************************
+
+
+Time 14 : 8
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 93, in on_touch_down
+    self.dispatch('on_press')
+  File "_event.pyx", line 312, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4491)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1299, in custom_callback
+    exec(__kvlang__.co_value, idmap)
+  File "libs/menu/menu.kv", line 12, in <module>
+    on_press: root.play_callback()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/menu/menu.py", line 13, in play_callback
+    self.play_game()
+  File "main.py", line 37, in root_right
+    level_selector.load()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_selector.py", line 38, in load
+    b.unlock( current_state[ b.index - 1 ], current_scores[ b.index - 1 ]  )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 40, in unlock
+    self.ids.score.text  = score
+  File "properties.pyx", line 345, in kivy.properties.Property.__set__ (kivy/properties.c:3576)
+  File "properties.pyx", line 374, in kivy.properties.Property.set (kivy/properties.c:4008)
+ValueError: Label.text accept only str
+
+****************************************************************************************************

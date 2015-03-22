@@ -68,6 +68,8 @@ class GameLayout(GridLayout):
         # By default, only the first level is unlocked.
         self.levels_unlocked = [True] + [False for i in range( LEVELS - 1 )]
 
+        self.level_scores    = [0 for i in range( LEVELS )]
+
         # Variable used to store the level_index of the level currently built.
         self.level_loaded = 0
 
@@ -79,6 +81,12 @@ class GameLayout(GridLayout):
 
     def get_unlocked_levels( self ):
         return self.levels_unlocked
+
+    def set_level_score( self, x ):
+        self.level_scores[ self.level_index - 1 ] = x
+
+    def get_level_scores( self ):
+        return self.level_scores
 
     ##### Load the current level
     def build_level( self ):
@@ -210,7 +218,9 @@ class GameLayout(GridLayout):
                 if notice == 'Level Complete':
                     try:
                         self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
-                        self.success_screen.set_score( self.physics_interface.length_of_user_lines() )
+                        score = self.physics_interface.length_of_user_lines() 
+                        self.set_level_score( score )
+                        self.success_screen.set_score( score )
                         self.success_screen.add_screen()
                         self.in_success_screen = True
                     except:

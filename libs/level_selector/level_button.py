@@ -1,4 +1,5 @@
 from kivy.uix.button import Button
+from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle, Line
 from kivy.properties import ObjectProperty
 from utils import load_texture
@@ -29,13 +30,14 @@ class LevelButton( Button ):
         self.lock_color     = Color( 0,0,0,0 )
         self.canvas.add( self.lock_color )
         self.canvas.add( self.lock_screen )
-    
-    def unlock( self, unlocked ):
+
+    def unlock( self, unlocked, score ):
         self.canvas.remove( self.lock_color )
         self.canvas.remove( self.lock_screen )
 
         if unlocked:
-            self.lock_color = Color( 0,0,0,0 )
+            self.lock_color      = Color( 0,0,0,0 )
+            self.ids.score.text  = "Score: {}".format( round(score,2) )
         else:
             self.lock_color = Color( .5,0,0,.9 )            
 

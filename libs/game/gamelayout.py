@@ -209,6 +209,7 @@ class GameLayout(GridLayout):
                 if notice == 'Level Complete':
                     try:
                         self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
+                        self.success_screen.set_score( self.physics_interface.length_of_user_lines() )
                         self.success_screen.add_screen()
                     except:
                         # Under certain assumptions, an error here means self.success_screen is already a child of self.swipebook.

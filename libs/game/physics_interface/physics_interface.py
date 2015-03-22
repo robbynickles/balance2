@@ -43,6 +43,8 @@ class PhysicsInterface(Widget):
         # So self.smap is a set of back references such that if a game object G has a shape S, self.smap[ S ] == G.
         self.smap = {}
 
+        self.user_lines = []
+
         # Notifications that need responding to.
         # A notification consists of a (k,v) pair where k is the gameobject from which the notification emanated,
         # and v is list of unique notifications (meaning only a gameobject's first submission of a notification N is accepted).
@@ -145,15 +147,24 @@ class PhysicsInterface(Widget):
                     pass
 
 
+    def length_of_user_lines( self ):
+        # Adjust self.user_lines so that it reflects the current set of gameobjects.
+        current_objects = set( self.smap.values() )
+        for l in self.user_lines:
+            if l not in current_objects:
+                self.user_lines.remove( l )
+
+        return sum( [ l.length() for l in self.user_lines ] )
+
     ##### Methods that add game objects
     def add_circle(self, x, y, radius):
         Ball( self, x, y, radius )
 
     def add_user_static_line( self, (x1,y1), (x2,y2) ):
-        UserStaticLine( self, (x1, y1), (x2, y2) )
+        self.user_lines += [ UserStaticLine( self, (x1, y1), (x2, y2) ) ]
 
     def add_user_static_curve( self, (x1,y1), (x2,y2) ):
-        UserStaticCurve( self, (x1, y1), (x2, y2) )
+        self.user_lines += [ UserStaticCurve( self, (x1, y1), (x2, y2) ) ]
 
 
     # No good. Ball doesn't roll; raw vertices are too jagged.

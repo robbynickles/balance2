@@ -11,6 +11,9 @@ class SuccessScreen(BoxLayout):
         super(SuccessScreen, self).__init__( *args, **kwargs )
         self.gamelayout = gamelayout
 
+    def set_score( self, x ):
+        self.ids.score.text = "Score: {}".format( x )
+
     def add_screen( self ):
         with self.gamelayout.canvas:
             self.screen_color = Color( 0,0,0,.8 )

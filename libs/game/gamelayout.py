@@ -55,6 +55,7 @@ class GameLayout(GridLayout):
         self.toolkit_loaded                = False
         self.success_screen_loaded         = False
         self.need_to_remove_success_screen = False
+        self.in_success_screen             = False
         self.swipebook = swipebook
 
         # Reference to the line being edited in 'line edit' mode.
@@ -211,6 +212,7 @@ class GameLayout(GridLayout):
                         self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
                         self.success_screen.set_score( self.physics_interface.length_of_user_lines() )
                         self.success_screen.add_screen()
+                        self.in_success_screen = True
                     except:
                         # Under certain assumptions, an error here means self.success_screen is already a child of self.swipebook.
                         pass
@@ -238,6 +240,7 @@ class GameLayout(GridLayout):
 
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
+        #self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
 
         # Reset pause and play to default states.
         self.play_toggle( self.ids.play_button, 'normal' )
@@ -278,7 +281,7 @@ class GameLayout(GridLayout):
 
 
     def menu_callback(self, button):
-        if self.quick_and_short( button.last_touch ):
+        if self.quick_and_short( button.last_touch ) and not self.in_success_screen:
             # Disable the devices.
             accelerometer.disable()
 
@@ -288,7 +291,7 @@ class GameLayout(GridLayout):
 
     def pause_callback(self, button):
         t = button.last_touch
-        if self.quick_and_short( button.last_touch ) and \
+        if self.quick_and_short( button.last_touch ) and not self.in_success_screen and \
            self.engine_running:
             self.reset()
         else:
@@ -297,7 +300,7 @@ class GameLayout(GridLayout):
 
     def play_callback(self, button):
         t = button.last_touch
-        if self.quick_and_short( button.last_touch ) and \
+        if self.quick_and_short( button.last_touch ) and not self.in_success_screen and \
            not self.engine_running:
             self.start_animation()
         else:

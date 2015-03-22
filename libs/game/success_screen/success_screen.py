@@ -5,6 +5,8 @@ from kivy.graphics import Color, Rectangle, Line
 from kivy.lang import Builder
 Builder.load_file( 'libs/game/success_screen/success_screen.kv' )
 
+from kivy.clock import Clock
+
 class SuccessScreen(BoxLayout):
 
     def __init__(self, gamelayout, *args, **kwargs):
@@ -12,6 +14,17 @@ class SuccessScreen(BoxLayout):
         self.gamelayout = gamelayout
 
     def set_score( self, x ):
+        self.score   = x
+        self.counter = 0
+        Clock.schedule_interval( self.update_score_label, 1/60 )
+
+    def update_score_label( self, dt ):
+        self.counter += 10.2237#self.score * dt * 20.
+        if self.counter >= self.score:
+            x = self.score
+            Clock.unschedule( self.update_score_label )
+        else:
+            x = self.counter
         self.ids.score.text = "Score: {}".format( x )
 
     def add_screen( self ):
@@ -25,6 +38,7 @@ class SuccessScreen(BoxLayout):
 
         self.gamelayout.unlock_next_level()
         self.gamelayout.need_to_remove_success_screen = True
+        self.gamelayout.in_success_screen = False
         self.gamelayout.reset()
 
     def retry_callback( self ):

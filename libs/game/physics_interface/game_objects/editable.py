@@ -38,12 +38,6 @@ class Editable( GameObject ):
         # Represent the object on the level-builder screen.
         self.load_into_physics_interface( physics_interface )
 
-    def length( self ):
-        total = 0
-        for i in range( len(self.points) - 1 ):
-            start, end = self.points[i], self.points[i+1]
-            total += distance( start, end )
-        return total
 
     ##### Implementation of GameObject methods
     def build_phys_obj( self, space ):
@@ -93,6 +87,14 @@ class Editable( GameObject ):
     def near_start( self, pos ):  return distance( pos, self.get_start() ) <= MAX_DIST
     def near_end( self, pos ):    return distance( pos, self.get_end() ) <= MAX_DIST
 
+
+    def length( self ):
+        """ Return the length of the segmentation representing the line. """
+        total = 0
+        for i in range( len(self.points) - 1 ):
+            start, end = self.points[i], self.points[i+1]
+            total += distance( start, end )
+        return total
 
     def update_render_obj( self ):
         self.remove_render_obj()

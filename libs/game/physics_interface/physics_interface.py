@@ -147,7 +147,9 @@ class PhysicsInterface(Widget):
                     pass
 
 
+    # Return the total length of line that the user has drawn.
     def length_of_user_lines( self ):
+
         # Adjust self.user_lines so that it reflects the current set of gameobjects.
         current_objects = set( self.smap.values() )
         for l in self.user_lines:

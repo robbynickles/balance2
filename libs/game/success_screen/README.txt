@@ -1,6 +1,6 @@
 Additions to gamelayout
-
-	  three attributes 'success_screen', 'success_screen_loaded' and 'need_to_remove_success_screen'
+	  
+	  four attributes 'success_screen', 'success_screen_loaded', 'in_success_screen'  and 'need_to_remove_success_screen'
 
 	  routine added to build_level()
 

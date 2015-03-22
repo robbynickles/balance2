@@ -16,10 +16,16 @@ class SuccessScreen(BoxLayout):
     def set_score( self, x ):
         self.score   = x
         self.counter = 0
-        Clock.schedule_interval( self.update_score_label, 1/60 )
+
+        hz           = 60.0
+        sec          = 1.3 # The animation will last about 'sec' seconds.
+        frames       = sec * hz
+        self.step    = self.score/frames
+
+        Clock.schedule_interval( self.update_score_label, 1/hz )
 
     def update_score_label( self, dt ):
-        self.counter += 10.2237#self.score * dt * 20.
+        self.counter += self.step
         if self.counter >= self.score:
             x = self.score
             Clock.unschedule( self.update_score_label )

@@ -14,7 +14,7 @@ class LevelSelector(GridLayout):
     def __init__(self, gamelayout, swipe_right, *args, **kwargs):
         super(LevelSelector, self).__init__( *args, **kwargs )
 
-        # Populate a Gridlayout G with level thumbnail buttons.
+        # Populate a Gridlayout G with level-thumbnail buttons.
         G = GridLayout( cols=3, 
                         spacing=20, 
                         padding=70, 
@@ -25,11 +25,12 @@ class LevelSelector(GridLayout):
             G.add_widget( LevelButton( gamelayout, swipe_right, i + 1 ) )
 
         self.add_widget( G )
+
         self.level_buttons = G
         self.get_unlocked_levels = gamelayout.get_unlocked_levels
 
     def load( self ):
-        # Lock or Unlock all buttons so that they're state reflects the current game completion state.
+        # Lock or Unlock all buttons so that their state reflects the current game completion state.
         current_state = self.get_unlocked_levels()
         for b in self.level_buttons.children:
             b.unlock( current_state[ b.index - 1 ]  )

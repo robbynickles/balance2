@@ -6,6 +6,8 @@ Builder.load_file( 'libs/game/gamelayout.kv' )
 
 from plyer import accelerometer, gyroscope
 
+from success_screen.success_screen import SuccessScreen
+
 from drawing.drawingtoolkit import DrawingToolkit
 from drawing.drawing_behaviors import dispatcher
 from physics_interface.physics_interface import PhysicsInterface
@@ -50,7 +52,9 @@ class GameLayout(GridLayout):
         self.active_mode = None
 
         # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
-        self.toolkit_loaded = False
+        self.toolkit_loaded                = False
+        self.success_screen_loaded         = False
+        self.need_to_remove_success_screen = False
         self.swipebook = swipebook
 
         # Reference to the line being edited in 'line edit' mode.
@@ -61,7 +65,7 @@ class GameLayout(GridLayout):
 
         # Keep track of which levels have been unlocked.
         # By default, only the first level is unlocked.
-        self.levels_unlocked = [True] + [ False for i in range( LEVELS - 1 ) ]
+        self.levels_unlocked = [True] + [False for i in range( LEVELS - 1 )]
 
         # Variable used to store the level_index of the level currently built.
         self.level_loaded = 0
@@ -77,12 +81,17 @@ class GameLayout(GridLayout):
 
     ##### Load the current level
     def build_level( self ):
-        # Display the drawing_toolkit
+        # Load the drawing_toolkit
         if not self.toolkit_loaded:
             self.toolkit_loaded = True
             self.drawing_toolkit.pos = self.x+self.width/2., self.y+self.height/2.
             #self.drawing_toolkit.pos = self.x+self.width, self.y+self.height
             self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
+
+        # Load the success screen.
+        if not self.success_screen_loaded:
+            self.success_screen_loaded = True
+            self.success_screen = SuccessScreen( self, pos=self.pos, size=self.size )
 
         # Only load the level when the level_index has changed.
         if self.level_loaded != self.level_index:
@@ -198,11 +207,13 @@ class GameLayout(GridLayout):
                     self.reset()
 
                 if notice == 'Level Complete':
+                    try:
+                        self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
+                        self.success_screen.add_screen()
+                    except:
+                        # Under certain assumptions, an error here means self.success_screen is already a child of self.swipebook.
+                        pass
 
-                    self.unlock_next_level()
-                    self.level_index += 1
-                    self.build_level()
-                    self.reset()
 
                 if notice == 'Remove':
                     try:
@@ -219,6 +230,10 @@ class GameLayout(GridLayout):
         # Unschedule self.Step().
         Clock.unschedule( self.Step )
         self.engine_running = False
+
+        if self.need_to_remove_success_screen:
+            self.swipebook.remove_widget_from_layer( self.success_screen, 'top' )
+            self.need_to_remove_success_screen = False
 
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )

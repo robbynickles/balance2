@@ -4337,3 +4337,276 @@ Traceback (most recent call last):
 TypeError: 'kivy.graphics.context_instructions.Color' object is not iterable
 
 ****************************************************************************************************
+
+
+Time 8 : 56
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/behaviors.py", line 93, in on_touch_down
+    self.dispatch('on_press')
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/level_selector/level_button.py", line 17, in on_press
+    self.gamelayout.build_level()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 92, in build_level
+    self.success_screen = SuccessScreen( self, pos=self.pos, size=self.size )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/success_screen/success_screen.py", line 11, in __init__
+    super(SuccessScreen, self).__init__( *args, **kwargs )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/boxlayout.py", line 103, in __init__
+    super(BoxLayout, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/layout.py", line 63, in __init__
+    super(Layout, self).__init__(**kwargs)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 173, in __init__
+    Builder.apply(self)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1566, in apply
+    self._apply_rule(widget, rule, rule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1619, in _apply_rule
+    rule.canvas_root, rootrule)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/lang.py", line 1810, in _build_canvas
+    '{}: {}'.format(e.__class__.__name__, e))
+BuilderException: Parser: File "libs/game/success_screen/success_screen.kv", line 10:
+...
+      8:    canvas:
+      9:        Color: 
+>>   10:            color: ( 0,0,0,1 )
+     11:        Rectangle: 
+     12:            pos: self.pos
+...
+AttributeError: 'kivy.graphics.context_instructions.Color' object has no attribute 'color'
+
+****************************************************************************************************
+
+
+Time 9 : 26
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 321, in idle
+    Clock.tick()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 422, in tick
+    self._process_events()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 537, in _process_events
+    if event.tick(self._last_tick) is False:
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 309, in tick
+    ret = callback(self._dt)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 209, in Step
+    self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 61, in add_widget_to_layer
+    self.top_layer.add_widget( widg )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/floatlayout.py", line 116, in add_widget
+    return super(FloatLayout, self).add_widget(widget, index)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/layout.py", line 78, in add_widget
+    return super(Layout, self).add_widget(widget, index)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 344, in add_widget
+    % (widget, parent))
+WidgetException: Cannot add <libs.game.success_screen.success_screen.SuccessScreen object at 0x1110c56d0>, it already has a parent <kivy.uix.floatlayout.FloatLayout object at 0x1108f71f0>
+
+****************************************************************************************************
+
+
+Time 9 : 28
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 321, in idle
+    Clock.tick()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 422, in tick
+    self._process_events()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 537, in _process_events
+    if event.tick(self._last_tick) is False:
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 309, in tick
+    ret = callback(self._dt)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 209, in Step
+    self.success_screen.add_screen()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/success_screen/success_screen.py", line 14, in add_screen
+    with gamelayout.canvas:
+NameError: global name 'gamelayout' is not defined
+
+****************************************************************************************************
+
+
+Time 9 : 29
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 321, in idle
+    Clock.tick()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 422, in tick
+    self._process_events()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 537, in _process_events
+    if event.tick(self._last_tick) is False:
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 309, in tick
+    ret = callback(self._dt)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 210, in Step
+    self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 61, in add_widget_to_layer
+    self.top_layer.add_widget( widg )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/floatlayout.py", line 116, in add_widget
+    return super(FloatLayout, self).add_widget(widget, index)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/layout.py", line 78, in add_widget
+    return super(Layout, self).add_widget(widget, index)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 344, in add_widget
+    % (widget, parent))
+WidgetException: Cannot add <libs.game.success_screen.success_screen.SuccessScreen object at 0x10f4566d0>, it already has a parent <kivy.uix.floatlayout.FloatLayout object at 0x10ed9f1f0>
+
+****************************************************************************************************
+
+
+Time 9 : 30
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 321, in idle
+    Clock.tick()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 422, in tick
+    self._process_events()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 537, in _process_events
+    if event.tick(self._last_tick) is False:
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/clock.py", line 309, in tick
+    ret = callback(self._dt)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 211, in Step
+    self.swipebook.add_widget_to_layer( self.success_screen, 'top' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/swipebook.py", line 61, in add_widget_to_layer
+    self.top_layer.add_widget( widg )
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/floatlayout.py", line 116, in add_widget
+    return super(FloatLayout, self).add_widget(widget, index)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/layout.py", line 78, in add_widget
+    return super(Layout, self).add_widget(widget, index)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 344, in add_widget
+    % (widget, parent))
+WidgetException: Cannot add <libs.game.success_screen.success_screen.SuccessScreen object at 0x107d90738>, it already has a parent <kivy.uix.floatlayout.FloatLayout object at 0x1075cc258>
+
+****************************************************************************************************
+
+
+Time 9 : 46
+Date 3 - 22 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 132, in on_touch_down
+    if self.do_drawpt( touch.pos ):
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 104, in do_drawpt
+    return not self.drawing_toolkit.collide_point( *pos )
+AttributeError: 'GameLayout' object has no attribute 'drawing_toolkit'
+
+****************************************************************************************************

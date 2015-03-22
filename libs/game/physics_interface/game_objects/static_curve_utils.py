@@ -33,4 +33,4 @@ def fit_curve( P ):
         except AssertionError:
             continue # argument not in domain.
 
-    return points + [P[-1]] #Manually include the end in the segmentation.
+    return points + [P[-1]] # Manually include the end in the segmentation.

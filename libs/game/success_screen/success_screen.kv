@@ -1,0 +1,19 @@
+#:kivy 1.8.0
+<SuccessScreen>:
+    orientation: 'vertical'
+    
+    Label:
+        text: 'Score: '
+
+    BoxLayout:
+        orientation: 'horizontal'
+
+        Button:
+            text: 'Retry'
+            on_press: root.retry_callback() 
+
+        Button:
+            text: 'Next Level'
+            on_press: root.next_callback() 
+
+

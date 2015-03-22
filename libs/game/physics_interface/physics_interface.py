@@ -109,7 +109,8 @@ class PhysicsInterface(Widget):
             self.space.gravity = ( add_z( x_acc ) * self.world_gravity, 
                                    add_z( y_acc ) * self.world_gravity )
         except:
-            # Probably a ZeroDivision error because the device-motion updates haven't started.
+            # Probably a ZeroDivision error because either the device-motion updates haven't started,
+            # or the phone is flat (z^2 = 1 ====> A = 0 ====> x^2/A ====> undefined )
             pass
 
         # Forward the physics world one unit of time dt in sub_steps sub steps.

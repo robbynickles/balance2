@@ -118,3 +118,4 @@ def editline( self, touch, touch_stage, magnetize ):
         destroy_offsets( self )
         self.move_start, self.move_end = False, False
         self.line_start, self.line_end = None, None
+        self.exit_edit_line_mode()

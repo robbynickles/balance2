@@ -150,7 +150,27 @@ class GameLayout(GridLayout):
 
                 if touch.is_double_tap:
                     # A double-tap exits 'edit line' mode.
-                    self.exit_edit_line_mode()
+                    #self.exit_edit_line_mode()
+                    pass
+
+                # A tap on a user-platform enters into edit-line mode.
+                if self.active_mode != 'eraser':# and self.quick_and_short( touch ):
+                    MAX_DIST = 40
+
+                    # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
+                    shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
+                                                                                         MAX_DIST, 
+                                                                                         COLLTYPE_USERPLAT | COLLTYPE_USERCURVE )
+
+                    # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
+                    if shape and (shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE):
+                    
+                        # Exit edit line mode for the currently targeted line, if it exists.
+                        self.exit_edit_line_mode()
+                        self.active_mode = 'edit line'
+                        self.target_line = self.physics_interface.smap[ shape ]
+                        self.target_line.setup_for_editing( self.physics_interface )
+
         
                 if self.active_mode != 'edit line':
                     # Search self.switches for any 'down' buttons. 
@@ -180,23 +200,6 @@ class GameLayout(GridLayout):
             pass
         else: #pause
 
-            # A quick tap on a user-platform enters into edit-line mode.
-            if self.active_mode != 'eraser' and self.quick_and_short( touch ):
-                MAX_DIST = 40
-
-                # Query the space for the closest user-platform within a radius of MAX_DIST from the touch position.
-                shape    = self.physics_interface.space.nearest_point_query_nearest( Vec2d( *touch.pos ), 
-                                                                                     MAX_DIST, 
-                                                                                     COLLTYPE_USERPLAT | COLLTYPE_USERCURVE )
-
-                # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
-                if shape and (shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE):
-                    
-                    # Exit edit line mode for the currently targeted line, if it exists.
-                    self.exit_edit_line_mode()
-                    self.active_mode = 'edit line'
-                    self.target_line = self.physics_interface.smap[ shape ]
-                    self.target_line.setup_for_editing( self.physics_interface )
 
             self.mode_behavior( touch, 'touch_up' )
 

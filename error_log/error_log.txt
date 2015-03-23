@@ -4824,3 +4824,480 @@ Traceback (most recent call last):
 ValueError: Label.text accept only str
 
 ****************************************************************************************************
+
+
+Time 12 : 33
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 182, in on_touch_down
+    self.exit_edit_line_mode()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 136, in exit_edit_line_mode
+    self.target_line.load_into_physics_interface( self.physics_interface )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/physics_interface/game_objects/level_build/facade.py", line 87, in load_into_physics_interface
+    physics_interface.size )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/physics_interface/game_objects/level_build/facade.py", line 35, in load_into_space_and_context
+    space.add( sh )
+  File "space.pxi", line 361, in cymunk.Space.add (cymunk/python/cymunk.c:33174)
+  File "space.pxi", line 380, in cymunk.Space.add_shape (cymunk/python/cymunk.c:33569)
+AssertionError: shape already added to space
+
+****************************************************************************************************
+
+
+Time 12 : 34
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 182, in on_touch_down
+    self.exit_edit_line_mode()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 136, in exit_edit_line_mode
+    self.target_line.load_into_physics_interface( self.physics_interface )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/physics_interface/game_objects/level_build/facade.py", line 87, in load_into_physics_interface
+    physics_interface.size )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/physics_interface/game_objects/level_build/facade.py", line 35, in load_into_space_and_context
+    space.add( sh )
+  File "space.pxi", line 361, in cymunk.Space.add (cymunk/python/cymunk.c:33174)
+  File "space.pxi", line 380, in cymunk.Space.add_shape (cymunk/python/cymunk.c:33569)
+AssertionError: shape already added to space
+
+****************************************************************************************************
+
+
+Time 12 : 35
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 175, in on_touch_down
+    self.physics_interface.add_user_static_curve( lp1, lp2 )
+NameError: global name 'lp1' is not defined
+
+****************************************************************************************************
+
+
+Time 12 : 43
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 171, in on_touch_down
+    self.target_line.tear_down_from_editing()
+AttributeError: 'NoneType' object has no attribute 'tear_down_from_editing'
+
+****************************************************************************************************
+
+
+Time 12 : 43
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 172, in on_touch_down
+    self.target_line.tear_down_from_editing()
+AttributeError: 'NoneType' object has no attribute 'tear_down_from_editing'
+
+****************************************************************************************************
+
+
+Time 12 : 48
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 645, in on_motion
+    self.dispatch('on_touch_down', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 657, in on_touch_down
+    if w.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 479, in on_touch_down
+    if super(Scatter, self).on_touch_down(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 284, in on_touch_down
+    if child.dispatch('on_touch_down', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 184, in on_touch_down
+    self.exit_edit_line_mode()
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 136, in exit_edit_line_mode
+    self.target_line.load_into_physics_interface( self.physics_interface )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/physics_interface/game_objects/level_build/facade.py", line 87, in load_into_physics_interface
+    physics_interface.size )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/physics_interface/game_objects/level_build/facade.py", line 35, in load_into_space_and_context
+    space.add( sh )
+  File "space.pxi", line 361, in cymunk.Space.add (cymunk/python/cymunk.c:33174)
+  File "space.pxi", line 380, in cymunk.Space.add_shape (cymunk/python/cymunk.c:33569)
+AssertionError: shape already added to space
+
+****************************************************************************************************
+
+
+Time 12 : 58
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 647, in on_motion
+    self.dispatch('on_touch_move', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 666, in on_touch_move
+    if w.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 511, in on_touch_move
+    if super(Scatter, self).on_touch_move(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 210, in on_touch_move
+    self.mode_behavior( touch, 'touch_move' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 223, in mode_behavior
+    dispatcher.dispatch( self, touch, touch_stage )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/dispatcher.py", line 17, in dispatch
+    line.editline( self, touch, touch_stage, magnetize )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/line.py", line 101, in editline
+    if self.move_start:
+AttributeError: 'GameLayout' object has no attribute 'move_start'
+
+****************************************************************************************************
+
+
+Time 13 : 1
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 647, in on_motion
+    self.dispatch('on_touch_move', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 666, in on_touch_move
+    if w.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 511, in on_touch_move
+    if super(Scatter, self).on_touch_move(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 210, in on_touch_move
+    self.mode_behavior( touch, 'touch_move' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 223, in mode_behavior
+    dispatcher.dispatch( self, touch, touch_stage )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/dispatcher.py", line 17, in dispatch
+    line.editline( self, touch, touch_stage, magnetize )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/line.py", line 102, in editline
+    if self.move_start:
+AttributeError: 'GameLayout' object has no attribute 'move_start'
+
+****************************************************************************************************
+
+
+Time 13 : 2
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 792, in run
+    runTouchApp()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 481, in runTouchApp
+    EventLoop.window.mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 381, in mainloop
+    self._mainloop()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/window_pygame.py", line 287, in _mainloop
+    EventLoop.idle()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 324, in idle
+    self.dispatch_input()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 309, in dispatch_input
+    post_dispatch_input(*pop(0))
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/base.py", line 220, in post_dispatch_input
+    listener.dispatch('on_motion', etype, me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 647, in on_motion
+    self.dispatch('on_touch_move', me)
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/core/window/__init__.py", line 666, in on_touch_move
+    if w.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/scatter.py", line 511, in on_touch_move
+    if super(Scatter, self).on_touch_move(touch):
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/uix/widget.py", line 295, in on_touch_move
+    if child.dispatch('on_touch_move', touch):
+  File "_event.pyx", line 316, in kivy._event.EventDispatcher.dispatch (kivy/_event.c:4537)
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 210, in on_touch_move
+    self.mode_behavior( touch, 'touch_move' )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 223, in mode_behavior
+    dispatcher.dispatch( self, touch, touch_stage )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/dispatcher.py", line 17, in dispatch
+    line.editline( self, touch, touch_stage, magnetize )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawing_behaviors/line.py", line 104, in editline
+    if self.move_start:
+AttributeError: 'GameLayout' object has no attribute 'move_start'
+
+****************************************************************************************************
+
+
+Time 13 : 44
+Date 3 - 23 - 2015
+****************************************************************************************************
+
+Traceback (most recent call last):
+  File "main.py", line 61, in <module>
+    DrawTiltApp().run()
+  File "/Applications/Kivy.app/Contents/Resources/kivy/kivy/app.py", line 766, in run
+    root = self.build()
+  File "main.py", line 29, in build
+    game_page      = GameLayout( swipe_book )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/gamelayout.py", line 51, in __init__
+    self.drawing_toolkit = DrawingToolkit( self )
+  File "/Users/robby/Desktop/level_tilt/balance_game/balance2/libs/game/drawing/drawingtoolkit.py", line 22, in __init__
+    for w in [ self.ids.line, self.ids.curve, self.ids.eraser ]:
+  File "properties.pyx", line 654, in kivy.properties.ObservableDict.__getattr__ (kivy/properties.c:9590)
+KeyError: 'curve'
+
+****************************************************************************************************

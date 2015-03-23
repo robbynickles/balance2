@@ -148,11 +148,6 @@ class GameLayout(GridLayout):
                 pass
             else: #pause
 
-                if touch.is_double_tap:
-                    # A double-tap exits 'edit line' mode.
-                    #self.exit_edit_line_mode()
-                    pass
-
                 # Search self.switches for any 'down' buttons. 
                 # Set self.active_mode to the first encounterd 'down' button.
                 self.active_mode = None
@@ -170,18 +165,28 @@ class GameLayout(GridLayout):
                                                                                          MAX_DIST, 
                                                                                          COLLTYPE_USERPLAT | COLLTYPE_USERCURVE )
 
-                    # If a user-platform is tapped, start 'edit line' mode targeted at the found platform.
                     if shape and (shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE):
-                    
-                        # Exit edit line mode for the currently targeted line, if it exists.
-                        self.exit_edit_line_mode()
-                        self.active_mode = 'edit line'
-                        self.target_line = self.physics_interface.smap[ shape ]
-                        self.target_line.setup_for_editing( self.physics_interface )
+                        if touch.is_double_tap:
+                            self.target_line = self.physics_interface.smap[ shape ]
+                            start, end = self.target_line.get_start(), self.target_line.get_end()
+
+                            if shape.collision_type == COLLTYPE_USERPLAT:
+                                self.physics_interface.add_user_static_curve( start, end )
+                            else:
+                                self.physics_interface.add_user_static_line( start, end )
+
+                            self.target_line.remove()
+                            self.target_line = None
+
+                        else:
+                            # Exit edit line mode for the currently targeted line, if it exists.
+                            self.exit_edit_line_mode()
+                            self.target_line = self.physics_interface.smap[ shape ]
+                            self.active_mode = 'edit line'
+                            self.target_line.setup_for_editing( self.physics_interface )
 
                 # Initiate mode behavior based on which mode (if any) is active.
                 self.mode_behavior( touch, 'touch_down' )
-
 
     def on_touch_move(self, touch):
         super(type(self), self).on_touch_move( touch )
@@ -197,8 +202,6 @@ class GameLayout(GridLayout):
             # Don't respond to any touches once 'play' has been pressed.
             pass
         else: #pause
-
-
             self.mode_behavior( touch, 'touch_up' )
 
     def mode_behavior( self, touch, touch_stage ):
@@ -232,7 +235,6 @@ class GameLayout(GridLayout):
                         # Under certain assumptions, an error here means self.success_screen is already a child of self.swipebook.
                         pass
 
-
                 if notice == 'Remove':
                     try:
                         gameobject.remove()
@@ -255,7 +257,6 @@ class GameLayout(GridLayout):
 
         # Show the drawing toolkit.
         self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
-        #self.swipebook.add_widget_to_layer( self.drawing_toolkit, 'top' )
 
         # Reset pause and play to default states.
         self.play_toggle( self.ids.play_button, 'normal' )

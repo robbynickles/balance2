@@ -86,6 +86,7 @@ def editline( self, touch, touch_stage, magnetize ):
             self.move_end = True
 
     if touch_stage == 'touch_move':
+
         try:
             # Offset the touch positions to be more visible.
             touch.pos = offset_pos( self, touch.pos )

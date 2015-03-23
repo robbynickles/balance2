@@ -2,7 +2,7 @@
 <DrawingToolkit>:
     orientation: 'vertical'
     cols: 1
-    size: (240, 300)
+    size: (260, 330)
     pos: 800+160+50, 100 
     padding: (90, 10)
     spacing: (0, 20)
@@ -44,17 +44,17 @@
                 texture: root.get_line_texture()
                 pos: self.pos
                 size: self.size
-    ToggleButton:
-        id: curve
-        group: 'tools'
-        name: 'curve'
-        on_press: root.line_pressed()
+    # ToggleButton:
+    #     id: curve
+    #     group: 'tools'
+    #     name: 'curve'
+    #     on_press: root.line_pressed()
 
-        canvas:
-            Rectangle:
-                texture: root.get_curve_texture()
-                pos: self.pos
-                size: self.size
+    #     canvas:
+    #         Rectangle:
+    #             texture: root.get_curve_texture()
+    #             pos: self.pos
+    #             size: self.size
 
     ToggleButton:
         id: magnet

@@ -74,7 +74,7 @@ def editline( self, touch, touch_stage, magnetize ):
     if touch_stage == 'touch_down':
 
         # Offset the touch positions to be more visible.
-        build_offsets( self, touch.pos )
+        build_offsets( self, touch.pos, offset=0 )
 
         # Booleans used across function calls to know if either endpoint should be moved.
         self.move_start, self.move_end = False, False
@@ -86,6 +86,12 @@ def editline( self, touch, touch_stage, magnetize ):
             self.move_end = True
 
     if touch_stage == 'touch_move':
+
+        SIGNIFICANT = 5
+        # If the magnitude of the displacement since the last touch is significant, 
+        # offset the touch positions to be more visible.
+        if distance( (0,0), touch.dpos ) >= SIGNIFICANT:
+            build_offsets( self, touch.pos, offset=200 )
 
         try:
             # Offset the touch positions to be more visible.

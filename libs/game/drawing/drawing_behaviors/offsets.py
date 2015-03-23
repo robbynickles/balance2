@@ -2,12 +2,15 @@ import transformation
 
 OFFSET = 200
 
-def build_offsets( self, (x, y) ):
+def build_offsets( self, (x, y), offset=OFFSET ):
+    global OFFSET
+    if offset != OFFSET:
+        OFFSET = offset
     self.x_off = 0
     if self.y + y < self.y + (self.height/2.):
-        self.y_off = -OFFSET
+        self.y_off = -offset
     else:
-        self.y_off = OFFSET
+        self.y_off = offset
 
 def destroy_offsets( self ):
     self.x_off, self.y_off = None, None

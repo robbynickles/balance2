@@ -52,6 +52,8 @@ class GameLayout(GridLayout):
         self.drawing_enabled = False
         self.active_mode = None
 
+        self.touching_line = False
+
         # Make swipebook the parent of drawing_toolkit so that it's out of the gridlayout's automatic coordination.
         self.toolkit_loaded                = False
         self.success_screen_loaded         = False
@@ -122,6 +124,7 @@ class GameLayout(GridLayout):
     def quick_and_short( self, touch ):
         "True if a touch is a quick tap with little movement."
         return \
+            not self.touching_line and \
             touch.time_end - touch.time_start <= self.QUICK and utils.distance( touch.pos, touch.opos ) <= self.SHORT
 
     # Exit edit-line mode.
@@ -148,6 +151,8 @@ class GameLayout(GridLayout):
                 pass
             else: #pause
 
+                self.touching_line = False
+
                 # Search self.switches for any 'down' buttons. 
                 # Set self.active_mode to the first encounterd 'down' button.
                 self.active_mode = None
@@ -166,6 +171,9 @@ class GameLayout(GridLayout):
                                                                                          COLLTYPE_USERPLAT | COLLTYPE_USERCURVE )
 
                     if shape and (shape.collision_type == COLLTYPE_USERPLAT or shape.collision_type == COLLTYPE_USERCURVE):
+                        self.touching_line = True
+
+                        # A double-tap on a user-drawn line, switches between straight line and curved line.
                         if touch.is_double_tap:
                             self.target_line = self.physics_interface.smap[ shape ]
                             start, end = self.target_line.get_start(), self.target_line.get_end()

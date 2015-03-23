@@ -153,6 +153,14 @@ class GameLayout(GridLayout):
                     #self.exit_edit_line_mode()
                     pass
 
+                # Search self.switches for any 'down' buttons. 
+                # Set self.active_mode to the first encounterd 'down' button.
+                self.active_mode = None
+                for mode_name, mode_button in self.switches.items():
+                    if mode_button.state == 'down':
+                        self.active_mode = mode_name
+                        break
+
                 # A tap on a user-platform enters into edit-line mode.
                 if self.active_mode != 'eraser':# and self.quick_and_short( touch ):
                     MAX_DIST = 40
@@ -170,16 +178,6 @@ class GameLayout(GridLayout):
                         self.active_mode = 'edit line'
                         self.target_line = self.physics_interface.smap[ shape ]
                         self.target_line.setup_for_editing( self.physics_interface )
-
-        
-                if self.active_mode != 'edit line':
-                    # Search self.switches for any 'down' buttons. 
-                    # Set self.active_mode to the first encounterd 'down' button.
-                    self.active_mode = None
-                    for mode_name, mode_button in self.switches.items():
-                        if mode_button.state == 'down':
-                            self.active_mode = mode_name
-                            break
 
                 # Initiate mode behavior based on which mode (if any) is active.
                 self.mode_behavior( touch, 'touch_down' )

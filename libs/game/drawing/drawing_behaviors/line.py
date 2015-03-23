@@ -57,10 +57,12 @@ def drawline( self, touch, touch_stage, magnetize, curve=False ):
             lp1 = self.line_progress.points[:2]
             lp2 = self.line_progress.points[2:4]
 
-            if curve:
-                self.physics_interface.add_user_static_curve( lp1, lp2 )
-            else:
-                self.physics_interface.add_user_static_line( lp1, lp2 )
+            # Don't draw anything if the touch is a quick and short tap.
+            if not self.quick_and_short( touch ):
+                if curve:
+                    self.physics_interface.add_user_static_curve( lp1, lp2 )
+                else:
+                    self.physics_interface.add_user_static_line( lp1, lp2 )
 
 
             self.canvas.remove( self.line_progress )
@@ -87,7 +89,7 @@ def editline( self, touch, touch_stage, magnetize ):
 
     if touch_stage == 'touch_move':
 
-        SIGNIFICANT = 5
+        SIGNIFICANT = 20
         # If the magnitude of the displacement since the last touch is significant, 
         # offset the touch positions to be more visible.
         if distance( (0,0), touch.dpos ) >= SIGNIFICANT:

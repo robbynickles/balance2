@@ -29,7 +29,7 @@ def offset_pos( self, (x,y) ):
     if self.y_off < 0: # below-finger (negative) offset
 
         # Transistion point to above offset.
-        if y > mid_line( x ) + self.y + (.85*self.height):
+        if y > mid_line( x ) + self.y + (.95*self.height):
             self.y_off = OFFSET
 
         # If the below offset was shrunk last time, give it full magnitude.
@@ -40,7 +40,7 @@ def offset_pos( self, (x,y) ):
     else: # above-finger (positive) offset
 
         # Transistion point to below offset.
-        if y < mid_line( x ) + self.y + (.15*self.height):
+        if y < mid_line( x ) + self.y + (.05*self.height):
             self.y_off = -OFFSET
 
         # If the above offset was shrunk last time, give it full magnitude.
